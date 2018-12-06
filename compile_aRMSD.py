@@ -234,23 +234,25 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
                                           obf_files[entry]) +\
                                      ", 'BINARY')]"
 
-		return_string += " + [('"+obf_files[-1]+"', "+repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
-
+        return_string += " + [('" + obf_files[-1] + "', " +\
+                         repr(build_dir + '\\' +
+                              obf_files[-1]) + ", 'BINARY')],"
+# unresolved issue starts:
 	else:
 
             return_string += ','
 
 	return return_string
+# unresolved issue closed.
 
     os.chdir(build_dir)  # Change to build directory and create a new file
-
     spec_file = 'aRMSD.spec'
 
-    obf_str = _write_obf(obf_files, build_dir)  # Write additional binary string for .spec file
+    # Write additional binary string for .spec file:
+    obf_str = _write_obf(obf_files, build_dir)
 
-    # Write temporary setup file
+    # Write temporary setup file:
     with open(spec_file, 'w') as outfile:
-        
         outfile.write("""
 # Automatically created aRMSD 'spec' file for a PyInstaller based compilation
 # This file deletes itself after the installation.
@@ -301,7 +303,7 @@ a = Analysis(['aRMSD.py'],
 for exclude_data in exclude_datas:
 
     a.datas = [x for x in a.datas if exclude_data not in x[0]]
-    
+
 # Setup pyz
 pyz = PYZ(a.pure, a.zipped_data,
           cipher = block_cipher)
@@ -338,10 +340,10 @@ def package_cython_modules(build_dir, list_of_files, cython_compiler):
     os.chdir(build_dir)  # Change to build directory and create a new file
 
     setup_file = 'cythonize_modules.py'
-    
+
     # Write temporary setup file
     with open(setup_file, 'w') as outfile:
-        
+
         outfile.write("""
 from setuptools import setup
 from setuptools import Extension
@@ -360,7 +362,7 @@ setup(name = 'alog', ext_modules = cythonize('"""+list_of_files[2]+"""'),)
     t1 = time.clock()  # End time
 
     print('\n>> Modules were successfully compiled by Cython!')
-    print('Compilation time: '+str(round((t1 - t0) / 60.0, 1))+' min')
+    print('Compilation time: ' + str(round((t1 - t0) / 60.0, 1)) + ' min')
 
 
 def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
