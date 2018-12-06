@@ -448,21 +448,18 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
                         build_dir + '\\' + name_log + ext_log)
 
         if overwrite:
-
             print('\n>> INFO: All existing files (hooks, etc.) will be overwritten')
 
         if use_openbabel and has_obabel:  # Copy obenbabel files
 
-            print('\n>> Copying openbabel files...')            
+            print('\n>> Copying openbabel files...')
             obf_files = copy_obfiles(build_dir, site_packages_path)
             write_ob_hook(site_packages_path, overwrite)
 
         elif use_openbabel and not has_obabel:
-
             print('\n>> ERROR: Openbabel was not found on your system, will continue without it!')
 
         else:
-
             print('\n>> INFO: Openbabel will not be used!')
 
         print('\n>> Copying core modules...')
@@ -471,11 +468,9 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         print('\t... '+name_log+ext_log)
 
         if use_cython:  # Cythonize pyx files or py files
-
             print('\n>> Attempting to use Cython in the compilation')
 
             try:
-
                 # Import required modules
                 from setuptools import setup
                 from setuptools import Extension
@@ -484,13 +479,13 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
                 print('\n>> Cython and setuptools found, starting compilation...')
                 will_use_cython = True
 
-            except ImportError:  # Something went wrong, most likely no Cython installation
+            except ImportError:  # Something went wrong,
+                                 # most likely no Cython installation
 
                 print('\n>> ERROR: Will continue without cythonization!')
                 will_use_cython = False
 
             if will_use_cython:
-
                 print('\npython cythonize_modules.py build_ext --inplace --compiler='+cython_compiler)
 
                 # Combine modules in list and compile to libraries
@@ -506,7 +501,6 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
                 os.remove(name_log+'.c')
 
         else:
-
             print('\n>> INFO: Cython will not be used!')
 
         print('\n>> Copying main program files...')
@@ -515,59 +509,69 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         file_name_dir, platform = get_current_version(armsd_dir)
 
         # Copy main file and icon to build directory
-        shutil.copyfile(armsd_dir+'\\aRMSD.py', build_dir+'\\aRMSD.py')
-        shutil.copyfile(basic_dir+'\\aRMSD_icon.ico', build_dir+'\\aRMSD_icon.ico')
+        shutil.copyfile(armsd_dir + '\\aRMSD.py',
+                        build_dir + '\\aRMSD.py')
 
-        # Load PyInstaller information (modules can be adjusted in the respective function)
+        shutil.copyfile(basic_dir + '\\aRMSD_icon.ico',
+                        build_dir + '\\aRMSD_icon.ico')
+
+        # Load PyInstaller information (modules can be adjusted
+        # in the respective function)
         pyinst_dict = pyinstaller_data(file_name_dir, sys.platform, obf_files)
 
         # Write .spec file for compilation
         spec_file = write_spec_file(build_dir, pyinst_dict, obf_files)
-        pyinstaller_cmd = 'pyinstaller --onefile '+spec_file
+        pyinstaller_cmd = 'pyinstaller --onefile ' + spec_file
 
         print('\n>> Calling PyInstaller...')
-        print('\n'+build_dir+'> '+pyinstaller_cmd)
+        print('\n' + build_dir + '> ' + pyinstaller_cmd)
 
         t0 = time.clock()  # Start time
 
         # Compile files with PyInstaller - this should work on every system
-        pyinstaller_args = shlex.split(pyinstaller_cmd+' '+spec_file)
+        pyinstaller_args = shlex.split(pyinstaller_cmd + ' ' + spec_file)
         subprocess.call(pyinstaller_args)
 
         t1 = time.clock()  # End time
 
         # Copy executable to 'armsd' folder and delete all temporary files
         os.chdir(basic_dir)
-        shutil.rmtree(build_dir+'\\dist\\'+file_name_dir)
-        prg_file_name = os.listdir(build_dir+'\\dist')[0]  # List file (only one should be there) in distribution directory
-        shutil.copyfile(build_dir+'\\dist\\'+prg_file_name, armsd_dir+'\\'+prg_file_name)
+        shutil.rmtree(build_dir + '\\dist\\' + file_name_dir)
+
+        # If a single pre-compiled module exists, don't compile:
+        prg_file_name = os.listdir(build_dir + '\\dist')[0]
+        shutil.copyfile(build_dir + '\\dist\\' + prg_file_name,
+                        armsd_dir + '\\' + prg_file_name)
         shutil.rmtree(build_dir)
 
         # Echo successful creation, print compilation time
-        print('Executable -- '+prg_file_name+' -- was created successfully!')
-        print('Compilation time: '+str(round((t1 - t0) / 60.0, 1))+' min')
+        print('Executable -- ' + prg_file_name +
+              ' -- was created successfully!')
+
+        print('Compilation time: ' + str(round((t1 - t0) / 60.0, 1)) + ' min')
         print('Cleaning up files and directories')
 
         print('\nClean up complete, executable has been moved to:\n'+armsd_dir)
         print('\n>> Compilation complete!')
-        print('\n-----------------------------------------------------------------------------')
+        print('\n' + 80 * "-")
+
         print('In order to use the executable, copy...')
-        print('settings.cfg, the xsf folder and '+prg_file_name)
+        print('settings.cfg, the xsf folder and ' + prg_file_name)
         print('to any directory of your choice and start the program.')
         print('It is recommended to call aRMSD from command line')
-        print('e.g. Path\\to\\exe> '+prg_file_name)
-        print('to catch potential errors. The start of the program may take a few seconds!')
+        print('e.g. Path\\to\\exe> ' + prg_file_name)
+        print('to catch potential errors.')
+        print('The start of the program may take a few seconds!')
 
     else:
-
-        print('\n>> ERROR: PyInstaller was not found, install the package and run again!')
-        print('--> from command line: pip install pyinstaller')
+        print('\n>> ERROR: PyInstaller was not found.')
+        print(' Install the package from the command line:')
+        print(' --> pip install pyinstaller')
+        print(' and run it again.')
 
 
 if __name__ == '__main__':  # Run the program
 
     arguments = sys.argv[1:]  # Get arguments
-
     use_openbabel, use_cython, cython_compiler, overwrite = analyze_arguments(arguments)  # Check arguments and set variables
-
     run_compilation(use_openbabel, use_cython, cython_compiler, overwrite)
