@@ -206,14 +206,12 @@ def write_ob_hook(site_packages_path, overwrite):
 from PyInstaller.utils.hooks import collect_dynamic_libs
 
 binaries = collect_dynamic_libs('openbabel')
-datas """+"= "+str(datas))
+datas """ + "= " + str(datas))
 
             print('>> An openbabel hook for PyInstaller has been created!')
-
             outfile.close()
 
     else:
-
         print('>> A preexisting openbabel hook was found and will be used!')
 
 
@@ -221,20 +219,20 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
     """ Writes a .spec file for PyInstaller """
 
     def _write_obf(obf_files, build_dir):
-
-        return_string = 'a.binaries'        
+        return_string = 'a.binaries'
 
         if obf_files is not None:
-
             if len(obf_files) == 1:  # Only one .obf files
-
-                return_string += " + [('"+obf_files[0]+"', "+repr(build_dir+'\\'+obf_files[0])+", 'BINARY')],"
+                return_string += " + [('" + obf_files[0] + "'," +\
+                                 repr(build_dir + '\\' + obf_files[0]) +\
+                                 ",'BINARY')],"
 
             else:
-
                 for entry in range(len(obf_files) - 1):
-
-                    return_string += " + [('"+obf_files[entry]+"', "+repr(build_dir+'\\'+obf_files[entry])+", 'BINARY')]"
+                    return_string += " + [('" + obf_files[entry] + "', " +\
+                                     repr(build_dir + '\\' +
+                                          obf_files[entry]) +\
+                                     ", 'BINARY')]"
 
 		return_string += " + [('"+obf_files[-1]+"', "+repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
 
