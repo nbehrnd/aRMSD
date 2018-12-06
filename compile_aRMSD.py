@@ -73,44 +73,36 @@ def analyze_arguments(arguments):
     overwrite = False
 
     if len(arguments) != 0:  # Arguments are given
-
         for entry in arguments:
-
             data = _split(entry)
 
             if data[0] == '--use_cython':
-
                 use_cython = data[1]
 
             elif data[0] == '--cython_compiler':
-
                 cython_compiler = data[1]
 
             elif data[0] == '--use_openbabel':
-
                 use_openbabel = data[1]
 
             elif data[0] == '--overwrite':
-
                 overwrite = data[1]
-
     return use_openbabel, use_cython, cython_compiler, overwrite
 
 
 def check_for_ext(pyx_file_path, ext, default):
     """ Checks if a .pyx/.pyd file exists and returns the extension """
-
     return ext if os.path.isfile(pyx_file_path+ext) else default
 
 
 def check_for_pyd_so(file_path):
     """ Checks if a file with .pyd or .so extension exists """
-
     return True if os.path.isfile(file_path+'.pyd') or os.path.isfile(file_path+'.so') else False
 
 
 def get_current_version(armsd_dir):
-    """ Returns the name of the executable (this part is copied from the spec file) """
+    """ Returns the name of the executable (this part is
+        copied from the spec file) """
 
     # Determine the version of aRMSD and append it to the file name
     contents = open(armsd_dir+'\\aRMSD.py').readlines()
@@ -118,11 +110,10 @@ def get_current_version(armsd_dir):
     for index, line in enumerate(contents):
 
         if '__aRMSD_version__' in line and len(line.split()) == 3:
-
             version = eval(line.split()[-1])
 
-        if 'is_compiled' in line and len(line.split()) > 7:  # Let the program now that it is compiled
-
+        if 'is_compiled' in line and len(line.split()) > 7:
+            # Let the program know that it is compiled
             contents[index].replace('False', 'True')
 
     # Setup platform and program name
@@ -131,52 +122,48 @@ def get_current_version(armsd_dir):
     # Determine platform and architecture
     # First: Operating system
     if sys.platform == 'win32':
-
         platform = 'Win'
 
     elif sys.platform == 'darwin':
-
         platform = 'Mac'
 
     elif sys.platform == 'linux2':
-
         platform = 'Lin'
 
     else:
-
         platform = 'Os'
 
     # Second: 32 or 63 bit
     if sys.maxsize > 2 ** 32:
-
         platform += '64'
 
     else:
-        
         platform += '32'
 
     name += '_{}_{}'.format(version, platform)
-
     return name, platform
 
 
 def has_module(mod, site_packages_path):
     """ Checks for a module folder in the site pacakges path """
-
     return os.path.isdir(site_packages_path+'\\'+mod)
 
 
 def copy_obfiles(build_dir, site_packages_path):
     """ Copies .obf files to build folder """
 
-    # List of .obf files (file format support), add or remove obf files accordingly
-    obf_files = ['formats_cairo.obf', 'formats_common.obf', 'formats_compchem.obf',
-                 'formats_misc.obf', 'formats_utility.obf', 'formats_xml.obf']
+    # List of .obf files (file format support),
+    # add or remove obf files accordingly
+    obf_files = ['formats_cairo.obf', 'formats_common.obf',
+                 'formats_compchem.obf', 'formats_misc.obf',
+                 'formats_utility.obf', 'formats_xml.obf']
 
-    babel_dir = site_packages_path+'\\openbabel'  # Path of the .obf files
+    babel_dir = site_packages_path + '\\openbabel'  # Path of the .obf files
 
-    # Copy the files from the openbabel path to the build directory, return the files names
-    [shutil.copyfile(babel_dir+'\\'+entry, build_dir+'\\'+entry) for entry in obf_files]
+    # Copy the files from the openbabel path to the build directory,
+    # return the files names
+    [shutil.copyfile(babel_dir + '\\' + entry, build_dir + '\\' +
+                     entry) for entry in obf_files]
 
     return obf_files
 
@@ -184,23 +171,28 @@ def copy_obfiles(build_dir, site_packages_path):
 def write_ob_hook(site_packages_path, overwrite):
     """ Writes a working pyinstaller hook for openbabel if there is none """
 
-    hook_path = site_packages_path+'\\PyInstaller\\hooks'  # Path of the PyInstaller hooks
-    babel_data = site_packages_path+'\\openbabel\\data'  # Path of the openbabel data files
+    # Path of the PyInstaller hooks:
+    hook_path = site_packages_path + '\\PyInstaller\\hooks'
+    # Path of the openbabel data files:
+    babel_data = site_packages_path + '\\openbabel\\data'
 
-    if not os.path.isfile(hook_path+'\\hook-openbabel.py') or overwrite:  # Don't overwrite files
-
+    # Don't overwrite files
+    if not os.path.isfile(hook_path + '\\hook-openbabel.py') or overwrite:
         data_files = os.listdir(babel_data)  # All files in the directory
 
-        # If these files are not included openbabel will give a warning and fall back to the internal data
-        dat_names = ['space-groups', 'element', 'types', 'resdata', 'bondtyp', 'aromatic', 'atomtyp']
+        # If these files are not included, openbabel will give a warning and
+        # fall back to the internal data:
+        dat_names = ['space-groups', 'element', 'types', 'resdata',
+                     'bondtyp', 'aromatic', 'atomtyp']
 
         datas = []
 
         for entry in range(len(data_files)):
 
-            if data_files[entry].split('.')[0] in dat_names:  # If a file in dat_names is found, add it to datas
-
-                datas.append((site_packages_path+'\\openbabel\\data\\'+data_files[entry], 'openbabel\\data'))
+            # If a file in dat_names is found, add it to datas
+            if data_files[entry].split('.')[0] in dat_names:
+                datas.append((site_packages_path + '\\openbabel\\data\\' +
+                              data_files[entry], 'openbabel\\data'))
 
         os.chdir(hook_path)
 
