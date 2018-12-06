@@ -64,7 +64,8 @@ def analyze_arguments(arguments):
         pos = arg.find('=')
         prefix = arg[:pos]
         suffix = arg[pos+1:]
-        return (None, None) if prefix not in accepted_arg_prefix else (prefix, suffix)
+        return (None, None) if prefix not in accepted_arg_prefix \
+            else (prefix, suffix)
 
     # Default compiler arguments
     use_openbabel = False
@@ -97,7 +98,8 @@ def check_for_ext(pyx_file_path, ext, default):
 
 def check_for_pyd_so(file_path):
     """ Checks if a file with .pyd or .so extension exists """
-    return True if os.path.isfile(file_path+'.pyd') or os.path.isfile(file_path+'.so') else False
+    return True if os.path.isfile(file_path+'.pyd') \
+        or os.path.isfile(file_path+'.so') else False
 
 
 def get_current_version(armsd_dir):
@@ -369,7 +371,8 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
     """ Runs the pyinstaller compilation with the given flags for
         cython and the c compiler """
 
-    print('\n   *** This the official installer for aRMSD (Installer version: '+inst_version+') ***')
+    print('\n   *** This the official installer for aRMSD (Installer: ' +
+          inst_version + ') ***')
     print(80 * "=")
     print('It will create a standalone executable using PyInstaller.')
     print('\nNote: The compilation process will take some time (see below),')
@@ -403,8 +406,8 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         name_core, name_log, name_plot = 'acore', 'alog', 'aplot'
 
         basic_dir = os.getcwd()  # Determine the initial working directory
-        armsd_dir = basic_dir+'\\armsd'  # aRMSD folder in the working directory
-        build_dir = basic_dir+'\\'+build_folder_name  # Build folder directory
+        armsd_dir = basic_dir + '\\armsd'  # aRMSD folder in the curr. dir.
+        build_dir = basic_dir + '\\' + build_folder_name  # Build folder dir.
 
         # Check for pre-compiled .pyd files
         comp_core = check_for_pyd_so(armsd_dir + '\\' + name_core)
@@ -476,23 +479,29 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
                 from setuptools import Extension
                 from Cython.Build import cythonize
 
-                print('\n>> Cython and setuptools found, starting compilation...')
+                print('\n>> Cython and setuptools found, compilation starts.')
                 will_use_cython = True
 
-            except ImportError:  # Something went wrong,
-                                 # most likely no Cython installation
+            except ImportError:     # Something went wrong,
+                                    # most likely no Cython installation
 
                 print('\n>> ERROR: Will continue without cythonization!')
                 will_use_cython = False
 
             if will_use_cython:
-                print('\npython cythonize_modules.py build_ext --inplace --compiler='+cython_compiler)
+                print('\n' +
+                      'python cythonize_modules.py build_ext --inplace --compiler=' +
+                      cython_compiler)
 
                 # Combine modules in list and compile to libraries
-                sourcefiles = [name_core+ext_core, name_plot+ext_plot, name_log+ext_log]
+                sourcefiles = [name_core+ext_core,
+                               name_plot+ext_plot,
+                               name_log+ext_log]
+
                 package_cython_modules(build_dir, sourcefiles, cython_compiler)
 
-                # Remove .pyx/.py and .c files - the program will be automatically compiled with the cythonized files
+                # Remove .pyx/.py and .c files - the program will be
+                # automatically compiled with the cythonized files:
                 os.remove(name_core+ext_core)
                 os.remove(name_core+'.c')
                 os.remove(name_plot+ext_plot)
