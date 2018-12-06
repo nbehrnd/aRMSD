@@ -25,44 +25,45 @@ inst_version = '1.4'  # Version of the installer
 
 
 def pyinstaller_data(name, platform, obf_files):
-    """ Sets up a PyInstaller dictionary with all parameters that will be written to the .spec file """
+    """ Sets up a PyInstaller dictionary with all parameters
+    that will be written to the .spec file """
 
     # Excludes and hidden imports
-    #data_excl = ['_ssl', '_hashlib', 'PySide', '_gtkagg', '_tkagg', '_wxagg', '_qt5agg',
-    #             'bsddb', 'curses', 'pywin.debugger', 'pywin.debugger.dbgcon',
-    #             'pywin.dialogs', 'tcl', 'Tkconstants', 'Tkinter', 'wx', '_Qt5Agg', '_webagg']
+    # data_excl = ['_ssl', '_hashlib', 'PySide', '_gtkagg', '_tkagg', '_wxagg',
+    #              '_qt5agg', 'bsddb', 'curses', 'pywin.debugger',
+    #              'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',
+    #              'Tkconstants', 'Tkinter', 'wx', '_Qt5Agg', '_webagg']
 
     data_excl = []
-    
+
     hiddenimp = ['matplotlib', 'vtk', 'uncertainties']
 
     if obf_files is not None:  # Add pybel to hiddenimports
-
         hiddenimp.append('openbabel')
 
     # Extra data and binaries for PyInstaller
     ext_bin = []
-
     ext_dat = []
 
     # Setup dictionary and return it
-    pyinst_dict = {'name': name, 'platform': platform, 'hiddenimports': hiddenimp, 'data_excludes': data_excl,
+    pyinst_dict = {'name': name, 'platform': platform,
+                   'hiddenimports': hiddenimp, 'data_excludes': data_excl,
                    'binaries': ext_bin, 'extra_datas': ext_dat}
 
     return pyinst_dict
 
 
 def analyze_arguments(arguments):
-    """ Checks given arguments and passes correct ones to the compilation script """
+    """ Checks given arguments and
+        passes correct ones to the compilation script """
 
-    accepted_arg_prefix = ['--use_openbabel', '--use_cython', '--cython_compiler', '--overwrite']
+    accepted_arg_prefix = ['--use_openbabel', '--use_cython',
+                           '--cython_compiler', '--overwrite']
 
     def _split(arg):
-
         pos = arg.find('=')
         prefix = arg[:pos]
         suffix = arg[pos+1:]
-
         return (None, None) if prefix not in accepted_arg_prefix else (prefix, suffix)
 
     # Default compiler arguments
