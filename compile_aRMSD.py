@@ -366,26 +366,26 @@ setup(name = 'alog', ext_modules = cythonize('"""+list_of_files[2]+"""'),)
 
 
 def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
-    """ Runs the pyinstaller compilation with the given flags for cython and the c compiler """
+    """ Runs the pyinstaller compilation with the given flags for
+        cython and the c compiler """
 
     print('\n   *** This the official installer for aRMSD (Installer version: '+inst_version+') ***')
-    print('==============================================================================')
+    print(80 * "=")
     print('It will create a standalone executable using PyInstaller.')
     print('\nNote: The compilation process will take some time (see below),')
     print('      open/close additional windows and create temporary files.')
 
-    if not use_cython:  # Estimates the compilation time based on tests - but may be different on other machines
-
+    if not use_cython:  # Estimates the compilation time based on tests -
+                        # but may be different on other machines
         print('\n\t -- Estimated total compilation time: 30 min --')
 
     else:
-
         print('\n\t --Estimated total compilation time: 35 min --')
 
-    print('------------------------------------------------------------------------------')
+    print(80 * '-')
     print('Info: You can customize the build by adjusting the')
     print('      aRMSD.spec and compile_aRMSD.py files')
-    print('------------------------------------------------------------------------------')
+    print(80 * '-')
 
     # Determine site packages path
     site_packages_path = get_python_lib()
@@ -393,7 +393,7 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
     # Check for PyInstaller and openbabel
     has_pyinst = has_module('pyinstaller', site_packages_path)
     has_obabel = has_module('openbabel', site_packages_path)
-    
+
     obf_files = None  # Will be checked and updated if .obf files are copyied
 
     if has_pyinst:
@@ -411,7 +411,8 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         comp_plot = check_for_pyd_so(armsd_dir + '\\' + name_plot)
         comp_log = check_for_pyd_so(armsd_dir + '\\' + name_log)
 
-        if True in [comp_core, comp_plot, comp_log]:  # If a single pre-compiled module exists, don't compile
+        # If a single pre-compiled module exists, don't compile:
+        if True in [comp_core, comp_plot, comp_log]:
 
             print('\n>> Pre-compiled modules found...')
             use_cython = False
@@ -422,24 +423,29 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         ext_log = check_for_ext(armsd_dir+'\\'+name_log, '.pyx', '.py')
 
         print('\n>> Installer was called as...')
-        print('\npython compile_aRMSD.py --use_openbabel='+str(use_openbabel)+' --use_cython='+str(use_cython)+
-              ' --cython_compiler='+str(cython_compiler)+' --overwrite='+str(overwrite))
+        print('\npython compile_aRMSD.py --use_openbabel=' +
+              str(use_openbabel) + ' --use_cython=' + str(use_cython) +
+              ' --cython_compiler=' + str(cython_compiler) +
+              ' --overwrite=' + str(overwrite))
 
-        print('\n>> Creating temporary directory... '+build_folder_name)
+        print('\n>> Creating temporary directory... ' + build_folder_name)
 
-        if os.path.isdir(build_folder_name):  # Remove build folder if it exists
-
+        if os.path.isdir(build_folder_name):  # Remove build folder (if exists)
             shutil.rmtree(build_dir)
             print('\n>> Build directory already exists... it will be removed!')
 
         os.makedirs(build_folder_name)  # Make temporary build directory
-
         os.chdir(build_folder_name)  # Change to build folder
 
         # Copy core files to build directory
-        shutil.copyfile(armsd_dir+'\\'+name_core+ext_core, build_dir+'\\'+name_core+ext_core)
-        shutil.copyfile(armsd_dir+'\\'+name_plot+ext_plot, build_dir+'\\'+name_plot+ext_plot)
-        shutil.copyfile(armsd_dir+'\\'+name_log+ext_log, build_dir+'\\'+name_log+ext_log)
+        shutil.copyfile(armsd_dir + '\\' + name_core + ext_core,
+                        build_dir + '\\' + name_core+ext_core)
+
+        shutil.copyfile(armsd_dir + '\\' + name_plot + ext_plot,
+                        build_dir + '\\' + name_plot + ext_plot)
+
+        shutil.copyfile(armsd_dir + '\\' + name_log + ext_log,
+                        build_dir + '\\' + name_log + ext_log)
 
         if overwrite:
 
