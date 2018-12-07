@@ -1,3 +1,4 @@
+
 """
 Script for an easy installation/compilation of aRMSD from command line
 License: MIT
@@ -137,17 +138,17 @@ def get_current_version(armsd_dir):
         if sys.platform == 'win32':
             platform = 'Win'
 
-    elif sys.platform == 'darwin':
+        elif sys.platform == 'darwin':
 
-        platform = 'Mac'
+            platform = 'Mac'
 
-    elif sys.platform == 'linux2':
+        elif sys.platform == 'linux2':
 
-        platform = 'Lin'
+            platform = 'Lin'
 
-    else:
+        else:
 
-        platform = 'Os'
+            platform = 'Os'
 
     # Second: 32 or 63 bit
     if sys.maxsize > 2 ** 32:
@@ -247,25 +248,24 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
 
             if len(obf_files) == 1:  # Only one .obf files
 
-                return_string += " + [('"+obf_files[0]+"', "+repr(build_dir +
-                                                                  '\\' +
-                                                                  obf_files[0]) +
+                return_string += " + [('" + obf_files[0] + "', " +\
+                                 repr(build_dir + '\\' + obf_files[0]) +\
                                  ", 'BINARY')],"
 
             else:
 
                 for entry in range(len(obf_files) - 1):
 
-                    return_string += " + [('" + obf_files[entry] +"',
-                                           "+repr(build_dir + '\\' +
-                                                  obf_files[entry])+", 'BINARY')]"
+                    return_string += " + [('" + obf_files[entry] + "', " +\
+                                     repr(build_dir + '\\' +
+                                          obf_files[entry])+", 'BINARY')]"
 
-        return_string += " + [('" + obf_files[-1] + "' ," +
-                          repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
+        return_string += " + [('" + obf_files[-1] + "' ," +\
+                         repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
 
-    else:
+                else:
 
-            return_string += ','
+                    return_string += ','
 
             return return_string
 
@@ -376,15 +376,19 @@ setup(name = 'alog', ext_modules = cythonize('"""+list_of_files[2]+"""'),)
 
 
 def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
-    """ Runs the pyinstaller compilation with the given flags for cython and the c compiler """
+    """ Runs the pyinstaller compilation with the given flags for
+        cython and the c compiler """
 
-    print('\n   *** This the official installer for aRMSD (Installer version: '+inst_version+') ***')
-    print('==============================================================================')
+    print('\n   *** This the official installer for aRMSD (Installer: ' +
+          inst_version+') ***')
+
+    print(80 * '=')
     print('It will create a standalone executable using PyInstaller.')
     print('\nNote: The compilation process will take some time (see below),')
     print('      open/close additional windows and create temporary files.')
 
-    if not use_cython:  # Estimates the compilation time based on tests - but may be different on other machines
+    if not use_cython:  # Estimates the compilation time based on tests -
+                        # but may be different on other machines
 
         print('\n\t -- Estimated total compilation time: 30 min --')
 
@@ -392,10 +396,10 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
 
         print('\n\t --Estimated total compilation time: 35 min --')
 
-    print('------------------------------------------------------------------------------')
+    print(80 * '-')
     print('Info: You can customize the build by adjusting the')
     print('      aRMSD.spec and compile_aRMSD.py files')
-    print('------------------------------------------------------------------------------')
+    print(80 * '-')
 
     # Determine site packages path
     site_packages_path = get_python_lib()
@@ -403,7 +407,7 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
     # Check for PyInstaller and openbabel
     has_pyinst = has_module('pyinstaller', site_packages_path)
     has_obabel = has_module('openbabel', site_packages_path)
-    
+
     obf_files = None  # Will be checked and updated if .obf files are copyied
 
     if has_pyinst:
@@ -421,7 +425,8 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         comp_plot = check_for_pyd_so(armsd_dir + '\\' + name_plot)
         comp_log = check_for_pyd_so(armsd_dir + '\\' + name_log)
 
-        if True in [comp_core, comp_plot, comp_log]:  # If a single pre-compiled module exists, don't compile
+        # If a single pre-compiled module exists, don't compile
+        if True in [comp_core, comp_plot, comp_log]:
 
             print('\n>> Pre-compiled modules found...')
             use_cython = False
@@ -432,8 +437,10 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         ext_log = check_for_ext(armsd_dir+'\\'+name_log, '.pyx', '.py')
 
         print('\n>> Installer was called as...')
-        print('\npython compile_aRMSD.py --use_openbabel='+str(use_openbabel)+' --use_cython='+str(use_cython)+
-              ' --cython_compiler='+str(cython_compiler)+' --overwrite='+str(overwrite))
+        print('\npython compile_aRMSD.py --use_openbabel=' +
+              str(use_openbabel) + ' --use_cython='+str(use_cython) +
+              ' --cython_compiler=' + str(cython_compiler) +
+              ' --overwrite=' + str(overwrite))
 
         print('\n>> Creating temporary directory... '+build_folder_name)
 
@@ -447,9 +454,14 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         os.chdir(build_folder_name)  # Change to build folder
 
         # Copy core files to build directory
-        shutil.copyfile(armsd_dir+'\\'+name_core+ext_core, build_dir+'\\'+name_core+ext_core)
-        shutil.copyfile(armsd_dir+'\\'+name_plot+ext_plot, build_dir+'\\'+name_plot+ext_plot)
-        shutil.copyfile(armsd_dir+'\\'+name_log+ext_log, build_dir+'\\'+name_log+ext_log)
+        shutil.copyfile(armsd_dir + '\\' + name_core+ext_core,
+                        build_dir + '\\' + name_core+ext_core)
+
+        shutil.copyfile(armsd_dir + '\\' + name_plot+ext_plot,
+                        build_dir + '\\' + name_plot+ext_plot)
+
+        shutil.copyfile(armsd_dir + '\\' + name_log+ext_log,
+                        build_dir + '\\' + name_log+ext_log)
 
         if overwrite:
 
@@ -457,7 +469,7 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
 
         if use_openbabel and has_obabel:  # Copy obenbabel files
 
-            print('\n>> Copying openbabel files...')            
+            print('\n>> Copying openbabel files...')
             obf_files = copy_obfiles(build_dir, site_packages_path)
             write_ob_hook(site_packages_path, overwrite)
 
@@ -485,10 +497,11 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
                 from setuptools import Extension
                 from Cython.Build import cythonize
 
-                print('\n>> Cython and setuptools found, starting compilation...')
+                print('\n>> Cython and setuptools found, compilation starts.')
                 will_use_cython = True
 
-            except ImportError:  # Something went wrong, most likely no Cython installation
+            except ImportError:     # Something went wrong,
+                                    # most likely no Cython installation
 
                 print('\n>> ERROR: Will continue without cythonization!')
                 will_use_cython = False
@@ -498,10 +511,13 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
                 print('\npython cythonize_modules.py build_ext --inplace --compiler='+cython_compiler)
 
                 # Combine modules in list and compile to libraries
-                sourcefiles = [name_core+ext_core, name_plot+ext_plot, name_log+ext_log]
+                sourcefiles = [name_core+ext_core,
+                               name_plot+ext_plot,
+                               name_log+ext_log]
                 package_cython_modules(build_dir, sourcefiles, cython_compiler)
 
-                # Remove .pyx/.py and .c files - the program will be automatically compiled with the cythonized files
+                # Remove .pyx/.py and .c files - the program will be
+                # automatically compiled with the cythonized files
                 os.remove(name_core+ext_core)
                 os.remove(name_core+'.c')
                 os.remove(name_plot+ext_plot)
@@ -520,9 +536,11 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
 
         # Copy main file and icon to build directory
         shutil.copyfile(armsd_dir+'\\aRMSD.py', build_dir+'\\aRMSD.py')
-        shutil.copyfile(basic_dir+'\\aRMSD_icon.ico', build_dir+'\\aRMSD_icon.ico')
+        shutil.copyfile(basic_dir+'\\aRMSD_icon.ico',
+                        build_dir+'\\aRMSD_icon.ico')
 
-        # Load PyInstaller information (modules can be adjusted in the respective function)
+        # Load PyInstaller information (modules can be adjusted in
+        # the respective function)
         pyinst_dict = pyinstaller_data(file_name_dir, sys.platform, obf_files)
 
         # Write .spec file for compilation
@@ -543,8 +561,11 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         # Copy executable to 'armsd' folder and delete all temporary files
         os.chdir(basic_dir)
         shutil.rmtree(build_dir+'\\dist\\'+file_name_dir)
-        prg_file_name = os.listdir(build_dir+'\\dist')[0]  # List file (only one should be there) in distribution directory
-        shutil.copyfile(build_dir+'\\dist\\'+prg_file_name, armsd_dir+'\\'+prg_file_name)
+
+        # List file (only one should be there) in distribution directory
+        prg_file_name = os.listdir(build_dir+'\\dist')[0]
+        shutil.copyfile(build_dir+'\\dist\\'+prg_file_name,
+                        armsd_dir+'\\'+prg_file_name)
         shutil.rmtree(build_dir)
 
         # Echo successful creation, print compilation time
@@ -560,7 +581,8 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         print('to any directory of your choice and start the program.')
         print('It is recommended to call aRMSD from command line')
         print('e.g. Path\\to\\exe> '+prg_file_name)
-        print('to catch potential errors. The start of the program may take a few seconds!')
+        print('to catch potential errors.')
+        print('The start of the program may take a few seconds!')
 
     else:
 
@@ -572,24 +594,5 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
 if __name__ == '__main__':  # Run the program
 
     arguments = sys.argv[1:]  # Get arguments
-
     use_openbabel, use_cython, cython_compiler, overwrite = analyze_arguments(arguments)  # Check arguments and set variables
-
     run_compilation(use_openbabel, use_cython, cython_compiler, overwrite)
-
-    © 2018 GitHub, Inc.
-    Terms
-    Privacy
-    Security
-    Status
-    Help
-
-    Contact GitHub
-    Pricing
-    API
-    Training
-    Blog
-    About
-
-Press h to open a hovercard with more details.
-
