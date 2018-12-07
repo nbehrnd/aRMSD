@@ -1,8 +1,8 @@
 # file name: aRMSD-primer.org
-# last edit: 03-Dez-2018
+# last edit: 07-Dez-2018
 #+AUTHOR:  Norwid Behrnd
 #+TITLE:   aRMSD-primer (aRMSD 0.9.8)
-#+DATE:    03-Dez-2018
+#+DATE:    07-Dez-2018
 
 #+OPTIONS: toc:nil
 
@@ -35,6 +35,17 @@ installation of the program.  Here and there, the primer merely will
   =aRMSD=.  The copy is verbatim, with the exception of putting the
   information into one place, a reformat, and a spell check.
 
+  *Notice:* The original version of the script to compile =aRMSD= in
+  Windows, =compile_aRMSD.py=, as left by Arne Wagner in 2017 was
+  mentioned as not working (ticketed as issue on
+  https://www.github.com/aRMSD/aRMSD).  I attempted to rectify for
+  this with =compile_aRMSD_revision_07Dez2018.py= present in this fork
+  by code linting (=flake8=).  While syntactically altered, lines
+  238--242 contain a currently muted instruction which needs further
+  improvement.  It may be that the compilation in Windows /still/ does
+  not work, but you are more than welcome to suggest an improvement.
+  Regardless of this issue, Arne Wagner's outline is still kept as a
+  potential help for you.
 
   /This/ forked branch is based on the original version 0.9.6 by Arne
   Wagner.  It was developed further in Debian 10 (Sid/buster) because

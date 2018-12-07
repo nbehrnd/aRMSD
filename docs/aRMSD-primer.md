@@ -12,6 +12,18 @@ by him as left in 2017 in the original branch of the project of
 `aRMSD`.  The copy is verbatim, with the exception of putting the
 information into one place, a reformat, and a spell check.
 
+**Notice:** The original version of the script to compile `aRMSD` in
+Windows, `compile_aRMSD.py`, as left by Arne Wagner in 2017 was
+mentioned as not working (ticketed as issue on
+<https://www.github.com/aRMSD/aRMSD>).  I attempted to rectify for
+this with `compile_aRMSD_revision_07Dez2018.py` present in this fork
+by code linting (`flake8`).  While syntactically altered, lines
+238&#x2013;242 contain a currently muted instruction which needs further
+improvement.  It may be that the compilation in Windows *still* does
+not work, but you are more than welcome to suggest an improvement.
+Regardless of this issue, Arne Wagner's outline is still kept as a
+potential help for you.
+
 *This* forked branch is based on the original version 0.9.6 by Arne
 Wagner.  It was developed further in Debian 10 (Sid/buster) because
 `aRMSD` was used side-by-side with other programs already deployed
@@ -165,7 +177,7 @@ directory of the decompressed archive with your shell, and start
 
 The first start of the program is slower than the subsequent ones,
 but your terminal should display a welcome screen similar to the one
-in figure [40](#orge35eb12).
+in figure [41](#orgce756d7).
 
 ![img](./docSources/aRMSD-smallWelcome.png "Initial screen display of `aRMSD` in a 80 &times; 24 character terminal.")
 
@@ -173,7 +185,7 @@ While it is possible to work in the default dimension of a terminal
 with 80 &times; 24 characters, you may miss some of the intermediate
 output provided by `aRMSD` by omission of vertical scrolling.
 Hence, a taller terminal is recommended, e.g., 80 &times;
-43 characters, as shown in figure [42](#orgfc800fe).  However, a
+43 characters, as shown in figure [43](#orgf9555a0).  However, a
 terminal wider than 80 characters per line will not provide
 additional benefit.
 
@@ -244,7 +256,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     
     The confirmation of the input (`Enter`) will cause `aRMSD` to read
     the data set and to prompt you for the input of the second model
-    datum (fig [53](#org1b32dec)).
+    datum (fig [54](#orgd5879b0)).
     
     ![img](./docSources/aRMSD-loadingModels.png "Model loading and consistency check by `aRMSD`.")
     
@@ -282,7 +294,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     then this may be good option to test.<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>
     
     For the purpose of this primer, however, all atoms were included
-    in the scrutiny (fig [60](#org0d60270)), selected by key stroke `3`.
+    in the scrutiny (fig [61](#org98e2d0c)), selected by key stroke `3`.
     
     ![img](./docSources/aRMSD-hydrogens.png "User defined exclusion / retention of hydrogens in `aRMSD`.")
     
@@ -304,7 +316,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     This is the first time `aRMSD` will launch the `vtk`-based
     structure visualizer in a window separate from the terminal,
     providing an interactive 3D rendering
-    (fig. [65](#orgba7d8da)).  You may change the
+    (fig. [66](#org3bcf16d)).  You may change the
     position and size of this window freely.  The depicted scene shows
     you *an initial* alignment of atom labeled model (red motif) and
     reference structure (green motif) in a reference coordinate system
@@ -313,9 +325,9 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     ![img](./docSources/aRMSD-structureVisualizerDefault-scaled.png "Vtk-based structure visualizer by `aRMSD`.")
     
     Multiple commands are at your disposition, outlined briefly in the
-    table [1](#orgfadb698).
+    table [1](#org093ff19).
     
-    <table id="orgfadb698" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+    <table id="org093ff19" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
     <caption class="t-above"><span class="table-number">Table 1:</span> Typical commands to interact with the structure visualizer in `aRMSD`.</caption>
     
     <colgroup>
@@ -395,7 +407,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     visualizer (`q`).  If &#x2013; as in the current example &#x2013; the two
     model data do not align nicely, the terminal offers you multiple
     symmetry operations to try a better alignment
-    (fig. [69](#org2f90286)).  Each time you select one of
+    (fig. [70](#org641408f)).  Each time you select one of
     the options, `aRMSD` displays a new *initial match* of the two in
     a newly opened instance of the visualizer.
     
@@ -406,7 +418,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     respect to the *xz*-plane (key-stroke `3`).  The approach is
     iterative, and the order of consecution of these operations does
     not matter.  The progress is shown in
-    figure [71](#org95dc027).  Intentionally both alignments
+    figure [72](#org89173fb).  Intentionally both alignments
     shown share the same perspective.
     
     ![img](./docSources/aRMSD-M1M2-initialMatching.png "Example of progressively adjusting the relative alignment of structure "model" (`M1.xyz`) and "reference" (`M2.xyz`) in `aRMSD`.  a) After application of an inversion.  b) After subsequent application of inversion and reflection in respect to the *xz*-plane.")
@@ -429,7 +441,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     (minus one).
     
     `aRMSD` will again open a `vtk`-visualizer of the two prealigned
-    models (figure [76](#org295c367)).  In contrast to the former
+    models (figure [77](#orge60e621)).  In contrast to the former
     situation, however, the labeling of the atoms of one molecule
     should match the one of the same atoms in the second molecule.  In
     addition, yellow streaks will indicate which atoms with greater
@@ -445,7 +457,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     
     To enter the menu about the Kabsch test, hit now once `0` (zero).
     The interface displayed by `aRMSD` in the terminal changes
-    (figure [80](#orgfa6dc6a)), and you are able to trigger the
+    (figure [81](#orga1cc355)), and you are able to trigger the
     refinement of the superposition with `-1` (minus one).  The now
     following consecution of calling sub-routines is *recommended* to
     harvest the maximum of relevant data `aRMSD` provides.
@@ -453,7 +465,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     ![img](./docSources/aRMSD-KabschInterface.png "The CLI by `aRMSD` about the Kabsch test.")
     
     -   Key-stroke `0` (zero) again opens the interactive Vtk-based
-        visualizer (figure [82](#org153821e), left sub-figure).  This
+        visualizer (figure [83](#org466ab4f), left sub-figure).  This
         adapted ball-stick representation displays *atom radii* of the
         atoms proportional to the *relative contribution* of said atoms
         to the global RMSD.  The *atom colors* of the spheres scales to
@@ -475,7 +487,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
         corresponding position; or corresponding difference in distance,
         angle; or dihedral angle between model and reference.  These
         read-outs are non-permanent and provided *only* on the terminal
-        (figure [85](#org55faffd)).
+        (figure [86](#org54fd049)).
         
         ![img](./docSources/aRMSD-diffTest.png "Example of subsequent selection of atom C11, C12, C13 and C14 to readout differences in position (or angle) in the refined superposition of the two structures `M1.xyz` and `M2.xyz`.")
         
@@ -487,7 +499,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     
     -   A classical superposition display is obtained with key-stroke
         `1`.  Model and reference are depicted by the visualizer
-        (figure [82](#org153821e), right sub-figure) with the same color
+        (figure [83](#org466ab4f), right sub-figure) with the same color
         scheme as already known from the stage of prealignment.  As in
         all other instances using the `vtk`-visualizer, the rendering
         may be saved as `*.png` (key-stroke `s`), and closed (with
@@ -496,7 +508,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     -   With key-stroke `2`, an additional determination of statistics,
         and generation of synoptic diagrams is provided.  This requires
         access to `matplotlib`, and opens a window separate from the
-        therminal (figure [89](#orgb6807ad)).
+        therminal (figure [90](#org24861d2)).
         
         ![img](./docSources/aRMSD-M1M2-statistics.png "Synoptic statistics plots about the successfully comparison comparing the refined alignment of model `M1.xyz` and `M2.xyz` by `aRMSD`.")
         
@@ -517,7 +529,7 @@ format with Olex2.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
     
     -   With call `3`, the program offers you a first decomposition
         about RMSD's contributions onto the terminal
-        (figure [94](#org57b6bd6)).  Even if you do not see
+        (figure [95](#orgde7da00)).  Even if you do not see
         these results when accessing `aRMSD` from a small terminal
         (80 &times; 24 chars), it is useful to invoke this sub-routine
         once &#x2013; even blindly &#x2013;, since *its results* will enter the
@@ -602,7 +614,7 @@ Again, the test data in question are `M1.xyz` and `M2.xyz`.
 
 Starting from scratch, the model data are read again.  To match the
 precedent case, all hydrogen atoms are retained for the analysis.
-Referring to figure [71](#org95dc027), however, now *only*
+Referring to figure [72](#org89173fb), however, now *only*
 the symmetry operation of inversion is applied (hence,
 *intentionally omitting* the second operation of reflection in
 respect to the *xz*-plane).
@@ -611,14 +623,14 @@ The implementation of the Hungarian algorithm still relates the
 corresponding atoms successfully.  However, both the increased
 number of yellow streaks as well their orientation *across* the
 structure models is a first warning sign
-(figure [106](#org5c05610)).
+(figure [107](#org610df51)).
 
 ![img](./docSources/aRMSD-badAlignmentOnlyInversion-stepA.png "Example of an ill-fated comparison of structure `M1.xyz` with structure `M2.xyz` with `aRMSD`, step 1/3.  a) The symmetry operation applied accounts only for inversion of the relative orientation of the two models.  Consequently b), the number of atoms deemed analogous to each other yet marked by yellow streaks is higher, than in the "best match" (previous chapter).  In addition, the streaks now pass largely *across* the structure models.")
 
 The subsequently performed refinement of the superposition
 consequently yields chemically unreasonable differences and pattern
-(figure [108](#org12d0b66)), equally manifested
-in the statistics plots (figure [109](#orgb90f67c)).
+(figure [109](#org0428361)), equally manifested
+in the statistics plots (figure [110](#orga58bb6c)).
 
 ![img](./docSources/aRMSD-badAlignmentOnlyInversion-stepB.png "Example of an ill-fated comparison of structure `M1.xyz` with structure `M2.xyz` with `aRMSD`, step 2/3.  a) Composite display, b) classical superposition representation.")
 
