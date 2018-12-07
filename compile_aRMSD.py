@@ -106,7 +106,7 @@ def get_current_version(armsd_dir):
         from the spec file) """
 
     # Determine the version of aRMSD and append it to the file name
-    contents = open(armsd_dir+'\\aRMSD.py').readlines()
+    contents = open(armsd_dir + '\\aRMSD.py').readlines()
 
     for index, line in enumerate(contents):
         if '__aRMSD_version__' in line and len(line.split()) == 3:
@@ -145,7 +145,7 @@ def get_current_version(armsd_dir):
 
 def has_module(mod, site_packages_path):
     """ Checks for a module folder in the site pacakges path """
-    return os.path.isdir(site_packages_path+'\\'+mod)
+    return os.path.isdir(site_packages_path + '\\' + mod)
 
 
 def copy_obfiles(build_dir, site_packages_path):
@@ -157,11 +157,12 @@ def copy_obfiles(build_dir, site_packages_path):
                  'formats_compchem.obf', 'formats_misc.obf',
                  'formats_utility.obf', 'formats_xml.obf']
 
-    babel_dir = site_packages_path+'\\openbabel'  # Path of the .obf files
+    babel_dir = site_packages_path + '\\openbabel'  # Path of the .obf files
 
     # Copy the files from the openbabel path to the build directory,
     # return the files names:
-    [shutil.copyfile(babel_dir+'\\'+entry, build_dir+'\\'+entry)
+    [shutil.copyfile(babel_dir + '\\' + entry,
+                     build_dir + '\\' + entry)
      for entry in obf_files]
 
     return obf_files
@@ -234,10 +235,11 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
 
         return_string += " + [('" + obf_files[-1] + "' ," +\
                          repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
-
-                else:
-                    return_string += ','
-            return return_string
+# potential issue, start
+#                else:
+#                    return_string += ','
+# potential issue, end
+        return return_string
 
     os.chdir(build_dir)  # Change to build directory and create a new file
     spec_file = 'aRMSD.spec'
