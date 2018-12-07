@@ -18,6 +18,23 @@ manual download, and installation anticipated for Windows.  Other
 than this, changes made within this fork, however, should work
 equally in other operating systems.
 
+**Help wanted:** The original branch of `aRMSD`
+(<https://github.com/armsd/aRMSD>) describes setting the program up to
+work in Windows by compilation / `PyInstaller`, eventually yielding
+an executable which would ease significantly the installation on
+this operating system.  The case seems to be a bit more complex as
+usual, since `PyInstaller` would need to consider to bundle *both*
+the python scripts of `aRMSD` itself, as the externally accessed
+within `vtk`.  Hopefully, such an executable installer would be
+significantly less than the about 0.2..0.3 Gb typically needed for
+an installation of the dependicies.
+
+Secondly, as checked with `flake8`, the compiler script in this
+branch (`compile_aRMSD_revision_07Dez2018.py`) still seems to
+contain three indentation-related errors about instructions (lines
+238 till 241) currently muted.  You equally are welcome to
+contribute to a solution here, too.
+
 
 # What may aRMSD do for you &#x2013; an appetizer
 
