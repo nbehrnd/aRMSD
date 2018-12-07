@@ -38,19 +38,16 @@ def pyinstaller_data(name, platform, obf_files):
     hiddenimp = ['matplotlib', 'vtk', 'uncertainties']
 
     if obf_files is not None:  # Add pybel to hiddenimports
-
         hiddenimp.append('openbabel')
 
     # Extra data and binaries for PyInstaller
     ext_bin = []
-
     ext_dat = []
 
     # Setup dictionary and return it
     pyinst_dict = {'name': name, 'platform': platform,
                    'hiddenimports': hiddenimp, 'data_excludes': data_excl,
                    'binaries': ext_bin, 'extra_datas': ext_dat}
-
     return pyinst_dict
 
 
@@ -62,7 +59,6 @@ def analyze_arguments(arguments):
                            '--cython_compiler', '--overwrite']
 
     def _split(arg):
-
         pos = arg.find('=')
         prefix = arg[:pos]
         suffix = arg[pos+1:]
@@ -77,39 +73,30 @@ def analyze_arguments(arguments):
     overwrite = False
 
     if len(arguments) != 0:  # Arguments are given
-
         for entry in arguments:
-
             data = _split(entry)
 
             if data[0] == '--use_cython':
-
                 use_cython = data[1]
 
             elif data[0] == '--cython_compiler':
-
                 cython_compiler = data[1]
 
             elif data[0] == '--use_openbabel':
-
                 use_openbabel = data[1]
 
             elif data[0] == '--overwrite':
-
                 overwrite = data[1]
-
     return use_openbabel, use_cython, cython_compiler, overwrite
 
 
 def check_for_ext(pyx_file_path, ext, default):
     """ Checks if a .pyx/.pyd file exists and returns the extension """
-
     return ext if os.path.isfile(pyx_file_path+ext) else default
 
 
 def check_for_pyd_so(file_path):
     """ Checks if a file with .pyd or .so extension exists """
-
     return True if os.path.isfile(file_path+'.pyd') or \
         os.path.isfile(file_path+'.so') else False
 
@@ -122,9 +109,7 @@ def get_current_version(armsd_dir):
     contents = open(armsd_dir+'\\aRMSD.py').readlines()
 
     for index, line in enumerate(contents):
-
         if '__aRMSD_version__' in line and len(line.split()) == 3:
-
             version = eval(line.split()[-1])
 
         # Let the program now that it is compiled:
@@ -139,15 +124,12 @@ def get_current_version(armsd_dir):
             platform = 'Win'
 
         elif sys.platform == 'darwin':
-
             platform = 'Mac'
 
         elif sys.platform == 'linux2':
-
             platform = 'Lin'
 
         else:
-
             platform = 'Os'
 
     # Second: 32 or 63 bit
@@ -158,13 +140,11 @@ def get_current_version(armsd_dir):
         platform += '32'
 
     name += '_{}_{}'.format(version, platform)
-
     return name, platform
 
 
 def has_module(mod, site_packages_path):
     """ Checks for a module folder in the site pacakges path """
-
     return os.path.isdir(site_packages_path+'\\'+mod)
 
 
@@ -198,7 +178,6 @@ def write_ob_hook(site_packages_path, overwrite):
 
     # Don't overwrite files
     if not os.path.isfile(hook_path+'\\hook-openbabel.py') or overwrite:
-
         data_files = os.listdir(babel_data)  # All files in the directory
 
         # If these files are not included openbabel will give a warning
@@ -229,11 +208,9 @@ binaries = collect_dynamic_libs('openbabel')
 datas """+"= "+str(datas))
 
             print('>> An openbabel hook for PyInstaller has been created!')
-
             outfile.close()
 
     else:
-
         print('>> A preexisting openbabel hook was found and will be used!')
 
 
@@ -241,21 +218,16 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
     """ Writes a .spec file for PyInstaller """
 
     def _write_obf(obf_files, build_dir):
-
         return_string = 'a.binaries'
 
         if obf_files is not None:
-
             if len(obf_files) == 1:  # Only one .obf files
-
                 return_string += " + [('" + obf_files[0] + "', " +\
                                  repr(build_dir + '\\' + obf_files[0]) +\
                                  ", 'BINARY')],"
 
             else:
-
                 for entry in range(len(obf_files) - 1):
-
                     return_string += " + [('" + obf_files[entry] + "', " +\
                                      repr(build_dir + '\\' +
                                           obf_files[entry])+", 'BINARY')]"
@@ -264,13 +236,10 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
                          repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
 
                 else:
-
                     return_string += ','
-
             return return_string
 
     os.chdir(build_dir)  # Change to build directory and create a new file
-
     spec_file = 'aRMSD.spec'
 
     # Write additional binary string for .spec file:
@@ -349,7 +318,6 @@ def package_cython_modules(build_dir, list_of_files, cython_compiler):
     """ Compiles .pyx/.py files to .pyd/.so files inplace """
 
     os.chdir(build_dir)  # Change to build directory and create a new file
-
     setup_file = 'cythonize_modules.py'
 
     # Write temporary setup file
@@ -393,7 +361,6 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         print('\n\t -- Estimated total compilation time: 30 min --')
 
     else:
-
         print('\n\t --Estimated total compilation time: 35 min --')
 
     print(80 * '-')
@@ -445,7 +412,6 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         print('\n>> Creating temporary directory... '+build_folder_name)
 
         if os.path.isdir(build_folder_name):  # Remove build folder if it exists
-
             shutil.rmtree(build_dir)
             print('\n>> Build directory already exists... it will be removed!')
 
@@ -464,21 +430,17 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
                         build_dir + '\\' + name_log+ext_log)
 
         if overwrite:
-
             print('\n>> INFO: All existing files (hooks, etc.) will be overwritten')
 
         if use_openbabel and has_obabel:  # Copy obenbabel files
-
             print('\n>> Copying openbabel files...')
             obf_files = copy_obfiles(build_dir, site_packages_path)
             write_ob_hook(site_packages_path, overwrite)
 
         elif use_openbabel and not has_obabel:
-
             print('\n>> ERROR: Openbabel was not found on your system, will continue without it!')
 
         else:
-
             print('\n>> INFO: Openbabel will not be used!')
 
         print('\n>> Copying core modules...')
@@ -487,11 +449,8 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         print('\t... '+name_log+ext_log)
 
         if use_cython:  # Cythonize pyx files or py files
-
             print('\n>> Attempting to use Cython in the compilation')
-
             try:
-
                 # Import required modules
                 from setuptools import setup
                 from setuptools import Extension
@@ -507,7 +466,6 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
                 will_use_cython = False
 
             if will_use_cython:
-
                 print('\npython cythonize_modules.py build_ext --inplace --compiler='+cython_compiler)
 
                 # Combine modules in list and compile to libraries
@@ -526,7 +484,6 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
                 os.remove(name_log+'.c')
 
         else:
-
             print('\n>> INFO: Cython will not be used!')
 
         print('\n>> Copying main program files...')
@@ -585,14 +542,12 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
         print('The start of the program may take a few seconds!')
 
     else:
-
         print('\n>> ERROR: PyInstaller was not found.')
         print(' install the package and run again!')
         print('--> from command line: pip install pyinstaller')
 
 
 if __name__ == '__main__':  # Run the program
-
     arguments = sys.argv[1:]  # Get arguments
     use_openbabel, use_cython, cython_compiler, overwrite = analyze_arguments(arguments)  # Check arguments and set variables
     run_compilation(use_openbabel, use_cython, cython_compiler, overwrite)
