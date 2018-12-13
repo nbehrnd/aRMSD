@@ -508,7 +508,7 @@ class Logger(object):
             output.write(adj_str('\n\n* Final Quality of the Superposition:',
                                  suffix='\n'))
 
-            output.write(adj_str('RMSD (Kabsch test after refined superposition [Angstrom])...',
+            output.write(adj_str('RMSD (Kabsch test, refined superposition [Angstrom])...',
                                  suffix='\t') +
                          self.format_value(align.rmsd, n_digits=5))
 
@@ -844,16 +844,17 @@ class Logger(object):
 
     def pt_welcome(self):
 
-        print("\n\n" + 80 * "=")
+        print("\n" + 80 * "=")
 
         releaseNotice = str(" aRMSD (version ") + str(self.version) +\
                         str(", ") + str(self.year) + str(") ")
-        print(releaseNotice.center(80) + "\n")
+#        print(releaseNotice.center(80) + "\n")
+        print(releaseNotice.center(80))
 
         print(80 * "=" + "")
 
         print(str("A. Wagner, University of Heidelberg (2015, 2017),").center(80))
-        print(str("forked by N. Behrnd (2018)").center(80))
+        print(str("forked by N. Behrnd (2018)").center(80) + "\n")
 
         print(str(" Description ").center(80, "-"))
         print("Key features:")
@@ -864,15 +865,13 @@ class Logger(object):
         print("* Supports error propagation for experimental structures")
         print("* Generates different visualization types of the superposition results")
         print("* Writes outfiles that can be passed to other programs")
-        print("\n")
 
-        print("* The original version for Windows by A. Wagner, including its documentation")
-        print("      is hosted on GitHub: https://github.com/armsd/aRMSD.")
-        print("* You are using a derivative fork (based on release 0.9.6 of the above),")
-        print("    developed under Linux Debian by N. Behrnd including documentation, hosted")
-        print("    on GitHub: https://github.com/nbehrnd/aRMSD.")
+        print("* The original version was created by A. Wagner under Windows.  You find it")
+        print("      hosted on GitHub: https://github.com/armsd/aRMSD.")
+        print("* You are using a derivative fork based on the former, developed under Linux")
+        print("      by N. Behrnd, hosted on GitHub: https://github.com/nbehrnd/aRMSD.")
 
-        print(80 * "-")
+#        print(80 * "-")
 
         print(
             '\n*** Cite this program as:' +
@@ -882,13 +881,13 @@ class Logger(object):
     def pt_versions(self, core_version, plot_version, log_version):
 
         print("\nRelease dates of the individual modules:")
-        print("core module:    \t'" + str(core_version) + "'")
-        print("plot module:    \t'" + str(plot_version) + "'")
-        print("log  module:    \t'" + str(log_version) + "'")
+        print("- core module:    \t'" + str(core_version) + "'")
+        print("- plot module:    \t'" + str(plot_version) + "'")
+        print("- log  module:    \t'" + str(log_version) + "'")
 
     def pt_start(self):
 
-        print("\n> Starting the program ...")
+#        print("\n> Starting the program ...")
         print(80 * "-")
 
     ############################################################################
@@ -922,7 +921,7 @@ class Logger(object):
 
     def chk_std_devs(self, molecule1, molecule2, settings):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print("> Checking for coordinate standard deviations...")
 
         self.has_cor_std_mol1 = np.sum(molecule1.cor_std) != 0.0  # Checks deviations for both molecules
@@ -952,11 +951,12 @@ class Logger(object):
 
     def pt_plotting_screenshot(self):
 
-        print("> To save the scene as *.png, press 's'. For help, press 'h'.\n")
+#        print("> To save the scene as *.png, press 's'. For help, press 'h'.\n")
+        print("> To save the scene as *.png, press 's'.")
 
     def pt_plotting_substructure_def(self):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(str(" Substructure Definition ").center(80, "="))
         print(80 * "-")
         print("\n> Click on atoms to add or remove them from the designated substructure")
@@ -993,7 +993,7 @@ class Logger(object):
 
     def pt_consistency_menu(self):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(str(" Consistency Checks and Structural Modification ").center(80, "="))
         print(80 * "-")
 
@@ -1035,7 +1035,7 @@ class Logger(object):
 
         choices = []
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print("    What should happen to the remaining " +
               str(n_hydro) + " H-atoms?")
         print(80 * "-")
@@ -1255,7 +1255,7 @@ class Logger(object):
 
     def pt_program_termination(self):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(str(" Normal program termination ").center(80, "="))
         print(80 * "-")
 
@@ -1373,7 +1373,7 @@ class Logger(object):
 
     def pt_highest_deviations(self, molecule1, molecule2, settings):
 
-        print("\n", 80 * "-", "\n")
+        print("\n" + 80 * "-" + "\n")
         print("\tThe geometric RMSD of the current alignment is: " + "{:6.3f}".format(self.match_rmsd) + " A\n")
         print("\t\t The " + str(settings.n_dev) + " most disordered atom pairs are:")
         print("\t\tEntry\t\t      Pair\t\t  Distance / A ")
@@ -1386,7 +1386,7 @@ class Logger(object):
 
     def pt_all_bonds(self, align):
 
-        print("\n", 80*"-")
+        print("\n" + 80*"-")
 
     def pt_no_proper_rmsd_sub(self):
 
@@ -1430,7 +1430,7 @@ class Logger(object):
         # Contribution of individual atom types (based on MSD)
         rmsd_perc = (align.rmsd_idv ** 2 / np.sum(align.rmsd_idv ** 2)) * 100
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(str(" Quality of the Superposition ").center(80, "="))
         print(80 * "-")
 
@@ -1569,7 +1569,7 @@ class Logger(object):
 
     def pt_x_ray_menu(self, n_atoms, symOPs, picker_type):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(str(" X-ray Data Modification ").center(80, "="))
         print(80 * "-")
 
@@ -1598,7 +1598,7 @@ class Logger(object):
 
     def pt_match_menu(self, settings):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(str(" Symmetry Adjustments & Sequence Matching ").center(80, "="))
         print(80 * "-")
 
@@ -1655,7 +1655,7 @@ class Logger(object):
 
     def pt_algorithm_menu(self, molecule):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(str(" Matching Algorithm Submenu ").center(80, "="))
         print(80 * "-")
 
@@ -1678,7 +1678,7 @@ class Logger(object):
 
     def pt_solve_algorithm_details(self):
 
-        print("\n", 80*"-")
+        print("\n" + 80*"-")
         print("Details about the algorithm '" +
               str(self.match_solv) + "':")
 
@@ -1697,7 +1697,7 @@ class Logger(object):
 
     def pt_match_algorithm_details(self):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print("Details about the algorithm '" +
               str(self.match_alg) + "':")
 
@@ -1724,7 +1724,7 @@ class Logger(object):
 
     def pt_export_structure_menu(self, min_rad, max_rad):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(" Export Structures ".center(80, "="))
         print(80 * "-")
 
@@ -1740,7 +1740,7 @@ class Logger(object):
 
     def pt_export_kabsch_menu(self):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(" Export Structures ".center(80, "="))
         print(80 * "-")
 
@@ -1754,7 +1754,7 @@ class Logger(object):
 
     def pt_change_vtk_settings_menu(self, settings, molecule1, molecule2):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(" Change VTK Settings ".center(80, "="))
         print(80 * "-")
 
@@ -1803,7 +1803,7 @@ class Logger(object):
 
     def pt_w_function_menu(self, align):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(" Set Weighting Functions ".center(80, "="))
         print(80 * "-")
 
@@ -1839,7 +1839,7 @@ class Logger(object):
 
     def pt_kabsch_menu(self, align, settings):
 
-        print("\n", 80 * "-")
+        print("\n" + 80 * "-")
         print(" Kabsch Algorithm, Statistics & Visualization ".center, "=")
         print(80 * "-")
 
