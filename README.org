@@ -1,5 +1,5 @@
 # file name: README.org
-# last edit: 07-Dez-2018
+# last edit: 13-Dez-2018
 #+AUTHOR:  Norwid Behrnd
 #+TITLE:
 #+DATE:
@@ -43,13 +43,16 @@
   (https://github.com/armsd/aRMSD) describes setting the program up to
   work in Windows by compilation / =PyInstaller=, eventually yielding
   an executable which would ease significantly the installation on
-  this operating system.  The case seems to be a bit more complex as
-  usual, since =PyInstaller= would need to consider to bundle /both/
-  the python scripts of =aRMSD= itself, as the externally accessed
-  within =vtk=.  Hopefully, such an executable installer would be
-  significantly less than the about 0.2..0.3 Gb typically needed for
-  an installation of the dependicies.
-  
+  this operating system.  
+
+  /Update:/ In an attempt (December 2018), I was not successful to
+  replicate Arne Wagner's outline, /maybe/ because I was not able to
+  resolve all dependicies of =aRMSD= successfully in a 32 bit version
+  of Windows with Python (version 2.7.15).  As a /temporary/
+  workaround -- with admittedly quite much larger footprint -- a
+  minimal support of the program for Windows 7 (64 bit) and Python
+  (version 3.6) is provided here.[fn:WindowsSupport]
+
   Secondly, as checked with =flake8=, the compiler script in this
   branch (=compile_aRMSD_revision_07Dez2018.py=) still seems to
   contain three indentation-related errors about instructions (lines
@@ -185,3 +188,7 @@ Coordination Chemistry of Guanidinate-Stabilised Diboranes) PhD thesis
 (2015), University of Heidelberg (Germany).  Written in German
 including an English summary.  The pdf of this document may be found
 at the doi 10.11588/heidok.00019018.
+
+[fn:WindowsSupport]  A limited /temporary/ support for =aRMSD= in
+Windows 7 (64 bit) and Python 3.6 is provided at
+[[https://github.com/nbehrnd/aRMSD-minimalWindowsSupport]].

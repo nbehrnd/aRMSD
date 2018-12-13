@@ -22,12 +22,15 @@ equally in other operating systems.
 (<https://github.com/armsd/aRMSD>) describes setting the program up to
 work in Windows by compilation / `PyInstaller`, eventually yielding
 an executable which would ease significantly the installation on
-this operating system.  The case seems to be a bit more complex as
-usual, since `PyInstaller` would need to consider to bundle *both*
-the python scripts of `aRMSD` itself, as the externally accessed
-within `vtk`.  Hopefully, such an executable installer would be
-significantly less than the about 0.2..0.3 Gb typically needed for
-an installation of the dependicies.
+this operating system.  
+
+*Update:* In an attempt (December 2018), I was not successful to
+replicate Arne Wagner's outline, *maybe* because I was not able to
+resolve all dependicies of `aRMSD` successfully in a 32 bit version
+of Windows with Python (version 2.7.15).  As a *temporary*
+workaround &#x2013; with admittedly quite much larger footprint &#x2013; a
+minimal support of the program for Windows 7 (64 bit) and Python
+(version 3.6) is provided here.<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>
 
 Secondly, as checked with `flake8`, the compiler script in this
 branch (`compile_aRMSD_revision_07Dez2018.py`) still seems to
@@ -93,7 +96,7 @@ Note, however, that an automate, batch-wise scrutiny of two model
 data may yield wrong results.  One potential pitfall is how the
 model information is handled prior to the refinement of the
 structure alignment, where `aRMSD` uses the Hungarian algorithm.  To
-quote Kildgaard:<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>
+quote Kildgaard:<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>
 
 "The RMSD can be minimized by translating and rotating one set of
 coordinates (the other is held fixed) because the molecules are
@@ -103,7 +106,7 @@ if the atoms are not ordered identically."
 
 Independent from this problem, the conventional RMSD optimization
 accounts only for *atom connectivity*, neglecting *bond order*.  As
-demonstrated (and illustrated) by Temeslo<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>, this may
+demonstrated (and illustrated) by Temeslo<sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup>, this may
 yield to results questionable from a chemists point of view.
 
 
@@ -112,7 +115,7 @@ yield to results questionable from a chemists point of view.
 `aRMSD` was developed in Windows by Arne Wagner during his PhD
 thesis in the Himmel group (University of Heidelberg, Germany).  It
 is described briefly in his PhD thesis submitted in
-2015.<sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup> The program was presented in further detail in
+2015.<sup><a id="fnr.6" class="footref" href="#fn.6">6</a></sup> The program was presented in further detail in
 
 Wagner, A.; Himmel, H.-J. aRMSD: A Comprehensive Tool for Structural
 Analysis.  *J. Chem. Inf. Model.*, 2017, *57*, 428&#x2013;438 (doi:
@@ -136,18 +139,22 @@ chemical toolbox. *J. Cheminf.* 2011, 3:33 (doi: 10.1186/1758-2946-3-33).
 
 <sup><a id="fn.2" href="#fnr.2">2</a></sup> <http://www.vtk.org>
 
-<sup><a id="fn.3" href="#fnr.3">3</a></sup> Kildgaard, J. V.; Mikkelsen, K. V.; Bilde, M.; Elm,
+<sup><a id="fn.3" href="#fnr.3">3</a></sup> A limited *temporary* support for `aRMSD` in
+Windows 7 (64 bit) and Python 3.6 is provided at
+<https://github.com/nbehrnd/aRMSD-minimalWindowsSupport>.
+
+<sup><a id="fn.4" href="#fnr.4">4</a></sup> Kildgaard, J. V.; Mikkelsen, K. V.; Bilde, M.; Elm,
 J. Hydration of Atmospheric Molecular Clusters: A New Method for
 Systematic Configurational Sampling. *J. Phys. Chem. A* 2018, 122,
 5026&#x2013;5036 (doi: 10.1021/acs.jpca.8b02758).
 
-<sup><a id="fn.4" href="#fnr.4">4</a></sup> Temeslo, B.; Mabey, J. M.; Kubota, T.; Appiah-Padi, N.;
+<sup><a id="fn.5" href="#fnr.5">5</a></sup> Temeslo, B.; Mabey, J. M.; Kubota, T.; Appiah-Padi, N.;
 Shields, G. C. ArbAlign: A Tool for Optimal Alignment of Arbitrarily
 Ordered Isomers Using the Kuhn-Munkres
 Algorithm. *J. Chem. Inf. Model.* 2017, 57, 1045&#x2013;1054 (doi:
 10.1021/acs.jcim.6b00546).
 
-<sup><a id="fn.5" href="#fnr.5">5</a></sup> Wagner, A.  Synthese und Koordinationschemie
+<sup><a id="fn.6" href="#fnr.6">6</a></sup> Wagner, A.  Synthese und Koordinationschemie
 guanidinatstabilisierter Diboranverbindungen.  (Synthesis and
 Coordination Chemistry of Guanidinate-Stabilised Diboranes) PhD thesis
 (2015), University of Heidelberg (Germany).  Written in German
