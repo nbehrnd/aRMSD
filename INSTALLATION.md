@@ -55,7 +55,7 @@ continuously added in the future, some of which are:
 Any ideas are always welcome and requested features will be added if time
 allows it.
 
-## Hints for the installation in Windows 10/64bit
+## Hints for the installation in Windows 10 and 11 (both 64bit)
 
 With current Python 3.13, it is not possible to successfully resolve the
 dependencies of `aRMSD` with `pip` reaching out to the public repository of the
@@ -67,8 +67,8 @@ in question rely not only on interpreted, but compiled source code; the later
 usually renders a Python wheel specific to a particular operating system.
 
 The sequence of instructions below describe an installation of `aRMSD` in
-Windows 10/64bit; these do not alter an already existing installation of
-Python 3.13.
+Windows 10 and Windows 11 (both 64bit); these do not alter an already existing
+installation of Python 3.13.
 
 1. Fetch the content of both
    [aRMSD](https://github.com/nbehrnd/aRMSD)
@@ -91,7 +91,7 @@ Python 3.13.
 
    ```
    @echo off
-   C:\Python27\python.exe%*
+   C:\Python27\python.exe %*
    ```
 
    to indicate the location of the interpreter.  You then can lauch the
@@ -104,7 +104,7 @@ Python 3.13.
    wheels fetched, install them one after the other, for instance by the command
 
    ```
-   python27.bat -m install "openbabel-2.4.1-cp27m-wind32.whl"
+   python27.bat -m pip install "openbabel-2.4.1-cp27m-wind32.whl"
    ```
 
    Note: at least in the case of `matplotlib`, `pip` successfully resolves a
