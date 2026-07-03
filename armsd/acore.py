@@ -3268,7 +3268,7 @@ class Kabsch(object):
             n_atoms = len(sym)
             comment = '; RMSD: ' + '{:3.5f}'.format(rmsd)
 
-            output = open(outfile_name, 'wb')
+            output = open(outfile_name, 'w')
 
             # Write number of atoms and comment string - RMSD as additional information
             output.write(str(n_atoms) + '\n' + logger.wrt_comment(comment))
@@ -4431,7 +4431,7 @@ def write_xyz_file(logger, outfile_name, sym, cor):
 
     extension = '.xyz'
 
-    output = open(outfile_name + extension, 'wb')
+    output = open(outfile_name + extension, 'w')
     output.write(str(len(sym)) + '\n' + logger.wrt_comment())
 
     # Write element symbol and coordinates to file
@@ -4470,7 +4470,7 @@ def write_xyzs_file(logger, outfile_name, sym, cor, cor_std, col_at_rgb, rad_at_
 
     n_atoms, n_bonds = len(sym), len(bnd_idx)
 
-    output = open(outfile_name + extension, 'wb')  # Generate outfile and write comment string
+    output = open(outfile_name + extension, 'w')  # Generate outfile and write comment string
     output.write(logger.wrt_comment() + comments + atoms_str + ' ' + str(n_atoms) + '\n')
 
     # Write out element symbol, coordinates (with standard deviations), colors and radii to file
