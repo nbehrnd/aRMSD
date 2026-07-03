@@ -57,9 +57,9 @@ except ImportError:
 
 b2a = 5.2917721092E-01  # Conversion factor: Bohr -> Angstrom
 NA = 6.02214129E+23  # Avogadro number
-x_axis = np.array([1.0, 0.0, 0.0], dtype=np.float)  # x axis
-y_axis = np.array([0.0, 1.0, 0.0], dtype=np.float)  # y axis
-z_axis = np.array([0.0, 0.0, 1.0], dtype=np.float)  # z axis
+x_axis = np.array([1.0, 0.0, 0.0], dtype=float)  # x axis
+y_axis = np.array([0.0, 1.0, 0.0], dtype=float)  # y axis
+z_axis = np.array([0.0, 0.0, 1.0], dtype=float)  # z axis
 
 ###############################################################################
 # ATOMIC PROPERTIES
@@ -97,7 +97,7 @@ pse_mass = np.array([1.00794, 4.002602, 6.941, 9.012182, 10.811, 12.0107, 14.006
                      140.90765, 144.242, 145.0, 150.36, 151.964, 157.25, 158.92535, 162.500,
                      164.93032, 167.259, 168.93421, 173.04, 174.967, 178.49, 180.94788, 183.84,
                      186.207, 190.23, 192.217, 195.084, 196.966569, 200.59, 204.3833, 207.2,
-                     208.98040, 209.0, 210.0, 222.0], dtype=np.float)
+                     208.98040, 209.0, 210.0, 222.0], dtype=float)
 
 # Numpy array of mass density in g cm**(-3) ('H' to 'Rn')
 pse_mass_dens = np.array([0.00008988, 0.0001785, 0.534, 1.85, 2.34, 2.267, 0.0012506, 0.001429,
@@ -108,7 +108,7 @@ pse_mass_dens = np.array([0.00008988, 0.0001785, 0.534, 1.85, 2.34, 2.267, 0.001
                           8.69, 7.31, 7.287, 6.685, 6.232, 4.93, 0.005887, 1.873, 3.594, 6.145,
                           6.77, 6.773, 7.007, 7.26, 7.52, 5.243, 7.895, 8.229, 8.55, 8.795, 9.066,
                           9.321, 6.965, 9.84, 13.31, 16.654, 19.25, 21.02, 22.61, 22.56, 21.46,
-                          19.282, 13.5336, 11.85, 11.342, 9.807, 9.32, 7.0, 0.00973], dtype=np.float)
+                          19.282, 13.5336, 11.85, 11.342, 9.807, 9.32, 7.0, 0.00973], dtype=float)
 
 # Numpy array of covalent radii ('H' to 'Rn')
 pse_cov_radii = np.array([0.31, 0.28, 1.28, 0.96, 0.84, 0.76, 0.71, 0.66, 0.57, 0.58, 1.66, 1.41,
@@ -118,7 +118,7 @@ pse_cov_radii = np.array([0.31, 0.28, 1.28, 0.96, 0.84, 0.76, 0.71, 0.66, 0.57, 
                           1.42, 1.39, 1.39, 1.38, 1.39, 1.40, 2.44, 2.15, 2.07, 2.04, 2.03, 2.01,
                           1.99, 1.98, 1.98, 1.96, 1.94, 1.92, 1.92, 1.89, 1.90, 1.87, 1.87, 1.75,
                           1.70, 1.62, 1.51, 1.44, 1.41, 1.36, 1.36, 1.32, 1.45, 1.46, 1.48, 1.40,
-                          1.50, 1.50], dtype=np.float)
+                          1.50, 1.50], dtype=float)
 
 # Numpy array of atomic radii ('H' to 'Rn')
 pse_atm_radii = np.array([0.79, 0.49, 2.05, 1.40, 1.17, 0.91, 0.75, 0.65, 0.57, 0.51, 2.23, 1.72,
@@ -128,7 +128,7 @@ pse_atm_radii = np.array([0.79, 0.49, 2.05, 1.40, 1.17, 0.91, 0.75, 0.65, 0.57, 
                           2.00, 1.72, 1.53, 1.42, 1.32, 1.24, 3.34, 2.78, 2.74, 2.70, 2.67, 2.64,
                           2.62, 2.59, 2.56, 2.54, 2.51, 2.49, 2.47, 2.45, 2.42, 2.40, 2.25, 2.16,
                           2.09, 2.02, 1.97, 1.92, 1.87, 1.83, 1.79, 1.76, 2.08, 1.81, 1.63, 1.53,
-                          1.43, 1.34], dtype=np.float)
+                          1.43, 1.34], dtype=float)
 
 # Numpy array of Pauling electronegativities ('H' to 'Rn')
 pse_en_array = np.array([2.20, 0.00, 0.98, 1.57, 2.04, 2.55, 3.04, 3.44, 3.98, 0.00, 0.93, 1.31,
@@ -138,7 +138,7 @@ pse_en_array = np.array([2.20, 0.00, 0.98, 1.57, 2.04, 2.55, 3.04, 3.44, 3.98, 0
                          1.78, 1.96, 2.05, 2.10, 2.66, 2.60, 0.79, 0.89, 1.10, 1.12, 1.13, 1.14,
                          1.13, 1.17, 1.20, 1.20, 1.10, 1.22, 1.23, 1.24, 1.25, 1.10, 1.27, 1.30,
                          1.15, 2.36, 1.90, 2.20, 2.20, 2.28, 2.54, 2.00, 1.62, 1.33, 2.02, 2.00,
-                         2.20, 2.20], dtype=np.float)
+                         2.20, 2.20], dtype=float)
 
 # Numpy array of element groups ('H' to 'Rn', Lanthanides treated as 'group 19')
 pse_groups = np.array([1, 18,
@@ -147,7 +147,7 @@ pse_groups = np.array([1, 18,
                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
                        1, 2, 3, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
-                       4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], dtype=np.int)
+                       4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], dtype=int)
 
 # Numpy array of 'Group symbols' (G + group number or Ln for Lanthanides)
 pse_group_sym = np.array(['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G10', 'G11',
@@ -171,7 +171,7 @@ pse_mo_xsf_1 = np.array([0.999974000, 1.999920000, 2.999967910, 4.000413720, 5.0
                          70.68863786, 71.63652883, 72.41532520, 73.33183231, 74.13242229,
                          74.97072119, 75.69623669, 76.36229730, 77.15513157, 77.72152069,
                          78.33406107, 78.79183573, 79.01674319, 78.88371081, 76.32290487,
-                         77.68380199], dtype=np.float)
+                         77.68380199], dtype=float)
 
 pse_mo_xsf_2 = np.array([0.000000170, 0.000006470, 0.000054730, 0.000260980, 0.000674200,
                          0.001610370, 0.003230590, 0.006114140, 0.010329240, 0.016483590,
@@ -190,7 +190,7 @@ pse_mo_xsf_2 = np.array([0.000000170, 0.000006470, 0.000054730, 0.000260980, 0.0
                          6.238131620, 6.433290800, 6.581230870, 6.772497840, 7.128189080,
                          7.593924980, 7.980841300, 8.578650880, 8.870082880, 9.325896860,
                          9.718822150, 10.15356198, 10.58964941, 11.15808877, 10.44615983,
-                         10.50834220], dtype=np.float)
+                         10.50834220], dtype=float)
 
 # X-ray atomic scattering factors f' and f'' for lambda = 1.54184 A (CuK-alpha) E = 8041.3 eV, ('H' to 'Rn')
 pse_cu_xsf_1 = np.array([0.999984000, 2.000140580, 3.001162920, 4.004108190, 5.009628120,
@@ -210,7 +210,7 @@ pse_cu_xsf_1 = np.array([0.999984000, 2.000140580, 3.001162920, 4.004108190, 5.0
                          64.24474058, 65.87137578, 67.51609965, 68.98303895, 70.26366688,
                          71.36574776, 72.60374495, 73.66787199, 74.98908149, 76.10774824,
                          77.19833959, 78.27461986, 79.31748661, 80.24788380, 81.35789793,
-                         82.63666651], dtype=np.float)
+                         82.63666651], dtype=float)
 
 pse_cu_xsf_2 = np.array([0.000001110, 0.000040270, 0.000334410, 0.001540060, 0.004083640,
                          0.009618100, 0.018392640, 0.033766580, 0.055062310, 0.085184070,
@@ -229,7 +229,7 @@ pse_cu_xsf_2 = np.array([0.000001110, 0.000040270, 0.000334410, 0.001540060, 0.0
                          5.033621450, 5.285741090, 5.483156570, 5.777077990, 6.090901370,
                          6.437484690, 6.816182270, 7.246360550, 7.728822140, 8.074129010,
                          8.457227470, 8.946724710, 9.311847770, 9.714787250, 10.41474655,
-                         11.02345398], dtype=np.float)
+                         11.02345398], dtype=float)
 
 # X-ray atomic scattering factors f' and f'' for lambda = 1.79026 A (CoK-alpha) E = 6925.5 eV, ('H' to 'Rn')
 pse_co_xsf_1 = np.array([0.999988000, 2.000237400, 3.001662210, 4.005606620, 5.012858040,
@@ -249,7 +249,7 @@ pse_co_xsf_1 = np.array([0.999988000, 2.000237400, 3.001662210, 4.005606620, 5.0
                          65.74629248, 67.10083785, 68.57035502, 69.88961011, 71.06030113,
                          72.07331437, 73.24950482, 74.23304405, 75.43700437, 76.53427055,
                          77.53945855, 78.51917254, 79.49385662, 80.34021865, 81.36163338,
-                         82.53725521], dtype=np.float)
+                         82.53725521], dtype=float)
 
 pse_co_xsf_2 = np.array([0.000001590, 0.000057390, 0.000472450, 0.002156960, 0.005704070,
                          0.013370990, 0.025394760, 0.046372520, 0.075081730, 0.115465560,
@@ -268,7 +268,7 @@ pse_co_xsf_2 = np.array([0.000001590, 0.000057390, 0.000472450, 0.002156960, 0.0
                          6.361743850, 6.689732240, 6.924457720, 7.307287020, 7.697926020,
                          8.130491400, 8.622037410, 9.148644060, 9.849790360, 10.21048882,
                          10.68735988, 11.26657187, 11.74884219, 12.23279512, 13.14385856,
-                         13.87197692], dtype=np.float)
+                         13.87197692], dtype=float)
 
 # X-ray atomic scattering factors f' and f'' for lambda = 1.93736 A (FeK-alpha) E = 6399.6 eV, ('H' to 'Rn')
 pse_fe_xsf_1 = np.array([0.999991000, 2.000302920, 3.001980440, 4.006561320, 5.014911400,
@@ -288,7 +288,7 @@ pse_fe_xsf_1 = np.array([0.999991000, 2.000302920, 3.001980440, 4.006561320, 5.0
                          66.20742172, 67.49045937, 68.92762858, 70.19752940, 71.32945224,
                          72.30328707, 73.45008909, 74.39449472, 75.49432762, 76.61171759,
                          77.56216763, 78.48938487, 79.40761372, 80.20186816, 81.14337423,
-                         82.25710308], dtype=np.float)
+                         82.25710308], dtype=float)
 
 pse_fe_xsf_2 = np.array([0.000001930, 0.000069250, 0.000567090, 0.002577170, 0.006795290,
                          0.015880530, 0.030063670, 0.054743770, 0.088296320, 0.135355940,
@@ -307,7 +307,7 @@ pse_fe_xsf_2 = np.array([0.000001930, 0.000069250, 0.000567090, 0.002577170, 0.0
                          7.189058170, 7.549600870, 7.827808230, 8.263269350, 8.703194640,
                          9.187937040, 9.755009580, 10.33858909, 11.18024899, 11.54972058,
                          12.08293694, 12.71449490, 13.26755805, 13.80051161, 14.84237071,
-                         15.64410106], dtype=np.float)
+                         15.64410106], dtype=float)
 
 # X-ray atomic scattering factors f' and f'' for lambda = 2.29100 A (CrK-alpha) E = 5411.8 eV, ('H' to 'Rn')
 pse_cr_xsf_1 = np.array([0.999998740, 2.000474820, 3.002846690, 4.009060080, 5.020249760,
@@ -327,7 +327,7 @@ pse_cr_xsf_1 = np.array([0.999998740, 2.000474820, 3.002846690, 4.009060080, 5.0
                          66.79365610, 67.97996572, 69.36961631, 70.54473771, 71.59201206,
                          72.47090601, 73.52436623, 74.37198970, 75.08838966, 76.32398963,
                          77.11084079, 77.90570402, 78.62645396, 79.26500513, 79.90603697,
-                         80.83428331], dtype=np.float)
+                         80.83428331], dtype=float)
 
 pse_cr_xsf_2 = np.array([0.000002880, 0.000103440, 0.000836050, 0.003747460, 0.009823300,
                          0.022780250, 0.042858600, 0.077570470, 0.124079820, 0.188876710,
@@ -346,7 +346,7 @@ pse_cr_xsf_2 = np.array([0.000002880, 0.000103440, 0.000836050, 0.003747460, 0.0
                          9.290948060, 9.702860840, 10.13402533, 10.69545714, 11.26576924,
                          11.87799819, 12.64273257, 13.36849525, 14.44525675, 14.95491521,
                          15.61635138, 16.38822913, 17.09243578, 17.75485388, 19.09794190,
-                         20.11074014], dtype=np.float)
+                         20.11074014], dtype=float)
 
 # Numpy array of element colors ('H' to 'Rn')
 pse_colors = np.array(['#ffffff', '#ffc8c8', '#a52a2a', '#ff1493', '#00ff00', '#c8c8c8', '#8f8fff',
@@ -427,7 +427,7 @@ def unique(a):
     order = np.lexsort(a.T)
     a = a[order]
     diff = np.diff(a, axis=0)
-    ui = np.ones(len(a), dtype=np.bool)
+    ui = np.ones(len(a), dtype=bool)
     ui[1:] = (diff != 0).any(axis=1)
 
     # Return value(s)
@@ -878,12 +878,12 @@ def check_substructure(molecule1, molecule2, logger, pos1, pos2):
         molecule1.chg_sub = np.take(molecule1.chg, pos1)
         molecule1.cor_sub = np.take(molecule1.cor, pos1, axis=0)
         molecule1.n_atoms_sub = len(molecule1.chg_sub)
-        molecule1.idf_sub = np.arange(1, molecule1.n_atoms_sub + 1, dtype=np.int)
+        molecule1.idf_sub = np.arange(1, molecule1.n_atoms_sub + 1, dtype=int)
 
         molecule2.chg_sub = np.take(molecule2.chg, pos2)
         molecule2.cor_sub = np.take(molecule2.cor, pos2, axis=0)
         molecule2.n_atoms_sub = len(molecule2.chg_sub)
-        molecule2.idf_sub = np.arange(1, molecule2.n_atoms_sub + 1, dtype=np.int)
+        molecule2.idf_sub = np.arange(1, molecule2.n_atoms_sub + 1, dtype=int)
 
         if np.allclose(molecule1.chg_sub, molecule2.chg_sub):
 
@@ -908,8 +908,8 @@ def set_initial_substructure(molecule1, molecule2):
     molecule2.chg_sub, molecule2.cor_sub, molecule2.n_atoms_sub = np.copy(molecule2.chg), np.copy(molecule2.cor), int(
         np.copy(molecule2.n_atoms))
 
-    molecule1.idf_sub = np.arange(1, molecule1.n_atoms_sub + 1, dtype=np.int)
-    molecule2.idf_sub = np.arange(1, molecule2.n_atoms_sub + 1, dtype=np.int)
+    molecule1.idf_sub = np.arange(1, molecule1.n_atoms_sub + 1, dtype=int)
+    molecule2.idf_sub = np.arange(1, molecule2.n_atoms_sub + 1, dtype=int)
 
 
 def reset_substructure(molecule1, molecule2, logger):
@@ -940,7 +940,7 @@ def calc_permutation_matrix(xyz1, xyz2, logger):
         return_array = np.zeros(np.shape(vector))
 
         # Set array at positions where the value in 'array' is <= delta_value to '1.0'
-        return_array[np.where(np.array(vector, dtype=np.float) <= delta_value)[0]] = 1.0
+        return_array[np.where(np.array(vector, dtype=float) <= delta_value)[0]] = 1.0
 
         return return_array
 
@@ -951,7 +951,7 @@ def calc_permutation_matrix(xyz1, xyz2, logger):
         return_array = np.ones(np.shape(vector))
 
         # Set array at positions where the value in 'array' is >= delta_value to '0.0'
-        return_array[np.where(np.array(vector, dtype=np.float) >= delta_value)[0]] = 0.0
+        return_array[np.where(np.array(vector, dtype=float) >= delta_value)[0]] = 0.0
 
         return return_array
 
@@ -982,9 +982,9 @@ def calc_permutation_matrix(xyz1, xyz2, logger):
 
         # Calculate distances from all atoms
         dist_all_atoms_xyz1 = np.array([distance_from_all_atoms(entry, xyz1)
-                                        for entry in range(n_atoms1)], dtype=np.float)
+                                        for entry in range(n_atoms1)], dtype=float)
         dist_all_atoms_xyz2 = np.array([distance_from_all_atoms(entry, xyz2)
-                                        for entry in range(n_atoms2)], dtype=np.float)
+                                        for entry in range(n_atoms2)], dtype=float)
 
         # Calculate contributions to matrix elements
         # Distance between atoms
@@ -1042,7 +1042,7 @@ def decompose_molecule(chg, cor, idf):
 
         print('overwriting decomposition')
 
-        atom_types = np.array([1], dtype=np.int)
+        atom_types = np.array([1], dtype=int)
         occurrences = 1
         decomposed_molecule = [[cor, idf], [cor, idf]]
 
@@ -1132,8 +1132,8 @@ def match_molecules(molecule1, molecule2, logger):
             identifiers_molecule2.extend(id2[indices_mol2])
 
     # Transform identifiers to single arrays containing the new positions
-    pos_mol1 = np.ravel(np.array(identifiers_molecule1, dtype=np.int) - 1)
-    pos_mol2 = np.ravel(np.array(identifiers_molecule2, dtype=np.int) - 1)
+    pos_mol1 = np.ravel(np.array(identifiers_molecule1, dtype=int) - 1)
+    pos_mol2 = np.ravel(np.array(identifiers_molecule2, dtype=int) - 1)
 
     # Update charges (should be redundant but just to be sure...)
     molecule1.chg = np.take(molecule1.chg, pos_mol1)
@@ -1205,7 +1205,7 @@ def project_radii(radii, spacing, r_min, r_max):
 
     # Determine respective array positions
     pos = np.array([np.argmin(np.abs(radii_to_proj -
-                                     radii_norm[entry])) for entry in range(len(radii_norm))], dtype=np.int)
+                                     radii_norm[entry])) for entry in range(len(radii_norm))], dtype=int)
 
     # Determine new radii
     return np.take(values_to_proj, pos)
@@ -1232,12 +1232,12 @@ class _HungarianState(object):
         self.C = cost_matrix.copy()
 
         n, m = self.C.shape
-        self.row_uncovered = np.ones(n, dtype=np.bool)
-        self.col_uncovered = np.ones(m, dtype=np.bool)
+        self.row_uncovered = np.ones(n, dtype=bool)
+        self.col_uncovered = np.ones(m, dtype=bool)
         self.Z0_r = 0
         self.Z0_c = 0
-        self.path = np.zeros((n + m, 2), dtype=np.int)
-        self.marked = np.zeros((n, m), dtype=np.int)
+        self.path = np.zeros((n + m, 2), dtype=int)
+        self.marked = np.zeros((n, m), dtype=int)
 
     def _clear_covers(self):
         """Clear all covered matrix cells"""
@@ -1439,7 +1439,7 @@ class Molecule(object):
         self.col_at_rgb = None  # Color array for the atoms [RGB]
         self.col_bnd_rgb = None  # Color array for the bonds [RGB]
         self.symOPs = []  # List of applied symmetry operations
-        self.tot_symOP = np.identity(3, dtype=np.float)  # Combination of all applied sym OPs
+        self.tot_symOP = np.identity(3, dtype=float)  # Combination of all applied sym OPs
         self.show_mol = True  # If molecule is to be shown again
 
         self.disord_pos = None  # Positions of highest deviations after matching
@@ -1466,14 +1466,14 @@ class Molecule(object):
     def get_charge(self):
         """ Gets/updates charges from element symbols """
 
-        self.chg = np.array([pse_symbol[symbol] for symbol in self.sym], dtype=np.int)
+        self.chg = np.array([pse_symbol[symbol] for symbol in self.sym], dtype=int)
         self.n_atoms = len(self.chg)
         self.n_h_atoms = len(np.where(self.chg == 1)[0])
 
     def get_symbol(self):
         """ Gets/updates symbols from nuclear charges """
 
-        self.sym = np.asarray(np.take(pse_sym_chg, self.chg - 1), dtype=np.object)
+        self.sym = np.asarray(np.take(pse_sym_chg, self.chg - 1), dtype=object)
 
     def get_mass(self):
         """ Gets/updates atomic masses from nuclear charges """
@@ -1501,13 +1501,13 @@ class Molecule(object):
     def get_identifiers(self):
         """ Generates/updates identifiers """
 
-        self.idf = np.arange(1, len(self.chg) + 1, dtype=np.int)
+        self.idf = np.arange(1, len(self.chg) + 1, dtype=int)
 
     def get_sym_idf(self):
         """ Combines symbols and identifiers """
 
         self.sym_idf = np.asarray([('%s-%d' % (self.sym[atom], self.idf[atom])) for atom in range(self.n_atoms)],
-                                  dtype=np.object)
+                                  dtype=object)
 
     def get_group_charges(self):
         """ Gets group charges (can be used for the matching of different atom types)
@@ -1518,12 +1518,12 @@ class Molecule(object):
     def get_group_masses(self):
         """ Gets group masses of the elements from nuclear charges """
 
-        self.mas_grp = np.ones(self.n_atoms, dtype=np.float)
+        self.mas_grp = np.ones(self.n_atoms, dtype=float)
 
     def get_group_symbols(self):
         """ Generates group symbols from group charges """
 
-        self.sym_grp = np.asarray(np.take(pse_group_sym, self.chg_grp - 601), dtype=np.object)
+        self.sym_grp = np.asarray(np.take(pse_group_sym, self.chg_grp - 601), dtype=object)
 
     def update_properties(self, settings, get_bonds=True):
         """ Updates all molecular properties """
@@ -1622,7 +1622,7 @@ class Molecule(object):
             h_cor = np.take(self.cor, h_atom_pos, axis=0)
             n_atoms_h = len(h_cor)
 
-            pos = np.asarray([single_entry(h_atom) for h_atom in range(n_atoms_h)], dtype=np.bool)
+            pos = np.asarray([single_entry(h_atom) for h_atom in range(n_atoms_h)], dtype=bool)
 
             return h_atom_pos[pos]
 
@@ -1635,7 +1635,7 @@ class Molecule(object):
 
         return np.asarray(np.hstack((self.fnd_H_atoms_bnd_ele(6, settings), self.fnd_H_atoms_bnd_ele(14, settings),
                                      self.fnd_H_atoms_bnd_ele(32, settings), self.fnd_H_atoms_bnd_ele(50, settings),
-                                     self.fnd_H_atoms_bnd_ele(82, settings))), dtype=np.int) \
+                                     self.fnd_H_atoms_bnd_ele(82, settings))), dtype=int) \
             if full_group_14 else self.fnd_H_atoms_bnd_ele(6, settings)
 
     def rem_H_atoms_btc(self, settings, full_group_14=False):
@@ -1817,7 +1817,7 @@ class Molecule(object):
         # Construct full tensor
         inertia_tensor = np.array([[tensor_xx, tensor_xy, tensor_xz],
                                    [tensor_xy, tensor_yy, tensor_yz],
-                                   [tensor_xz, tensor_yz, tensor_zz]], dtype=np.float)
+                                   [tensor_xz, tensor_yz, tensor_zz]], dtype=float)
 
         # Normalize tensor
         inertia_tensor /= np.max(inertia_tensor)
@@ -1837,7 +1837,7 @@ class Molecule(object):
             """ Subroutine to check and recalculate the inertia tensor if the PAs are not the x,y and z axes """
 
             # Principal axes not rotated properly
-            if not np.asarray(np.diag(self.ine_pa) == np.ones(3, dtype=np.float)).all():
+            if not np.asarray(np.diag(self.ine_pa) == np.ones(3, dtype=float)).all():
 
                 X = np.linalg.solve(self.ine_pa, identity_matrix)
                 self.cor = np.transpose(np.dot(X, np.transpose(self.cor)))
@@ -1845,7 +1845,7 @@ class Molecule(object):
                 self.ine_pc, self.ine_pa = np.linalg.eigh(self.ine_ten)
 
         # Define unity matrix and axes
-        identity_matrix = np.identity(3, dtype=np.float)
+        identity_matrix = np.identity(3, dtype=float)
 
         # Shift center of mass to cartesian origin
         self.calc_com(calc_for)
@@ -1885,7 +1885,7 @@ class Molecule(object):
         # x axis == reflects x values -> corresponds to yz plane
 
         # Ensure a normalized reflection axis
-        ref_axis /= np.linalg.norm(np.array(ref_axis, dtype=np.float))
+        ref_axis /= np.linalg.norm(np.array(ref_axis, dtype=float))
 
         # Extract x, y, and z coefficients
         a, b, c = ref_axis
@@ -1893,7 +1893,7 @@ class Molecule(object):
         # Calculate reflection matrix
         ref_matrix = np.array([[1.0 - 2.0 * a ** 2, -2.0 * a * b, -2.0 * a * c],
                                [-2.0 * a * b, 1.0 - 2.0 * b ** 2, -2.0 * b * c],
-                               [-2.0 * a * c, -2.0 * b * c, 1.0 - 2.0 * c ** 2]], dtype=np.float)
+                               [-2.0 * a * c, -2.0 * b * c, 1.0 - 2.0 * c ** 2]], dtype=float)
 
         self.symOPs.append(ref_matrix)
         self.cor = np.dot(self.cor, ref_matrix)
@@ -1908,7 +1908,7 @@ class Molecule(object):
         theta = 2.0 * (np.pi / int(n))
 
         # Ensure a normalized rotation axis
-        rot_axis /= np.linalg.norm(np.array(rot_axis, dtype=np.float))
+        rot_axis /= np.linalg.norm(np.array(rot_axis, dtype=float))
 
         # Extract x, y, and z coefficients
         a, b, c = rot_axis
@@ -1927,7 +1927,7 @@ class Molecule(object):
         # Set up rotation matrix
         rot_matrix = np.array([[m11, m12, m13],
                                [m21, m22, m23],
-                               [m31, m32, m33]], dtype=np.float)
+                               [m31, m32, m33]], dtype=float)
 
         self.symOPs.append(rot_matrix)
         self.cor = np.dot(self.cor, rot_matrix)
@@ -2149,7 +2149,7 @@ class Kabsch(object):
         """ Combines symbols and identifiers """
 
         self.sym_idf = np.asarray([('%s-%d' % (self.sym[atom], self.idf[atom])) for atom in range(self.n_atoms)],
-                                  dtype=np.object)
+                                  dtype=object)
 
     def init_coords(self, molecule1, molecule2):
         """ Initializes coordinates and shifts geometric center to origin """
@@ -2233,8 +2233,8 @@ class Kabsch(object):
 
         # Create bond labels
         chg1, chg2 = np.transpose(self.bnd_types)
-        self.bnd_label = np.asarray(pse_sym_chg[chg1 - 1], dtype=np.object) + "-" + np.asarray(pse_sym_chg[chg2 - 1],
-                                                                                               dtype=np.object)
+        self.bnd_label = np.asarray(pse_sym_chg[chg1 - 1], dtype=object) + "-" + np.asarray(pse_sym_chg[chg2 - 1],
+                                                                                               dtype=object)
 
     def get_angle_idx(self, settings, calc_for='mol1'):
         """ Calculates all angle indices in a molecule based on bond indices """
@@ -2349,9 +2349,9 @@ class Kabsch(object):
 
             # Combine entry combinations
             return np.hstack((np.ravel(np.asarray([np.hstack((pos, triple)) for pos in c_pc0 if pos not in triple],
-                                                  dtype=np.int)),
+                                                  dtype=int)),
                               np.ravel(np.asarray([np.hstack((triple, pos)) for pos in c_pc2 if pos not in triple],
-                                                  dtype=np.int))))
+                                                  dtype=int))))
 
         if calc_for == 'mol1':
 
@@ -2375,12 +2375,12 @@ class Kabsch(object):
         if calc_for == 'mol1':
 
             # Transform list to array and reshape it
-            self.tor_idx_mol1 = np.asarray(torsions, dtype=np.int).reshape((int(len(torsions) / 4.0), 4))
+            self.tor_idx_mol1 = np.asarray(torsions, dtype=int).reshape((int(len(torsions) / 4.0), 4))
 
         else:
 
             # Transform list to array and reshape it
-            self.tor_idx_mol2 = np.asarray(torsions, dtype=np.int).reshape((int(len(torsions) / 4.0), 4))
+            self.tor_idx_mol2 = np.asarray(torsions, dtype=int).reshape((int(len(torsions) / 4.0), 4))
 
     def calc_coord_pos(self, settings, cor_xyz, rad_cov, pos):
         """ Calculates the positions of all adjacent atoms to the atoms of the given index """
@@ -2444,7 +2444,7 @@ class Kabsch(object):
 
             b = coords[:-1] - coords[1:]
             b[0] *= -1.0
-            v = np.asarray([v - (v.dot(b[1]) / b[1].dot(b[1])) * b[1] for v in [b[0], b[2]]], dtype=np.float)
+            v = np.asarray([v - (v.dot(b[1]) / b[1].dot(b[1])) * b[1] for v in [b[0], b[2]]], dtype=float)
 
             # Normalize vectors
             v /= np.sqrt(np.einsum('...i,...i', v, v)).reshape(-1, 1)
@@ -2705,11 +2705,11 @@ class Kabsch(object):
                                         str(symbol) + str('.nff'))
 
                 # Read in data using optimized Numpy routine: skip first row and use all three columns
-                content = np.loadtxt(filepath, dtype=np.float, skiprows=1, usecols=(0, 1, 2))
+                content = np.loadtxt(filepath, dtype=float, skiprows=1, usecols=(0, 1, 2))
 
                 # Find nearest scattering factors by interpolation
-                xsf1 = np.interp(logger.xfs_energy, np.transpose(content)[0], np.transpose(content)[1])
-                xsf2 = np.interp(logger.xfs_energy, np.transpose(content)[0], np.transpose(content)[2])
+                xsf1 = interp(logger.xfs_energy, np.transpose(content)[0], np.transpose(content)[1])
+                xsf2 = interp(logger.xfs_energy, np.transpose(content)[0], np.transpose(content)[2])
                 success = 1.0
 
             except (IOError, NameError, SyntaxError, ValueError):
@@ -2734,7 +2734,7 @@ class Kabsch(object):
 
         # Read energies and both scattering factors for element types from file
         xsf1_type, xsf2_type, success = np.transpose(np.array([get_xsf_atom_type(self, logger, charge, xsf_type)
-                                                               for charge in charge_set], dtype=np.float))
+                                                               for charge in charge_set], dtype=float))
 
         if 0.0 in success:
             logger.pt_xsf_import_error()  # Track error
@@ -2770,7 +2770,7 @@ class Kabsch(object):
 
         if self.wts_type == 'none':
 
-            self.wts_mol1 = np.ones(self.n_atoms, dtype=np.float)
+            self.wts_mol1 = np.ones(self.n_atoms, dtype=float)
             self.wts_mol2 = np.copy(self.wts_mol1)
 
         elif self.wts_type == 'mass':
@@ -2780,13 +2780,13 @@ class Kabsch(object):
 
         elif self.wts_type == 'n_electrons':
 
-            self.wts_mol1 = np.asarray(self.chg_mol1, dtype=np.float)
-            self.wts_mol2 = np.asarray(self.chg_mol2, dtype=np.float)
+            self.wts_mol1 = np.asarray(self.chg_mol1, dtype=float)
+            self.wts_mol2 = np.asarray(self.chg_mol2, dtype=float)
 
         elif self.wts_type == 'n_core_electrons':
 
-            self.wts_mol1 = np.asarray([get_core_el(charge) for charge in self.chg_mol1], dtype=np.float)
-            self.wts_mol2 = np.asarray([get_core_el(charge) for charge in self.chg_mol2], dtype=np.float)
+            self.wts_mol1 = np.asarray([get_core_el(charge) for charge in self.chg_mol1], dtype=float)
+            self.wts_mol2 = np.asarray([get_core_el(charge) for charge in self.chg_mol2], dtype=float)
 
         elif self.wts_type == 'rho_sph':
 
@@ -2958,7 +2958,7 @@ class Kabsch(object):
         self.r_sq = 1.0 - (SSres / SStot)
 
         # Calculate GARD
-        gard_val = np.ones(self.n_atoms, dtype=np.float)
+        gard_val = np.ones(self.n_atoms, dtype=float)
 
         if logger.has_uc and logger.use_std:  # Change to uarray in case of uncertainties
 
@@ -3109,7 +3109,7 @@ class Kabsch(object):
         if np.sum(RMSD_per_atom) < settings.eps:
 
             # Use smaller sphere sizes
-            radii = np.ones(self.n_atoms, dtype=np.float) * 1500
+            radii = np.ones(self.n_atoms, dtype=float) * 1500
 
         else:
 
@@ -3140,12 +3140,12 @@ class Kabsch(object):
             self.plt_col_aRMSD = make_color_scale(settings.n_col_aRMSD, as_rgb=False)
 
             # Generate spacing list [0.0, ..., max_RMSD_diff] with length of 'n_col_aRMSD' based on length of color array
-            diff_col = np.linspace(0.0, settings.max_RMSD_diff, settings.n_col_aRMSD, endpoint=True, dtype=np.float)
+            diff_col = np.linspace(0.0, settings.max_RMSD_diff, settings.n_col_aRMSD, endpoint=True, dtype=float)
 
             # Find best matching color in the defined HTML colors based on "RMSD_per_atom" values
             # Use: "atomic_RMSD_norm" for relative deviation (1.0 to 0.0) or "RMSD_per_atom" for an absolute deviation
             col_pos = np.array([np.argmin(np.abs(diff_col - RMSD_per_atom[atom]))
-                                for atom in range(self.n_atoms)], dtype=np.int)
+                                for atom in range(self.n_atoms)], dtype=int)
 
             self.col_at_hex = np.take(self.plt_col_aRMSD, col_pos)
 
@@ -3913,7 +3913,7 @@ def hex2rgb(hexcolor, normalize=False):
     if normalize:
         r, g, b = round(r / 255.0, 5), round(g / 255.0, 5), round(b / 255.0, 5)
 
-    return np.array([r, g, b], dtype=np.float)
+    return np.array([r, g, b], dtype=float)
 
 
 def make_color_scale(n_colors, as_rgb=False):
@@ -3936,7 +3936,7 @@ def make_color_scale(n_colors, as_rgb=False):
 
             return np.asarray([rgb2hex(entry[0], entry[1], entry[2]) for entry in all_colors_rgb])
 
-    col_idx = np.linspace(0, 512, n_colors, endpoint=True, dtype=np.int)
+    col_idx = np.linspace(0, 512, n_colors, endpoint=True, dtype=int)
     col_idx[-1] = 511  # Last entry must be 511
 
     return get_all_colors(as_rgb=False)[col_idx]
@@ -4041,10 +4041,10 @@ def get_data(logger, input_file, filetype, settings):
             mol = pybel.readfile(filetype, input_file).next()  # Parse data with openbabel
 
             # Extract charges and coordinates from data, transform charges to symbols
-            element_charge = np.asarray([atom.atomicnum for atom in mol], dtype=np.int)
-            element_xyz = np.asarray([atom.coords for atom in mol], dtype=np.float)
+            element_charge = np.asarray([atom.atomicnum for atom in mol], dtype=int)
+            element_xyz = np.asarray([atom.coords for atom in mol], dtype=float)
 
-            element_symbol = np.asarray(np.take(pse_sym_chg, element_charge - 1), dtype=np.object)
+            element_symbol = np.asarray(np.take(pse_sym_chg, element_charge - 1), dtype=object)
 
             return element_symbol, element_xyz
 
@@ -4229,13 +4229,13 @@ def read_orca_out_file(logger, data):
                     f += 1
 
     # Transform lists to arrays and reshape coordinate array
-    element_symbol = np.asarray(element_symbol, dtype=np.object)
-    element_xyz = np.asarray(element_xyz, dtype=np.float)
+    element_symbol = np.asarray(element_symbol, dtype=object)
+    element_xyz = np.asarray(element_xyz, dtype=float)
     element_xyz = np.reshape(element_xyz, (len(element_symbol), 3))
 
     if element_xyz_std is not None:  # Reshape gradient if it exists
 
-        element_xyz_std = np.asarray(element_xyz_std, dtype=np.float)
+        element_xyz_std = np.asarray(element_xyz_std, dtype=float)
         element_xyz_std = np.abs(np.reshape(element_xyz_std, (len(element_symbol), 3)))
 
     # Return value(s)
@@ -4278,14 +4278,14 @@ def read_gaussian_out_file(logger, data):
                 f += 1
 
     # Transform lists to arrays and get symbols from charges
-    element_charge = np.asarray(element_charge, dtype=np.int)
-    element_symbol = np.asarray(np.take(pse_sym_chg, element_charge - 1), dtype=np.object)
-    element_xyz = np.asarray(element_xyz, dtype=np.float)
+    element_charge = np.asarray(element_charge, dtype=int)
+    element_symbol = np.asarray(np.take(pse_sym_chg, element_charge - 1), dtype=object)
+    element_xyz = np.asarray(element_xyz, dtype=float)
     element_xyz = np.reshape(element_xyz, (len(element_symbol), 3))
 
     if element_xyz_std is not None:  # Reshape gradient if it exists
 
-        element_xyz_std = np.asarray(element_xyz_std, dtype=np.float)
+        element_xyz_std = np.asarray(element_xyz_std, dtype=float)
 
     # Return value(s)
     return element_symbol, element_xyz, element_xyz_std
@@ -4307,8 +4307,8 @@ def read_sdf_file(logger, data):
         element_xyz.append(data[index].split()[0:3])
 
     # Transform lists to arrays
-    element_symbol = np.asarray(element_symbol, dtype=np.object)
-    element_xyz = np.asarray(element_xyz, dtype=np.float)
+    element_symbol = np.asarray(element_symbol, dtype=object)
+    element_xyz = np.asarray(element_xyz, dtype=float)
 
     # Return value(s
     return element_symbol, element_xyz
@@ -4350,8 +4350,8 @@ def read_mol2_file(logger, data):
                     coordinates_left_to_read = False
 
     # Transform lists to arrays
-    element_symbol = np.asarray(element_symbol, dtype=np.object)
-    element_xyz = np.asarray(element_xyz, dtype=np.float)
+    element_symbol = np.asarray(element_symbol, dtype=object)
+    element_xyz = np.asarray(element_xyz, dtype=float)
 
     # Return value(s
     return element_symbol, element_xyz
@@ -4388,8 +4388,8 @@ def read_xyz_file(logger, data):
             element_xyz.append(data[line].split()[-3:])
 
     # Transform lists to arrays
-    element_symbol = np.asarray(element_symbol, dtype=np.object)
-    element_xyz = np.asarray(element_xyz, dtype=np.float)
+    element_symbol = np.asarray(element_symbol, dtype=object)
+    element_xyz = np.asarray(element_xyz, dtype=float)
 
     # Return value(s)
     return element_symbol, element_xyz
@@ -4413,9 +4413,9 @@ def read_xyzs_file(data):
             f += 1
 
     # Transform lists to arrays
-    element_symbol = np.asarray(element_symbol, dtype=np.object)
-    element_xyz = np.asarray(element_xyz, dtype=np.float)
-    element_xyz_std = np.asarray(element_xyz_std, dtype=np.float)
+    element_symbol = np.asarray(element_symbol, dtype=object)
+    element_xyz = np.asarray(element_xyz, dtype=float)
+    element_xyz_std = np.asarray(element_xyz_std, dtype=float)
 
     return element_symbol, element_xyz, element_xyz_std
 
@@ -4599,7 +4599,7 @@ class Xray_structure(object):
     def get_charge(self):
         """ Gets/updates charges from element symbols """
 
-        self.chg = np.array([pse_symbol[symbol] for symbol in self.sym], dtype=np.int)
+        self.chg = np.array([pse_symbol[symbol] for symbol in self.sym], dtype=int)
         self.n_atoms = len(self.chg)
 
     def get_mass(self):
@@ -4610,13 +4610,13 @@ class Xray_structure(object):
     def get_identifiers(self):
         """ Generates/updates identifiers """
 
-        self.idf = np.arange(1, len(self.chg) + 1, dtype=np.int)
+        self.idf = np.arange(1, len(self.chg) + 1, dtype=int)
 
     def get_sym_idf(self):
         """ Combines symbols and identifiers """
 
         self.sym_idf = np.asarray([('%s-%d' % (self.sym[atom], self.idf[atom])) for atom in range(self.n_atoms)],
-                                  dtype=np.object)
+                                  dtype=object)
 
     def get_cov_radii(self, settings):
         """ Gets/updates covalent radii from nuclear charges """
@@ -4703,7 +4703,7 @@ class Xray_structure(object):
                     f += 1  # Increase increment by 1
 
         # Clean up symbols and transform the list to an array
-        self.sym = np.asarray([_clean_up_symbol(entry) for entry in element_symbol], dtype=np.object)
+        self.sym = np.asarray([_clean_up_symbol(entry) for entry in element_symbol], dtype=object)
 
         self.get_charge()  # Get charges and number of atoms
         self.get_cov_radii(settings)  # Get covalent radii
@@ -4711,7 +4711,7 @@ class Xray_structure(object):
         self.get_sym_idf()
         self.col_at_rgb = np.transpose(np.repeat(self.col_glob_rgb, self.n_atoms).reshape((3, self.n_atoms)))
 
-        self.cor_frac = np.asarray(element_xyz_frac, dtype=np.float)  # Transform strings to floats
+        self.cor_frac = np.asarray(element_xyz_frac, dtype=float)  # Transform strings to floats
         self.cor_frac = np.reshape(self.cor_frac, (self.n_atoms, 3))  # Reshape coordinate array
 
         self.symOPs = list_of_symOPs
@@ -4743,7 +4743,7 @@ class Xray_structure(object):
 
             element_xyz_frac_std = np.zeros((self.n_atoms, 3))  # No uncertainties in .res/.ins files
 
-        element_xyz_frac_std = np.asarray(element_xyz_frac_std, dtype=np.float)  # Transform strings to floats
+        element_xyz_frac_std = np.asarray(element_xyz_frac_std, dtype=float)  # Transform strings to floats
         self.std_frac = np.reshape(element_xyz_frac_std, (self.n_atoms, 3))  # Reshape coordinate array
 
         self.calc_trans_mat()  # Calculate transformation matrix
@@ -4754,7 +4754,7 @@ class Xray_structure(object):
         def _transform_to_float(value):
             """ Splits the standard deviation of the value """
 
-            return ufloat(np.float(value), 0.0) if value.find('(') == -1 else ufloat_fromstr(value)
+            return ufloat(float(value), 0.0) if value.find('(') == -1 else ufloat_fromstr(value)
 
         def _multi_transform_to_float(values):
             """ Transform all items in a list """
@@ -4766,7 +4766,7 @@ class Xray_structure(object):
                 a.append(value_as_ufloat.nominal_value)
                 b.append(value_as_ufloat.std_dev)
 
-            return np.asarray(a, dtype=np.float), np.asarray(b, dtype=np.float)
+            return np.asarray(a, dtype=float), np.asarray(b, dtype=float)
 
         element_symbol, element_xyz_frac, element_u_val = [], [], []
         list_of_symOPs = []
@@ -4865,8 +4865,8 @@ class Xray_structure(object):
             else:
 
                 # Arrays for integer -> float conversion
-                int_num = np.arange(10, dtype=np.int)
-                flt_num = np.arange(10, dtype=np.float)
+                int_num = np.arange(10, dtype=int)
+                flt_num = np.arange(10, dtype=float)
 
                 for number in range(10):  # Update all possible numbers
 
@@ -4933,7 +4933,7 @@ class Xray_structure(object):
         """ Calculates regular cartesian coordinates from fractional coordinates including bonds """
 
         self.cor = np.transpose(np.dot(self.trans_mat, np.transpose(self.cor_frac)))  # Transform coordinates
-        self.cor = np.asarray(unp.nominal_values(self.cor), dtype=np.float)
+        self.cor = np.asarray(unp.nominal_values(self.cor), dtype=float)
         self.get_bonds(settings)
 
     def final_transformation(self):
@@ -4944,8 +4944,8 @@ class Xray_structure(object):
 
         # Convert fractional to cartesian coordinates
         element_coords = np.transpose(np.dot(self.trans_mat, np.transpose(unp.uarray(self.cor_frac, self.std_frac))))
-        self.cor = np.asarray(unp.nominal_values(element_coords), dtype=np.float)
-        self.std = np.asarray(unp.std_devs(element_coords), dtype=np.float)
+        self.cor = np.asarray(unp.nominal_values(element_coords), dtype=float)
+        self.std = np.asarray(unp.std_devs(element_coords), dtype=float)
 
         self.std[pos_h_fix] = np.array([0.0, 0.0, 0.0])  # Set stds of fixed/unrefined H/heavy atoms to zero
         self.finalized = True

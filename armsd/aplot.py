@@ -130,7 +130,7 @@ class aRMSD_substructure_picker(vtkInteractorStyleTrackballCamera):
         self.AddObserver('LeftButtonPressEvent', self.leftButtonPressEvent)
 
         # Arrays for picked atoms and actors
-        self.PickedAtoms, self.PickedActors = np.array([], dtype=np.int), np.array([], dtype=np.int)
+        self.PickedAtoms, self.PickedActors = np.array([], dtype=int), np.array([], dtype=int)
 
         self.LastPickedActor = None
         self.LastPickedProperty = vtkProperty()
@@ -156,7 +156,7 @@ class aRMSD_substructure_picker(vtkInteractorStyleTrackballCamera):
             return ravel_bnds[pos]
 
         # Set up initial connection array and evaluate first index
-        connection_array = np.asarray(idx, dtype=np.int)
+        connection_array = np.asarray(idx, dtype=int)
         connection_array = np.unique(np.hstack((connection_array, _is_connected_to(idx))))
 
         checked_pos = [idx]  # This list contains all positions that have been checked
@@ -578,7 +578,7 @@ class Molecular_Viewer_vtk(object):
 
         if self.picker is not None and self.plot_type in ['substructure', 'fractional']:
 
-            return np.ravel(np.asarray(self.picker.PickedAtoms, dtype=np.int))
+            return np.ravel(np.asarray(self.picker.PickedAtoms, dtype=int))
 
         #self.close_window()
 
@@ -631,8 +631,8 @@ class Molecular_Viewer_vtk(object):
 
         startPoint, endPoint = com*settings.scale_glob, (pa*2 + com)*settings.scale_glob
 
-        normalizedX, normalizedY, normalizedZ = np.zeros(3, dtype=np.float), np.zeros(3, dtype=np.float), \
-                                                np.zeros(3, dtype=np.float)
+        normalizedX, normalizedY, normalizedZ = np.zeros(3, dtype=float), np.zeros(3, dtype=float), \
+                                                np.zeros(3, dtype=float)
 
         arrow = vtkArrowSource()
         arrow.SetShaftResolution(settings.res_atom)
@@ -703,8 +703,8 @@ class Molecular_Viewer_vtk(object):
 
             startPoint, endPoint = np.asarray([0.0, 0.0, -length]), np.asarray([0.0, 0.0, length])
 
-        normalizedX, normalizedY, normalizedZ = np.zeros(3, dtype=np.float), np.zeros(3, dtype=np.float), \
-                                                np.zeros(3, dtype=np.float)
+        normalizedX, normalizedY, normalizedZ = np.zeros(3, dtype=float), np.zeros(3, dtype=float), \
+                                                np.zeros(3, dtype=float)
 
         arrow = vtkArrowSource()
         arrow.SetShaftResolution(settings.res_atom)
@@ -1410,7 +1410,7 @@ class Statistics_mpl(object):
             [plt_axis.text(data_mol2[pos], data_mol1[pos] - 0.1,
                            align.bnd_label[pos], zorder=3, fontsize=13) for pos in range(align.n_bnd_types)]
 
-            add_lim = np.asarray([-0.1, 0.1], dtype=np.float)
+            add_lim = np.asarray([-0.1, 0.1], dtype=float)
 
             limits += add_lim
 
