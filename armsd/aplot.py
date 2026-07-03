@@ -264,7 +264,7 @@ class aRMSD_substructure_picker(vtkInteractorStyleTrackballCamera):
                     pos_in_picked_atoms = np.ravel(np.asarray([np.where(self.PickedAtoms == pos)[0]
                                                                for pos in all_positions]))
 
-                    self.PickedActors = np.unique(np.asarray([np.delete(self.PickedActors, np.where(self.PickedActors == self.actors_to_pick[pos])[0]) for pos in all_positions]))  # Remove actor from array
+                    self.PickedActors = np.unique(np.asarray([np.delete(self.PickedActors, np.where(self.PickedActors == self.actors_to_pick[pos])[0]) for pos in all_positions], dtype=object))  # Remove actor from array
                     self.PickedAtoms = np.unique(np.delete(self.PickedAtoms, pos_in_picked_atoms, axis=0))  # Remove atomic index from index array
 
                     [actor.GetProperty().SetColor(self.colors) for actor in self.PickedActors]  # Change colors for all atoms

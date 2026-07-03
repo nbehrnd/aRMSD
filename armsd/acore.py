@@ -560,7 +560,7 @@ def check_for_identical_pos(xyz, eps=0.3):
         return pos
 
     # Calculate distances for all coordinates
-    mult_mol = np.asarray([np.where(np.sqrt(np.sum((xyz - coord) ** 2, axis=1)) < eps)[0] for coord in xyz])
+    mult_mol = np.asarray([np.where(np.sqrt(np.sum((xyz - coord) ** 2, axis=1)) < eps)[0] for coord in xyz], dtype=object)
 
     # Determine positions where more than one atom is below the 'eps' limit
     data_mol = mult_mol[np.asarray([len(entry) > 1 for entry in mult_mol])]
@@ -1036,7 +1036,7 @@ def decompose_molecule(chg, cor, idf):
 
     # Decompose molecule
     decomposed_molecule = np.asarray([per_atom_type(atom_type, chg, cor, idf)
-                                      for atom_type in atom_types])
+                                      for atom_type in atom_types], dtype=object)
 
     if overwrite_decomp:
 
@@ -2366,7 +2366,7 @@ class Kabsch(object):
         torsions = []  # Set up empty torsion list
 
         # Calculate all indices of atoms connected to each atom
-        candidates = np.asarray([self.calc_coord_pos(settings, cor_xyz, rad_cov, atom) for atom in range(self.n_atoms)])
+        candidates = np.asarray([self.calc_coord_pos(settings, cor_xyz, rad_cov, atom) for atom in range(self.n_atoms)], dtype=object)
 
         # Calculate all torsion/dihedral indices
         [torsions.extend(tors_per_angle(triple, candidates[triple[0]], candidates[triple[1]]))
@@ -2926,7 +2926,7 @@ class Kabsch(object):
         self.n_atom_types = len(self.at_types)  # Determine number of atom types
 
         # Determine occurrences and positions of element types
-        pos = np.asarray([np.where(self.sym == self.at_types[entry])[0] for entry in range(self.n_atom_types)])
+        pos = np.asarray([np.where(self.sym == self.at_types[entry])[0] for entry in range(self.n_atom_types)], dtype=object)
         self.occ = np.asarray([len(entry) for entry in pos])
 
         # Handle uncertainties
@@ -4038,7 +4038,7 @@ def get_data(logger, input_file, filetype, settings):
 
         try:
 
-            mol = pybel.readfile(filetype, input_file).next()  # Parse data with openbabel
+            mol = next(pybel.readfile(filetype, input_file))  # Parse data with openbabel
 
             # Extract charges and coordinates from data, transform charges to symbols
             element_charge = np.asarray([atom.atomicnum for atom in mol], dtype=int)
