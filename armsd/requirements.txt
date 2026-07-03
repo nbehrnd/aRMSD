@@ -1,5 +1,0 @@
-matplotlib==3.11.0
-numpy==2.5.0
-openbabel==3.2.0
-uncertainties==3.2.3
-vtk==9.6.2

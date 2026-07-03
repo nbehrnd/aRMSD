@@ -9,9 +9,10 @@ aRMSD core functions
 from __future__ import absolute_import, division, print_function
 
 import os
+import importlib.resources
 from io import open
 
-import aplot as ap
+from . import aplot as ap
 from builtins import range, input
 from functools import reduce
 
@@ -2700,9 +2701,19 @@ class Kabsch(object):
 
             try:
 
-                # Determine absolute file path (assume all .nff files are located in the 'xsf' subdirectory)
-                filepath = os.path.join(os.environ.get('_MEIPASS2', os.path.abspath('.')), 'xsf',
-                                        str(symbol) + str('.nff'))
+                # Prefer a local 'xsf' folder next to the CWD (dev/override use), fall back
+                # to the copy shipped inside the installed 'armsd' package (importlib.resources)
+                cwd_filepath = os.path.join(os.environ.get('_MEIPASS2', os.path.abspath('.')), 'xsf',
+                                            str(symbol) + str('.nff'))
+
+                if os.path.isfile(cwd_filepath):
+
+                    filepath = cwd_filepath
+
+                else:
+
+                    filepath = str(importlib.resources.files('armsd').joinpath(
+                        'xsf', str(symbol) + str('.nff')))
 
                 # Read in data using optimized Numpy routine: skip first row and use all three columns
                 content = np.loadtxt(filepath, dtype=float, skiprows=1, usecols=(0, 1, 2))
@@ -3376,8 +3387,17 @@ class settings(object):
 
             try:
 
-                # Determine absolute file path
-                filepath = os.path.join(os.environ.get('_MEIPASS2', os.path.abspath('.')), file_name)
+                # Prefer a local settings.cfg next to the CWD (dev/override use), fall back
+                # to the default copy shipped inside the installed 'armsd' package
+                cwd_filepath = os.path.join(os.environ.get('_MEIPASS2', os.path.abspath('.')), file_name)
+
+                if os.path.isfile(cwd_filepath):
+
+                    filepath = cwd_filepath
+
+                else:
+
+                    filepath = str(importlib.resources.files('armsd').joinpath(file_name))
 
                 infile = open(filepath, "r")
                 data = infile.readlines()
