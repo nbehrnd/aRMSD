@@ -27,8 +27,8 @@ except ImportError:
 
 try:
 
-    import pybel
-    import openbabel
+    from openbabel import pybel
+    from openbabel import openbabel
 
 except ImportError:
 
@@ -78,7 +78,7 @@ __aRMSD_release__ = 2018
 
 __log_version__ = '2018-11-28'
 __core_version__ = '2026-07-03'
-__plot_version__ = '2026-07-03'  # there are points to better, but no change yet
+__plot_version__ = '2026-07-03'
 
 __author__ = author+' <'+author_email+'>'
 

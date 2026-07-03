@@ -30,7 +30,7 @@ except ImportError:
 
 try:
 
-    import pybel
+    from openbabel import pybel
     from openbabel import OBReleaseVersion
 
     has_pybel, pyb_version = True, OBReleaseVersion()
