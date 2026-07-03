@@ -1258,7 +1258,7 @@ class Statistics_mpl(object):
 
             mng.frame.Maximize(True)
 
-        plt.show(all)  # Show all plots
+        plt.show()  # Show all plots
 
     def linregress(self, x, y):
         """ Calculate a least-squares regression for two sets of measurements (taken from scipy) """
