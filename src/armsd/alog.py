@@ -1840,7 +1840,7 @@ class Logger(object):
     def pt_kabsch_menu(self, align, settings):
 
         print("\n" + 80 * "-")
-        print(" Kabsch Algorithm, Statistics & Visualization ".center, "=")
+        print(" Kabsch Algorithm, Statistics & Visualization ".center(80, "="))
         print(80 * "-")
 
         print("-10 Exit aRMSD")
@@ -1879,7 +1879,7 @@ class Logger(object):
     def pt_change_rmsd_settings_menu(self, settings):
 
         print("\n" + 80 * "-")
-        print(" Change RMSD Settings ".center, "=")
+        print(" Change RMSD Settings ".center(80, "="))
         print(80 * "-")
 
         print("-10 Return to upper menu")

@@ -20,18 +20,7 @@ Dependencies:
 * matplotlib
 * vtk
 * uncertainties
-* [Cython]
 * [openbabel/pybel]
-
-*** IMPORTANT NOTICE ***
-It is highly recommended to install all dependencies directly from
-python wheels prior to the installation of aRMSD (especially numpy and vtk)
-
-* Recent changes are listed in CHANGELOG.md
-
-* This project is hosted on GitHub: https://github.com/armsd/aRMSD
-
-* Documentation: http://armsd.rtfd.io
 
 (c) 2016 by Arne Wagner <arne.wagner@aci.uni-heidelberg.de>.
 Please send feature requests, bugs and feedback to this address.
@@ -46,6 +35,6 @@ author.
 
 from __future__ import absolute_import
 
-from aRMSD import run, __aRMSD_version__, __author__
+from .aRMSD import run, __aRMSD_version__, __author__
 
 __version__ = __aRMSD_version__
