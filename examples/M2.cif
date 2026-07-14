@@ -27,7 +27,7 @@ loop_
 
 _chemical_name_systematic
 ;
-(2-Acetoxybenzoato)-tris(triphenylphosphine)-silver(i) N,N-dimethylformamide 
+(2-Acetoxybenzoato)-tris(triphenylphosphine)-silver(i) N,N-dimethylformamide
 solvate
 ;
 _chemical_formula_moiety

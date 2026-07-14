@@ -11,7 +11,7 @@
 |    source (http://www.github.com/nbehrnd/armsd), and version used.           |
 +------------------------------------------------------------------------------+
 
-                                                                     13-Jul-2026
+                                                                     14-Jul-2026
 
 
 *** Log file about the superposition of structures ***
@@ -27,17 +27,17 @@
   to the same group in the periodic table, the molecules are
   considered as consistent.
 
-    No disorder in the structures was found.                
+    No disorder in the structures was found.
 
     Initial number of atoms in "Model"...                   	20  (7 H atoms)
     Initial number of atoms in "Reference"...               	20  (7 H atoms)
-    
+
     Consistency between the structures was established:
     The number of atoms in "Model"...                       	20  (7 H atoms)
     The number of atoms in "Reference"...                   	20  (7 H atoms)
-    
-    No further modifications were performed.           
-    
+
+    No further modifications were performed.
+
     Final global atom count (number of hydrogens retained)...	20  (7 H atoms)
 
 * Transformation of the molecules into "Standard Orientation":
@@ -87,9 +87,9 @@
     # This matrix aligns Model with Reference.
     # U already includes all custom symmetry operations!
 
-    
 
-* Final Quality of the Superposition:                 
+
+* Final Quality of the Superposition:
 
     RMSD (Kabsch test, refined superposition [Angstrom])... 	0.20274
     Superposition R^2 (dimensionless)...                    	0.99499
@@ -120,7 +120,7 @@
 
 * Evaluation of structural parameters:
     # 1. The RMSE values are the root-mean-square errors
-    #    between the corresponding properties of the two tructures.
+    #    between the corresponding properties of the two structures.
     # 2. The R**2 values are the the correlation coefficients
     #    between the two data sets.
 
@@ -139,6 +139,6 @@
     Number of dihedrals...                                  	148
     R**2 of linear correlation (dimensionless)...           	0.99617
     RMSE [degrees]...                                       	4.26160
-    
 
-*** End of log file ***                               
+
+*** End of log file ***

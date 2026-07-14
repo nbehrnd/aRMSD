@@ -94,7 +94,7 @@ Temeslo.[^9]
 
 # Proposed installation and use
 
-`aRMSD` preferrably is used in a virtual environment of Python 3.10 (or
+`aRMSD` preferably is used in a virtual environment of Python 3.10 (or
 above) to resolve its dependencies. Depending on Python version and
 operating system, this support can add up to about 1GB permanent memory.
 With the `.whl` at disposition (release page of the GitHub repository,

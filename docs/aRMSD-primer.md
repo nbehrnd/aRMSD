@@ -63,7 +63,7 @@ key points of the workflow on .xyz data.
 ├──  decide over the program'ś matching algorithm used
 │    ├── -1 continue with the current choice, or
 │    ├── -2 change ge matching algorithm or solver
-│    │   ├── -10 to leave the for the next upper level of hierachy
+│    │   ├── -10 to leave the for the next upper level of hierarchy
 │    │   ├── -1 to show detail;s of the currently used algorithm
 │    │   ├── 1 use absolute distance between the atoms
 │    │   ├── 2 use a combination of absolute and relative distances
@@ -85,7 +85,7 @@ key points of the workflow on .xyz data.
     │   ├── 1 for x-ray scattering factors (Mo K\alpha)
     │   ├── 2 atomic masses
     │   ├── 3 total number of electrons
-    │   ├── 4 numnber of core electrons
+    │   ├── 4 number of core electrons
     │   ├── 5 spherical electron densities
     │   ├── 6 LDA electron densities
     │   └  -10 to return to the upper menu (then needs new a -1 for the test)
@@ -93,7 +93,7 @@ key points of the workflow on .xyz data.
     └── collect the results
         ├── 0 to visualize the results in a aRMSD representation
         ├── 1 visualize structural superposition
-        ├── 2 peform statistics investigation of bond lengths and angles (plots)
+        ├── 2 perform statistics investigation of bond lengths and angles (plots)
         ├── 3 show RMSD results
         ├── 4 intrerpolate between the structures (cart., 10 steps)
         ├── 5 generate the permanent aRMSD_out.log file
@@ -122,7 +122,7 @@ below:
 |    source (http://www.github.com/nbehrnd/armsd), and version used.           |
 +------------------------------------------------------------------------------+
 
-                                                                     13-Jul-2026
+                                                                     14-Jul-2026
 
 
 *** Log file about the superposition of structures ***
@@ -138,17 +138,17 @@ below:
   to the same group in the periodic table, the molecules are
   considered as consistent.
 
-    No disorder in the structures was found.                
+    No disorder in the structures was found.
 
     Initial number of atoms in "Model"...                   	20  (7 H atoms)
     Initial number of atoms in "Reference"...               	20  (7 H atoms)
-    
+
     Consistency between the structures was established:
     The number of atoms in "Model"...                       	20  (7 H atoms)
     The number of atoms in "Reference"...                   	20  (7 H atoms)
-    
-    No further modifications were performed.           
-    
+
+    No further modifications were performed.
+
     Final global atom count (number of hydrogens retained)...	20  (7 H atoms)
 
 * Transformation of the molecules into "Standard Orientation":
@@ -198,9 +198,9 @@ below:
     # This matrix aligns Model with Reference.
     # U already includes all custom symmetry operations!
 
-    
 
-* Final Quality of the Superposition:                 
+
+* Final Quality of the Superposition:
 
     RMSD (Kabsch test, refined superposition [Angstrom])... 	0.20274
     Superposition R^2 (dimensionless)...                    	0.99499
@@ -231,7 +231,7 @@ below:
 
 * Evaluation of structural parameters:
     # 1. The RMSE values are the root-mean-square errors
-    #    between the corresponding properties of the two tructures.
+    #    between the corresponding properties of the two structures.
     # 2. The R**2 values are the the correlation coefficients
     #    between the two data sets.
 
@@ -250,9 +250,9 @@ below:
     Number of dihedrals...                                  	148
     R**2 of linear correlation (dimensionless)...           	0.99617
     RMSE [degrees]...                                       	4.26160
-    
 
-*** End of log file ***                               
+
+*** End of log file ***
 ```
 
 The complete log of a test run with `M1.xyz` and `M2.xyz` as test data,
@@ -260,11 +260,12 @@ the report back to the BASH shell is provided below. Host system was an
 instance of Linux Debian 13/trixie, supported by Python 3.13.5
 
 ``` shell
+
 ================================================================================
-                          aRMSD (version 1.0.0, 2026)                           
+                          aRMSD (version 1.0.0, 2026)
 ================================================================================
-               A. Wagner, University of Heidelberg (2015, 2017),                
-                           forked by N. Behrnd (2018)                           
+               A. Wagner, University of Heidelberg (2015, 2017),
+                           forked by N. Behrnd (2018)
 
 --------------------------------- Description ----------------------------------
 Key features:
@@ -285,9 +286,9 @@ Key features:
     (doi: 10.1021/acs.jcim.6b00516); with address and version of aRMSD used.
 
 Release dates of the individual modules:
-- core module:    	'2026-07-03'
+- core module:    	'2026-07-14'
 - plot module:    	'2026-07-03'
-- log  module:    	'2026-07-03'
+- log  module:    	'2026-07-14'
 
 Module check:
 - numpy         	'2.5.1'
@@ -491,7 +492,7 @@ Enter the file name with extension for the second file (exp./reference)
 	The geometric RMSD of the current alignment is:  0.214 A
 
 		 The 5 most disordered atom pairs are:
-		Entry		      Pair		  Distance / A 
+		Entry		      Pair		  Distance / A
 		  5		   H-3 -- H-3   	    0.510
 		  4		   H-5 -- H-5   	    0.539
 		  3		   H-6 -- H-6   	    0.571
@@ -530,9 +531,37 @@ Enter the file name with extension for the second file (exp./reference)
 ... To continue, quit the pop-up window with 'q'.
 > To save the scene as *.png, press 's'.
 
->>  Enter your choice: 1-
+>>  Enter your choice: 10
 
-> ERROR: Input invalid or out of range, try again!
+> The current status was saved successfully!
+
+--------------------------------------------------------------------------------
+=================== Symmetry Adjustments & Sequence Matching ===================
+--------------------------------------------------------------------------------
+-6  Set number of deviations which are highlighted in the plot (current = 5)
+-5  Load the saved status (save point available: 'True')
+-4  Change plot settings
+-3  Manually swap atoms in Model structure
+-2  Change matching algorithm or solver
+-1  Match molecular sequences based on current alignment
+--------------------------------------------------------------------------------
+    Current matching algorithm  : 'distance'
+    Current matching solver     : 'hungarian'
+    Structures were matched     : 'True'
+--------------------------------------------------------------------------------
+0   ... exit the menu (no return)
+1   ... inversion at the origin
+2   ... reflection at the xy plane
+3   ... reflection at the xz plane
+4   ... reflection at the yz plane
+5   ... rotation around the x axis
+6   ... rotation around the y axis
+7   ... rotation around the z axis
+8   ... show the molecules again
+--------------------------------------------------------------------------------
+10  ... save current changes (status was saved: 'True')
+20  ... export structures
+--------------------------------------------------------------------------------
 
 >>  Enter your choice: 0
 
@@ -824,5 +853,7 @@ Entries are: Atoms, values in the Model and Reference, difference
 --------------------------------------------------------------------------------
 ========================== Normal program termination ==========================
 --------------------------------------------------------------------------------
+
+
 
 ```

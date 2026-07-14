@@ -33,7 +33,7 @@ def pyinstaller_data(name, platform, obf_files):
     #             'pywin.dialogs', 'tcl', 'Tkconstants', 'Tkinter', 'wx', '_Qt5Agg', '_webagg']
 
     data_excl = []
-    
+
     hiddenimp = ['matplotlib', 'vtk', 'uncertainties']
 
     if obf_files is not None:  # Add pybel to hiddenimports
@@ -151,7 +151,7 @@ def get_current_version(armsd_dir):
         platform += '64'
 
     else:
-        
+
         platform += '32'
 
     name += '_{}_{}'.format(version, platform)
@@ -160,7 +160,7 @@ def get_current_version(armsd_dir):
 
 
 def has_module(mod, site_packages_path):
-    """ Checks for a module folder in the site pacakges path """
+    """ Checks for a module folder in the site packages path """
 
     return os.path.isdir(site_packages_path+'\\'+mod)
 
@@ -229,7 +229,7 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
 
     def _write_obf(obf_files, build_dir):
 
-        return_string = 'a.binaries'        
+        return_string = 'a.binaries'
 
         if obf_files is not None:
 
@@ -243,13 +243,11 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
 
                     return_string += " + [('"+obf_files[entry]+"', "+repr(build_dir+'\\'+obf_files[entry])+", 'BINARY')]"
 
-		return_string += " + [('"+obf_files[-1]+"', "+repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
+        return_string += " + [('"+obf_files[-1]+"', "+repr(build_dir+'\\'+obf_files[-1])+", 'BINARY')],"
 
-	else:
+    return_string += ','
 
-            return_string += ','
-
-	return return_string
+    return return_string
 
     os.chdir(build_dir)  # Change to build directory and create a new file
 
@@ -259,7 +257,7 @@ def write_spec_file(build_dir, pyinst_dict, obf_files):
 
     # Write temporary setup file
     with open(spec_file, 'w') as outfile:
-        
+
         outfile.write("""
 # Automatically created aRMSD 'spec' file for a PyInstaller based compilation
 # This file deletes itself after the installation.
@@ -310,7 +308,7 @@ a = Analysis(['aRMSD.py'],
 for exclude_data in exclude_datas:
 
     a.datas = [x for x in a.datas if exclude_data not in x[0]]
-    
+
 # Setup pyz
 pyz = PYZ(a.pure, a.zipped_data,
           cipher = block_cipher)
@@ -347,10 +345,10 @@ def package_cython_modules(build_dir, list_of_files, cython_compiler):
     os.chdir(build_dir)  # Change to build directory and create a new file
 
     setup_file = 'cythonize_modules.py'
-    
+
     # Write temporary setup file
     with open(setup_file, 'w') as outfile:
-        
+
         outfile.write("""
 from setuptools import setup
 from setuptools import Extension
@@ -400,8 +398,8 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
     # Check for PyInstaller and openbabel
     has_pyinst = has_module('pyinstaller', site_packages_path)
     has_obabel = has_module('openbabel', site_packages_path)
-    
-    obf_files = None  # Will be checked and updated if .obf files are copyied
+
+    obf_files = None  # Will be checked and updated if .obf files are copied
 
     if has_pyinst:
 
@@ -454,7 +452,7 @@ def run_compilation(use_openbabel, use_cython, cython_compiler, overwrite):
 
         if use_openbabel and has_obabel:  # Copy obenbabel files
 
-            print('\n>> Copying openbabel files...')            
+            print('\n>> Copying openbabel files...')
             obf_files = copy_obfiles(build_dir, site_packages_path)
             write_ob_hook(site_packages_path, overwrite)
 

@@ -57,11 +57,11 @@ except ImportError:
 #
 # __aRMSD_version__ = '0.9.4'
 # __aRMSD_release__ = 2017
-# 
+#
 # __log_version__ = '2017-04-05'
 # __core_version__ = '2017-01-03'
 # __plot_version__ = '2016-11-03'
-# 
+#
 # __author__ = author+' <'+author_email+'>'
 # end of the backup copy
 
@@ -76,8 +76,8 @@ lic = 'MIT'
 __aRMSD_version__ = '1.0.0'
 __aRMSD_release__ = 2026
 
-__log_version__ = '2026-07-03'
-__core_version__ = '2026-07-03'
+__log_version__ = '2026-07-14'
+__core_version__ = '2026-07-14'
 __plot_version__ = '2026-07-03'
 
 __author__ = author+' <'+author_email+'>'
@@ -109,7 +109,7 @@ instructions. Load two molecular structures from files and work your way
 through the program """
 
 
-# HERE START THE MAIN PROGRAM FUNCTIONS (Menues and main program)
+# HERE START THE MAIN PROGRAM FUNCTIONS (Menus and main program)
 ###############################################################################
 # HANDLERS FOR USER INPUT
 ###############################################################################
@@ -234,7 +234,7 @@ def export_structure(molecule1, molecule2, logger, settings):
             logger.pt_invalid_input()
 
 ###############################################################################
-# MAIN MENUES
+# MAIN MENUS
 ###############################################################################
 
 

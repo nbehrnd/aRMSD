@@ -1,9 +1,9 @@
 
 ================================================================================
-                          aRMSD (version 0.9.8, 2018)                           
+                          aRMSD (version 0.9.8, 2018)
 ================================================================================
-               A. Wagner, University of Heidelberg (2015, 2017),                
-                           forked by N. Behrnd (2018)                           
+               A. Wagner, University of Heidelberg (2015, 2017),
+                           forked by N. Behrnd (2018)
 
 --------------------------------- Description ----------------------------------
 Key features:
@@ -235,7 +235,7 @@ Enter the file name with extension for the second file (exp./reference)
 	The geometric RMSD of the current alignment is:  0.214 A
 
 		 The 5 most disordered atom pairs are:
-		Entry		      Pair		  Distance / A 
+		Entry		      Pair		  Distance / A
 		  5		   H-3 -- H-3   	    0.511
 		  4		   H-5 -- H-5   	    0.539
 		  3		   H-6 -- H-6   	    0.571
@@ -596,4 +596,3 @@ Entries are: Atoms, values in the Model and Reference, difference
 --------------------------------------------------------------------------------
 ========================== Normal program termination ==========================
 --------------------------------------------------------------------------------
-

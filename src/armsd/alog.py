@@ -641,7 +641,7 @@ class Logger(object):
 
                 output.write("\n\n* Evaluation of structural parameters:\n"),
                 output.write("    # 1. The RMSE values are the root-mean-square errors\n")
-                output.write("    #    between the corresponding properties of the two tructures.\n")
+                output.write("    #    between the corresponding properties of the two structures.\n")
 
                 output.write("    # 2. The R**2 values are the the correlation coefficients\n")
                 output.write("    #    between the two data sets.\n")
@@ -1313,11 +1313,11 @@ class Logger(object):
 
         if reset_type == 'save':
 
-            print("\n> Matching process will be reseted ...")
+            print("\n> Matching process will be reset ...")
 
         elif reset_type == 'origin':
 
-            print("\n> Consistency process will be reseted ...")
+            print("\n> Consistency process will be reset ...")
 
     def pt_sym_inversion(self):
 
@@ -1668,7 +1668,7 @@ class Logger(object):
         print(80 * "-")
 
         print("1   ... use absolute distance between atoms ('distance')")
-        print("2   ... use combination of absolut and relative distances ('combined')")
+        print("2   ... use combination of absolute and relative distances ('combined')")
         print("3   ... use random permutations ('brute_force')")
         print(80 * "-")
 
