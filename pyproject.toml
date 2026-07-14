@@ -57,3 +57,7 @@ where = ["src"]
 # Ship settings.cfg and the entire xsf/ reference-data folder with the wheel
 [tool.setuptools.package-data]
 armsd = ["settings.cfg", "xsf/*.nff", "xsf/_info"]
+
+[tool.codespell]
+skip = "*.xyz, *.cif, *.pdb, *.nff *.log, *.out, *.pdf"
+ignore-words-list = "GARD, gard, aci, alog"

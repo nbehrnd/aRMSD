@@ -1,0 +1,71 @@
+# date: [2025-01-29 Wed]
+# edit: [2026-06-17 Wed]
+#
+# Notes:
+#
+# - the installation by `pre-commit install` creates the local folder
+#   `~/.cache/pre-commit` in with the data supporting the hooks' work
+# - while editing the Python scripts, `pre-commit run --all-files` allows
+#   to launch the tests separately and prior to e.g., `git add *.py`
+# - if necessary, `git commit -m "commit message" --no-verify` allows to
+#   bypass the tests altogether.
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: "v6.0.0"
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-illegal-windows-names
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-yaml
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: name-tests-test
+        args: ["--pytest-test-first"]
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace
+
+#  - repo: https://github.com/psf/black-pre-commit-mirror
+#    rev: 26.5.1
+#    hooks:
+#      - id: black
+#        name: black (on .py)
+#        args:
+#          - --line-length=90
+
+#  - repo: https://github.com/adamchainz/blacken-docs
+#    rev: 1.20.0
+#    hooks:
+#      - id: blacken-docs
+#        name: black (in code blocks .md, .rst, .tex contain)
+#        additional_dependencies:
+#        - black==26.3.1
+
+#  - repo: https://github.com/pre-commit/pygrep-hooks
+#    rev: v1.10.0
+#    hooks:
+#      - id: python-use-type-annotations
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        name: codespell (cf. configuration `[tool.codespell]`)
+
+#  - repo: https://github.com/PyCQA/flake8
+#    rev: 7.1.1
+#    hooks:
+#      - id: flake8
+#        name: "flake8 (advisory only, it does not block a commit)"
+#        args:
+#          - --max-line-length=90
+#          - --show-source
+#          - --statistics
+#          - --count
+#          - --exit-zero
+#        verbose: true
+#        always_run: true
