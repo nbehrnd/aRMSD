@@ -27,17 +27,17 @@
   to the same group in the periodic table, the molecules are
   considered as consistent.
 
-    No disorder in the structures was found.                
+    No disorder in the structures was found.
 
     Initial number of atoms in "Model"...                   	20  (7 H atoms)
     Initial number of atoms in "Reference"...               	20  (7 H atoms)
-    
+
     Consistency between the structures was established:
     The number of atoms in "Model"...                       	20  (7 H atoms)
     The number of atoms in "Reference"...                   	20  (7 H atoms)
-    
-    No further modifications were performed.           
-    
+
+    No further modifications were performed.
+
     Final global atom count (number of hydrogens retained)...	20  (7 H atoms)
 
 * Transformation of the molecules into "Standard Orientation":
@@ -87,9 +87,9 @@
     # This matrix aligns Model with Reference.
     # U already includes all custom symmetry operations!
 
-    
 
-* Final Quality of the Superposition:                 
+
+* Final Quality of the Superposition:
 
     RMSD (Kabsch test, refined superposition [Angstrom])... 	0.20276
     Superposition R^2 (dimensionless)...                    	0.99498
@@ -139,6 +139,6 @@
     Number of dihedrals...                                  	148
     R**2 of linear correlation (dimensionless)...           	0.99617
     RMSE [degrees]...                                       	4.25830
-    
 
-*** End of log file ***                               
+
+*** End of log file ***

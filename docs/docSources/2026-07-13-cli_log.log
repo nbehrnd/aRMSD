@@ -1,8 +1,9 @@
+
 ================================================================================
-                          aRMSD (version 1.0.0, 2026)                           
+                          aRMSD (version 1.0.0, 2026)
 ================================================================================
-               A. Wagner, University of Heidelberg (2015, 2017),                
-                           forked by N. Behrnd (2018)                           
+               A. Wagner, University of Heidelberg (2015, 2017),
+                           forked by N. Behrnd (2018)
 
 --------------------------------- Description ----------------------------------
 Key features:
@@ -23,9 +24,9 @@ Key features:
     (doi: 10.1021/acs.jcim.6b00516); with address and version of aRMSD used.
 
 Release dates of the individual modules:
-- core module:    	'2026-07-03'
+- core module:    	'2026-07-14'
 - plot module:    	'2026-07-03'
-- log  module:    	'2026-07-03'
+- log  module:    	'2026-07-14'
 
 Module check:
 - numpy         	'2.5.1'
@@ -229,7 +230,7 @@ Enter the file name with extension for the second file (exp./reference)
 	The geometric RMSD of the current alignment is:  0.214 A
 
 		 The 5 most disordered atom pairs are:
-		Entry		      Pair		  Distance / A 
+		Entry		      Pair		  Distance / A
 		  5		   H-3 -- H-3   	    0.510
 		  4		   H-5 -- H-5   	    0.539
 		  3		   H-6 -- H-6   	    0.571
@@ -268,9 +269,37 @@ Enter the file name with extension for the second file (exp./reference)
 ... To continue, quit the pop-up window with 'q'.
 > To save the scene as *.png, press 's'.
 
->>  Enter your choice: 1-
+>>  Enter your choice: 10
 
-> ERROR: Input invalid or out of range, try again!
+> The current status was saved successfully!
+
+--------------------------------------------------------------------------------
+=================== Symmetry Adjustments & Sequence Matching ===================
+--------------------------------------------------------------------------------
+-6  Set number of deviations which are highlighted in the plot (current = 5)
+-5  Load the saved status (save point available: 'True')
+-4  Change plot settings
+-3  Manually swap atoms in Model structure
+-2  Change matching algorithm or solver
+-1  Match molecular sequences based on current alignment
+--------------------------------------------------------------------------------
+    Current matching algorithm  : 'distance'
+    Current matching solver     : 'hungarian'
+    Structures were matched     : 'True'
+--------------------------------------------------------------------------------
+0   ... exit the menu (no return)
+1   ... inversion at the origin
+2   ... reflection at the xy plane
+3   ... reflection at the xz plane
+4   ... reflection at the yz plane
+5   ... rotation around the x axis
+6   ... rotation around the y axis
+7   ... rotation around the z axis
+8   ... show the molecules again
+--------------------------------------------------------------------------------
+10  ... save current changes (status was saved: 'True')
+20  ... export structures
+--------------------------------------------------------------------------------
 
 >>  Enter your choice: 0
 
@@ -562,4 +591,3 @@ Entries are: Atoms, values in the Model and Reference, difference
 --------------------------------------------------------------------------------
 ========================== Normal program termination ==========================
 --------------------------------------------------------------------------------
-

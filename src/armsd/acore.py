@@ -1083,7 +1083,7 @@ def match_molecules(molecule1, molecule2, logger):
 
         if logger.match_solv == 'standard':
 
-            # Check for number of occurences of the actual atom type
+            # Check for number of occurrences of the actual atom type
             if occurrences1[atom_type] == 1:
 
                 # Directly match atoms
@@ -1092,7 +1092,7 @@ def match_molecules(molecule1, molecule2, logger):
 
             else:  # If more than one atom of the type exists
 
-                n_atoms = len(coords1)  # Determine numer of atoms
+                n_atoms = len(coords1)  # Determine number of atoms
 
                 # Calculate permutation matrix for this atom type
                 permutation_matrix = calc_permutation_matrix(coords1, coords2, logger)
@@ -1100,7 +1100,7 @@ def match_molecules(molecule1, molecule2, logger):
                 # Iterate through all atoms of this type
                 for atom in range(n_atoms):
 
-                    # Find indices of minimum value in matrix (first index cooresponds to coords1)
+                    # Find indices of minimum value in matrix (first index coravailabelresponds to coords1)
                     indices = np.where(permutation_matrix == np.min(permutation_matrix))
 
                     if len(indices[0]) != 1:  # Check if there is more than one solution
@@ -4175,7 +4175,7 @@ def get_data(logger, input_file, filetype, settings):
 
             logger.pt_unsupported_file_type(internal_file_types)
 
-    else:  # Openbabel is not availabel
+    else:  # Openbabel is not available
 
         logger.pt_no_pybel()
         logger.pt_unsupported_file_type(internal_file_types)
@@ -4607,7 +4607,7 @@ class Xray_structure(object):
         self.col_bnd_rgb = None  # Color array for the bonds [RGB]
 
         self.has_cam_vtk = False  # If the molecule has an existing VTK camera orientation
-        self.cam_vtk_pos = None  # VTK camera postion
+        self.cam_vtk_pos = None  # VTK camera position
         self.cam_vtk_focal_pt = None  # VTK camera focal point
         self.cam_vtk_view_up = None  # VTK camera view up (?)
 

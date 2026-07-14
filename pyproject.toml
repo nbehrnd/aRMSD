@@ -8,13 +8,15 @@ version = "1.0.0"
 requires-python = ">=3.11"
 authors = [
     { name = "Arne Wagner", email="arne.wagner@aci.uni-heidelberg.de" },
+]
+maintainers = [
     { name = "Norwid Behrnd", email="nbehrnd@yahoo.com" },
 ]
 description = "Pair-wise comparison and superposition (RMSD) of small molecule structures"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-keywords = ["chemistry", "crystallography", "rmsd", "kabsch", "molecular structure"]
+keywords = ["chemistry", "crystallography", "rmsd", "Kabsch", "molecular structure"]
 
 # https://pypi.org/classifiers/
 classifiers = [
@@ -55,3 +57,7 @@ where = ["src"]
 # Ship settings.cfg and the entire xsf/ reference-data folder with the wheel
 [tool.setuptools.package-data]
 armsd = ["settings.cfg", "xsf/*.nff", "xsf/_info"]
+
+[tool.codespell]
+skip = "*.xyz, *.cif, *.pdb, *.nff *.log, *.out, *.pdf"
+ignore-words-list = "GARD, gard, aci, alog, bu, Mabey, datas"

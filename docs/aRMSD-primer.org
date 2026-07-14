@@ -2,7 +2,7 @@
 # last edit: 13-Dez-2018
 #+AUTHOR:  Norwid Behrnd
 #+TITLE:   aRMSD-primer (aRMSD 1.0.0)
-#+DATE:    [2026-07-13 Mon]
+#+DATE:    [2026-07-14 Mon]
 
 #+OPTIONS: toc:nil
 
@@ -112,7 +112,7 @@ installation of the program.  Here and there, the primer merely will
     #+BEGIN_SRC shell
       pip install pyinstaller
     #+END_SRC
-    
+
     Download the current master branch of =aRMSD=, extract the files
     and navigate to the main folder. Run the compilation script in an
     interactive Python shell or from command line by typing
@@ -141,9 +141,9 @@ installation of the program.  Here and there, the primer merely will
     path in the first program line (e.g. ="c:\program
     files\python36\python.exe"=).
 
-   
-    
-  
+
+
+
 *** comment on Arne Wagner's setup in Windows
 
     In a recent test (December 2018), I was not able to replicate Arne
@@ -153,7 +153,7 @@ installation of the program.  Here and there, the primer merely will
     (version 3.6.5) -- amended by a suitable vtk-wheel in Windows 7
     (64 bit).  Details about this approach are provided on
     [[https://github.com/nbehrnd/aRMSD-minimalWindowsSupport]].
-   
+
 * COMMENT Setup of aRMSD in Linux Debian / Ubuntu
 
   In addition to the =*.zip= archive available on GitHub, =aRMSD=
@@ -197,7 +197,7 @@ installation of the program.  Here and there, the primer merely will
     =vtk7= (all in version 7.1.1+dfsg1-5)
 
   Again, note that according to Arne Wagner's description about
-  =aRMSD= running in Windows, you may skip =cython= wich will provide
+  =aRMSD= running in Windows, you may skip =cython= which will provide
   an /optional/ gain in performance.
 
   After completed installation of these dependencies, enter the top
@@ -205,7 +205,7 @@ installation of the program.  Here and there, the primer merely will
   =aRMSD=:
 
   #+BEGIN_SRC shell
-     python armsd/aRMSD.py 
+     python armsd/aRMSD.py
   #+END_SRC
 
   The first start of the program is slower than the subsequent ones,
@@ -239,7 +239,7 @@ installation of the program.  Here and there, the primer merely will
   The =vtk= related modules are /essential/ to work with =aRMSD=.
   Still, it is possible to access a subset of functions provided by
   =aRMSD= with a few of the other modules modules missing.  In
-  particular, this is if 
+  particular, this is if
 
   + your system does not spot =libopenbabel=.  Then, file format
     conversions provided by =babel= will be unavailable to =aRMSD=.
@@ -282,7 +282,7 @@ installation of the program.  Here and there, the primer merely will
 
   + From the top directory of =aRMSD=, launch the program from the
     shell with
-    
+
     #+BEGIN_SRC shell
       python armsd/aRMSD.py
     #+END_SRC
@@ -292,10 +292,10 @@ installation of the program.  Here and there, the primer merely will
     Contrary to the shell, there is no tab-assisted auto-completion of
     the file name.  If you err with the file name, and the model does
     not exist, you are offered a new prompt.  If you err with the file
-    name pointing to an exisiting model, but are not interested to
+    name pointing to an existing model, but are not interested to
     compare with an other model, the simplest rectification is to
     close =aRMSD= with =Ctrl + C= and to start the program freshly
-    again.  
+    again.
 
     The confirmation of the input (=Enter=) will cause =aRMSD= to read
     the data set and to prompt you for the input of the second model
@@ -314,7 +314,7 @@ installation of the program.  Here and there, the primer merely will
     So, =aRMSD= /indicates/ the user about this information missing.
     Based on the file type of the model data, you may continue the
     analysis neglecting this.
- 
+
     /Hint:/ Indeed, it is possible to load different models of
     different file type (with different file extensions), such as
     =M1.xyz= for the first, and =M2.pdb= for the second model to
@@ -435,7 +435,7 @@ installation of the program.  Here and there, the primer merely will
     #+NAME:    aRMSD-M1M2-initialMatching
     #+CAPTION: Example of progressively adjusting the relative alignment of structure "model" (=M1.xyz=) and "reference" (=M2.xyz=) in =aRMSD=.  a) After application of an inversion.  b) After subsequent application of inversion and reflection in respect to the /xz/-plane.
     [[./docSources/aRMSD-M1M2-initialMatching.png]]
-    
+
     At this stage, you aim for a fit of the two model structures that
     is /good enough/.  (In the ongoing of this section, as well in
     comparison with the next chapter, you will learn what this refers
@@ -471,15 +471,15 @@ installation of the program.  Here and there, the primer merely will
     =10=).
 
   + Refinement of the superposition and Kabsch test
-    
+
     To enter the menu about the Kabsch test, hit now once =0= (zero).
     The interface displayed by =aRMSD= in the terminal changes
     (figure [[aRMSD-KabschInterface]]), and you are able to trigger the
     refinement of the superposition with =-1= (minus one).  The now
     following consecution of calling sub-routines is /recommended/ to
     harvest the maximum of relevant data =aRMSD= provides.
-    
-    #+ATTR_LATEX:   :width 15cm 
+
+    #+ATTR_LATEX:   :width 15cm
     #+ATTR_HTML:    :width 75%
     #+NAME:    aRMSD-KabschInterface
     #+CAPTION: The CLI by =aRMSD= about the Kabsch test.
@@ -517,7 +517,7 @@ installation of the program.  Here and there, the primer merely will
       #+ATTR_LATEX:  :width 15cm
       #+ATTR_HTML:   :width 75%
       #+NAME:    aRMSD-diffTest
-      #+CAPTION: Example of subsequent selection of atom C11, C12, C13 and C14 to readout differences in position (or angle) in the refined superposition of the two structures =M1.xyz= and =M2.xyz=. 
+      #+CAPTION: Example of subsequent selection of atom C11, C12, C13 and C14 to readout differences in position (or angle) in the refined superposition of the two structures =M1.xyz= and =M2.xyz=.
       [[./docSources/aRMSD-diffTest.png]]
 
       The underlying routine providing the readouts is agnostic about
@@ -567,7 +567,7 @@ installation of the program.  Here and there, the primer merely will
       (80 \times 24 chars), it is useful to invoke this sub-routine
       once -- even blindly --, since /its results/ will enter the
       permanent record log written.
-      
+
       #+ATTR_LATEX:   :width 15cm
       #+ATTR_HTML:    :width 75%
       #+NAME:    aRMSD-M1M2SuperposQuality
@@ -587,7 +587,7 @@ installation of the program.  Here and there, the primer merely will
       present case about a successful comparison of model =M1.xyz=
       with model =M2.xyz=, this is stated in line 48 onward about the
       initial best match retained:
-     
+
       #+NAME:  aRMSD-M1M2-successLog-match
       # line #48 till and including line #61
       #+INCLUDE: "./docSources/aRMSD-M1M2-successLog.out" :lines "48-62" src shell
@@ -597,11 +597,11 @@ installation of the program.  Here and there, the primer merely will
       #+NAME:  aRMSD-M1M2-successLog-Kabsch
       # line #92 till and including line #102
       #+INCLUDE: "./docSources/aRMSD-M1M2-successLog.out" :lines "92-103" src shell
-  
+
   Last, but not least, a few words of caution:
   + It is normal that performing the same computation a twice, with
     the same files, in a different operating system yields results
-    /slighlty different/ from each other, e.g. between Xubuntu (point
+    /slightly different/ from each other, e.g. between Xubuntu (point
     release 18.04.1) and Debian 10 (testing / Buster).
 
   + There are multiple "dialects" about the =*.pdb= format, which may
@@ -619,7 +619,7 @@ installation of the program.  Here and there, the primer merely will
     data in =*.pdb= format may be different from the alignment about
     model data in =*.xyz=.
 
- 
+
 * COMMENT Example comparing two models unsuccessfully
 
   The purpose of this section is to show /by strong contrast/ to the
@@ -661,7 +661,7 @@ installation of the program.  Here and there, the primer merely will
   #+ATTR_LATEX:   :width 15cm
   #+ATTR_HTML:    :width 75%
   #+NAME:    aRMSD-badAlignmentOnlyInversion-stepC
-  #+CAPTION: Example of an ill-fated comparison of structure =M1.xyz= with structure =M2.xyz= with =aRMSD=, 3/3.  Synoptic statistics plots.  
+  #+CAPTION: Example of an ill-fated comparison of structure =M1.xyz= with structure =M2.xyz= with =aRMSD=, 3/3.  Synoptic statistics plots.
   [[./docSources/aRMSD-badAlignmentOnlyInversion-stepC.png]]
 
   To commplement the findings, the corresponding section in the log
@@ -739,7 +739,7 @@ diagram recapituates key points of the workflow on .xyz data.
   ├──  decide over the program'ś matching algorithm used
   │    ├── -1 continue with the current choice, or
   │    ├── -2 change ge matching algorithm or solver
-  │    │   ├── -10 to leave the for the next upper level of hierachy
+  │    │   ├── -10 to leave the for the next upper level of hierarchy
   │    │   ├── -1 to show detail;s of the currently used algorithm
   │    │   ├── 1 use absolute distance between the atoms
   │    │   ├── 2 use a combination of absolute and relative distances
@@ -761,7 +761,7 @@ diagram recapituates key points of the workflow on .xyz data.
       │   ├── 1 for x-ray scattering factors (Mo K\alpha)
       │   ├── 2 atomic masses
       │   ├── 3 total number of electrons
-      │   ├── 4 numnber of core electrons
+      │   ├── 4 number of core electrons
       │   ├── 5 spherical electron densities
       │   ├── 6 LDA electron densities
       │   └  -10 to return to the upper menu (then needs new a -1 for the test)
@@ -769,7 +769,7 @@ diagram recapituates key points of the workflow on .xyz data.
       └── collect the results
           ├── 0 to visualize the results in a aRMSD representation
           ├── 1 visualize structural superposition
-          ├── 2 peform statistics investigation of bond lengths and angles (plots)
+          ├── 2 perform statistics investigation of bond lengths and angles (plots)
           ├── 3 show RMSD results
           ├── 4 intrerpolate between the structures (cart., 10 steps)
           ├── 5 generate the permanent aRMSD_out.log file
@@ -811,7 +811,7 @@ diagram recapituates key points of the workflow on .xyz data.
    unsuccessful comparison of model =M1.xyz= with model =M2.xyz=.
    Hosting system was Xubuntu 18.04 LTS (64 bit, point
    release 18.04.1).
-   
+
    #+INCLUDE: "./docSources/aRMSD-M1M2-failLog.out" src shell
 
    #+LATEX:  \clearpage{}
@@ -835,7 +835,7 @@ diagram recapituates key points of the workflow on .xyz data.
    successful comparison of model =M1.pdb= with model =M2.pdb=.
 
    #+INCLUDE:  "./docSources/aRMSD-M1M2-successLog.out" src shell
-   
+
    #+LATEX:  \clearpage{}
 
 ** complete /terminal log/ by aRMSD for the successful comparison of xyz-data
