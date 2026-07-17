@@ -1,31 +1,12 @@
 # file name: aRMSD-primer.org
-# last edit: 13-Dez-2018
+# last edit: [2026-07-17 Fri]
 #+AUTHOR:  Norwid Behrnd
-#+TITLE:   aRMSD-primer (aRMSD 1.0.0)
-#+DATE:    [2026-07-14 Mon]
+#+TITLE:   aRMSD primer (version 1.0.0, July 2026)
+#+DATE:    [2026-07-17 Fri]
 
-#+OPTIONS: toc:nil
-
-#+LATEX_CLASS:    koma-article
-#+LATEX_HEADER:   \usepackage[a4paper]{geometry}
-
-#+LATEX_HEADER:   \usepackage{libertine}
-#+LATEX_HEADER:   \usepackage[libertine]{newtxmath}
-#+LATEX_HEADER:   \usepackage[scaled=0.9]{inconsolata}
-#+LATEX_HEADER:   \usepackage[USenglish]{babel}
-#+LATEX_HEADER:   \usepackage{microtype}
-
-#+LATEX_HEADER:   \usepackage[basicstyle=small]{listings}
-#+LATEX_HEADER:   \usepackage{graphicx}
-
-#+LATEX_HEADER:   \setkomafont{captionlabel}{\sffamily\bfseries}
-#+LATEX_HEADER:   \setcapindent{0em}  \setkomafont{caption}{\small}
-
-
-The goal of the primer is to enable you to perform a basic comparison
-of two molecular structures with =aRMSD=, including proper
-installation of the program.  Here and there, the primer merely will
-/hint/ you to additional features implemented in =aRMSD=.
+After the installation of =aRMSD=, this primer outlines the comparison
+of two conformers of a small molecule.  Briefly, functionality beyond
+basic use is indicated, too.
 
 * COMMENT setup of =aRMSD=
 
@@ -40,65 +21,7 @@ installation of the program.  Here and there, the primer merely will
   compiler script (different name), or use a setup in Linux Debian
   (testing) as outlined below.
 
-  /This/ forked branch is based on the original version 0.9.6 by Arne
-  Wagner.  It was developed further in Debian 10 (Sid/buster) because
-  =aRMSD= was used side-by-side with other programs already deployed
-  successfully in Linux.  The installation process differs from the
-  one in Windows, as =pip= and =PyInstaller= are omitted, and the
-  installation of dependencies is automated by a script.
-
-** setup in Windows, outlined by Arne Wagner
-
-   =aRMSD= can be in two ways, either via =pip= (in this case it will
-   be used as a Python module or Python application) or you can
-   download the source code and compile it into a single standalone
-   executable. In any case some packages are required which are listed
-   below:
-   + =Python= (version 2.7 or 3.6)
-   + =numpy= (version 1.11.1 / 1.12)
-   + =vtk= (version 6.2.0 / 7.0)
-   + =matplotlib= (version 1.5.2 / 2.0)
-   + =PyQt4=
-   + =uncertainties= (version 3.0.1)
-   optional:
-   + =Cython= [performance improvements] (version 0.25.2)
-   + =openbabel= / =pybel= [additional file formats] (version 2.4.1)
-
-   Due to changes from =vtk 5= to =6=, =aRMSD= does not support an
-   older =vtk= version than =6.2= and a backwards compatibility to the
-   older =vtk 5= engine is not planned.
-
-   In order to adjust the source code by yourself, always make sure to
-   have the required Python packages installed and download the latest
-   version of the master branch. Whenever possible it is recommended
-   to add and update packages using pre-compiled Python =wheels=
-   (http://www.lfd.uci.edu/~gohlke/pythonlibs/) suited for your
-   operating system which can be installed via =pip=.
-
-
-*** Compilation arguments
-
-    The following arguments can be passed to the installation script
-    and specify the usage of =Cython= and =openbabel= in the
-    compilation. All arguments are optional and if none are given
-    neither =Cython= nor =openbabel= will be used. The specification
-    of the =C compiler= may not be needed if your defaults are
-    properly set, however setting it explicitly should ensure a
-    successful installation.
-
-         - =--use_cython= (=True / False=)
-         - =--cython_compiler= (any valid =C compiler= used by =Cython=,
-             e.g. =msvc=)
-         - =--use_openbabel= (=True / False=)
-         - =--overwrite= (=True / False=)
-
-    During the installation, the existence of an =openbabel= hook file
-    in the =PyInstaller= hook path is checked. If no hook exists, a
-    respective file will be created. In case of an existing hook, the
-    file can be overwritten if the =--overwrite= variable is set to
-    =True=.
-
-*** Executable compiled with =PyInstaller=
+*** COMMENT Executable compiled with =PyInstaller=
 
     This produces a single file which can be copied alongside the
     =settings.cfg= and the =xsf folder= to different machines with the
@@ -130,8 +53,10 @@ installation of the program.  Here and there, the primer merely will
     (http://openbabel.org/wiki/Main_Page). Note that the =Cython C
     compiler= should be specified if several options are available:
 
-    #+BEGIN_SRC shell
-      python compile_aRMSD.py --use_cython=True --cython_compiler=msvc --use_openbabel=True --overwrite=True
+    #+BEGIN_SRC shell :results nil
+      python compile_aRMSD.py --use_cython=True \
+             --cython_compiler=msvc \
+             --use_openbabel=True --overwrite=True
     #+END_SRC
 
     If you are using Python 3.6, there is a bug in the =PyInstaller=
@@ -140,9 +65,6 @@ installation of the program.  Here and there, the primer merely will
     and edit the =pyinstaller-script.py= file: add quotes around the
     path in the first program line (e.g. ="c:\program
     files\python36\python.exe"=).
-
-
-
 
 *** comment on Arne Wagner's setup in Windows
 
@@ -155,50 +77,6 @@ installation of the program.  Here and there, the primer merely will
     [[https://github.com/nbehrnd/aRMSD-minimalWindowsSupport]].
 
 * COMMENT Setup of aRMSD in Linux Debian / Ubuntu
-
-  In addition to the =*.zip= archive available on GitHub, =aRMSD=
-  depends on libraries most likely not installed on your computer.
-  Anticipate about 0.2 to 0.3 GB of disk space needed for them.
-
-  For a facile, semi-automatic set-up, the top directory of the
-  extracted archive contains script =debcollector_aRMSD.py= which you
-  shall run once from the CLI prior to any use of =aRMSD=:
-
-  #+BEGIN_SRC shell
-    python debcollector.py
-  #+END_SRC
-
-  This script is dedicated to the deployment under Linux Debian (e.g.,
-  Debian 9 (Sid/buster), or Xubuntu (Xubuntu 18.04 LTS).  It will
-  request the administrator password, and triggers the system to fetch
-  and install the dependencies of =aRMSD= in one run.  Possibly, user
-  interaction is needed since this process may recursively install
-  modules /in addition/ to the ones explicitly listed in the script.
-
-  If you use a different operating system, or prefer a manual package
-  installation, here are the relevant modules I use on a reference
-  system (Debian 9, Sid/buster) to work with =aRMSD=:
-
-  + =python= (version 2.7.15+) and =python3= (version 3.6.6)
-
-  + =cython= (version 0.28.4-1)
-
-  + =openbabel=, =libopenbabel5=, =python-openbabel= (all in version
-    2.4.1+dfsg-2)
-
-  + =python-matplotlib=, =python-matplotlib-data=, =python3-matplotlib= (all
-    in version 2.2.2-4+b1)
-
-  + =python-uncertainties=, =python3-uncertainties= (all in version
-    2.4.4-1)
-
-  + =libvtk6.3=, =libvtk6.3-qt=, =python-vtk6=, =vtk6= (all in version
-    6.3.0+dfsg2-2+b3); =libvtk7.1=, =libvtk7.1-qt=, =python3-vtk7=,
-    =vtk7= (all in version 7.1.1+dfsg1-5)
-
-  Again, note that according to Arne Wagner's description about
-  =aRMSD= running in Windows, you may skip =cython= which will provide
-  an /optional/ gain in performance.
 
   After completed installation of these dependencies, enter the top
   directory of the decompressed archive with your shell, and start
@@ -231,33 +109,6 @@ installation of the program.  Here and there, the primer merely will
   #+NAME:    fig-large-welcome
   #+CAPTION: Initial screen display of =aRMSD= in a 80 \times 43 character terminal.
   [[./docSources/aRMSD-largeWelcome.png]]
-
-  Like other python scripts run in the CLI, at any stage of working
-  with =aRMSD= the program may be closed safely from the terminal with
-  the command  =Ctrl + C=.
-
-  The =vtk= related modules are /essential/ to work with =aRMSD=.
-  Still, it is possible to access a subset of functions provided by
-  =aRMSD= with a few of the other modules modules missing.  In
-  particular, this is if
-
-  + your system does not spot =libopenbabel=.  Then, file format
-    conversions provided by =babel= will be unavailable to =aRMSD=.
-    In this situation, the only model file type accessible to the
-    program is =*.xyz=.
-
-  + your system lacks =matplotlib=.  Then, there will be no provision
-    of the 2D statistics plots.  Since the corresponding sub-routine
-    in =aRMSD= equally contributes some numerical results, the
-    eventual log generated by =aRMSD= will miss portions of the
-    diagnostic data.
-
-  In both cases the welcome screen will tell you about the modules
-  missing / not recognized by the installation.  Yet even in this
-  situation =aRMSD= still will be capable to align the structure
-  models, refine their alignment and provide you with some of the
-  results of the similarity analysis.  You are set to work with
-  =aRMSD=.
 
 
 * COMMENT Example comparing two models successfully
