@@ -60,4 +60,4 @@ armsd = ["settings.cfg", "xsf/*.nff", "xsf/_info"]
 
 [tool.codespell]
 skip = "*.xyz, *.cif, *.pdb, *.nff *.log, *.out, *.pdf"
-ignore-words-list = "GARD, gard, aci, alog, bu, Mabey, datas"
+ignore-words-list = "armsd, aRMSD, GARD, gard, aci, alog, bu, Mabey, datas"
