@@ -313,7 +313,7 @@ __marimo__/
 
 #  8>< ---- ---- ----
 # deemed to be project specific
-
+*.html
 *.html~
 *.org~
 error.log
