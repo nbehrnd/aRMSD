@@ -4,31 +4,32 @@
 #+TITLE:   aRMSD primer (version 1.0.0, July 2026)
 #+DATE:    [2026-07-17 Fri]
 
+* aRMSD
+
 After the installation of =aRMSD=, this primer outlines the comparison
 of two conformers of a small molecule.  Briefly, functionality beyond
 basic use is indicated, too.
 
 * setup of aRMSD
 
-The project was reorganized around a =pyproject.toml= file, after
-creation and activation of a virtual environment for Python 3.10 (or
-higher), the command
+It is recommended to install and use =aRMSD= within a virtual
+environment of Python 3.11 (or above).  Either download the .zip
+archive, or clone the [[https://github.com/nbehrnd/aRMSD][GitHub repository]].  By the command of
 
 #+begin_src bash :results nil
   pip install .
 #+end_src
 
-on a copy of the GitHub project resolves the requirements from
-pypi.org.  Reserve about 0.8GB of permanent memory for this support.
-When successful, the installation provides =armsd= as a new command to
-the CLI.
+within this folder, =pyproject.toml= resolves the program's
+dependencies on [[https://pypi.org/][pypi.org]].  Be aware this support requires up to about
+0.8GB of permanent memory.  When successful, the installation provides
+the CLI =armsd= (all lowercase) as a new command.
 
-** workflow
+* workflow overview
 
-Except for widgets to provide an interactive structure display or user
-adjustable diagrams about the test's statistics provided by
-matplotlib, aRMSD lives in the command line.  The following tree
-diagram recapituates key points of the workflow on .xyz data.
+The following tree diagram recapitulates key points of the workflow on
+.xyz data.  Files =M1.xyz= and =M2.xyz= can be found in folder
+=examples=.
 
 #+begin_src markdown :results nil
   ├── reading input structures, for instance M1.xyz and M2.xyz
@@ -109,18 +110,32 @@ diagram recapituates key points of the workflow on .xyz data.
               └── -10 to return to the upper menu
 #+end_src
 
-  For the analysis of =M1.xyz= and =M2.xyz= provided as test data in
-  folder =examples=, the optional log file written by =aRSMD= is
-  provided below:
+* reference outputs
 
-  #+INCLUDE: "./docSources/2026-07-13-aRMSD_logfile.out" src shell
+** optional permanent record =aRMSD_logfile.out=
 
-  The complete log of a test run with =M1.xyz= and =M2.xyz= as test
-  data, the report back to the BASH shell is provided below.  Host
-  system was an instance of Linux Debian 13/trixie, supported by
-  Python 3.13.5
+=aRMSD= allows to recapitulate the analysis in a permanent record,
+file =aRMSD_logfile.out=.  In the flow chart, this is option =5= of
+section "collect the results".  Below is the summary of the successful
+Kabsch test with example data =M1.xyz= and =M2.xyz=:
 
-  #+INCLUDE: "./docSources/2026-07-13-cli_log.log" src shell
+#+INCLUDE: "./docSources/2026-07-13-aRMSD_logfile.out" src text
+
+** CLI log of a successful comparison
+
+Except =vtk= widgets to visualize the structures, and diagrams by
+=matplotlib=, the program lives in the CLI.  Depending on your setup
+used, it is possible that lines with program options are visually
+truncated and in consequence, accidentally missed.  It is for this
+reason why the complete dialog on the CLI for a Kabsch test of
+structures files =M1.xyz= and =M2.xyz= is provided below.
+
+The two test data are provided by the GitHub repository (folder
+=examples=), the Kabsch test was run in an instance of Linux
+Debian 13/trixie with Python 3.13.5.
+
+#+INCLUDE: "./docSources/2026-07-13-cli_log.log" src text
+
 * COMMENT setup of =aRMSD=
 
   Initially, Arne Wagner developed =aRMSD= under Windows.  Hence, the
