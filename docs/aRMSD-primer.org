@@ -1,31 +1,140 @@
 # file name: aRMSD-primer.org
-# last edit: 13-Dez-2018
+# last edit: [2026-07-17 Fri]
 #+AUTHOR:  Norwid Behrnd
-#+TITLE:   aRMSD-primer (aRMSD 1.0.0)
-#+DATE:    [2026-07-14 Mon]
+#+TITLE:   aRMSD primer (version 1.0.0, July 2026)
+#+DATE:    [2026-07-17 Fri]
 
-#+OPTIONS: toc:nil
+* aRMSD
 
-#+LATEX_CLASS:    koma-article
-#+LATEX_HEADER:   \usepackage[a4paper]{geometry}
+After the installation of =aRMSD=, this primer outlines the comparison
+of two conformers of a small molecule.  Briefly, functionality beyond
+basic use is indicated, too.
 
-#+LATEX_HEADER:   \usepackage{libertine}
-#+LATEX_HEADER:   \usepackage[libertine]{newtxmath}
-#+LATEX_HEADER:   \usepackage[scaled=0.9]{inconsolata}
-#+LATEX_HEADER:   \usepackage[USenglish]{babel}
-#+LATEX_HEADER:   \usepackage{microtype}
+* setup of aRMSD
 
-#+LATEX_HEADER:   \usepackage[basicstyle=small]{listings}
-#+LATEX_HEADER:   \usepackage{graphicx}
+It is recommended to install and use =aRMSD= within a virtual
+environment of Python 3.11 (or above).  Either download the .zip
+archive, or clone the [[https://github.com/nbehrnd/aRMSD][GitHub repository]].  By the command of
 
-#+LATEX_HEADER:   \setkomafont{captionlabel}{\sffamily\bfseries}
-#+LATEX_HEADER:   \setcapindent{0em}  \setkomafont{caption}{\small}
+#+begin_src bash :results nil
+  pip install .
+#+end_src
 
+within this folder, =pyproject.toml= resolves the program's
+dependencies on [[https://pypi.org/][pypi.org]].  Be aware this support requires up to about
+0.8GB of permanent memory.  When successful, the installation provides
+the CLI =armsd= (all lowercase) as a new command.
 
-The goal of the primer is to enable you to perform a basic comparison
-of two molecular structures with =aRMSD=, including proper
-installation of the program.  Here and there, the primer merely will
-/hint/ you to additional features implemented in =aRMSD=.
+* workflow overview
+
+The following tree diagram recapitulates key points of the workflow on
+.xyz data.  Files =M1.xyz= and =M2.xyz= can be found in folder
+=examples=.
+
+#+begin_src markdown :results nil
+  ├── reading input structures, for instance M1.xyz and M2.xyz
+  │
+  │
+  ├── Consistency Checks and Structural Modification
+  │   ├── 0 to remove and exclude all hydrogens from the analysis
+  │   ├── 1 to remove all hydrogens bound to carbon
+  │   └── 3 to include all hydrogens in the analysis
+  │
+  │
+  ├── Symmetry Adjustment & Sequency Matching
+  │   ├── visual inspection, any number or sequence of
+  │   │   ├── s to ave a .png (optional)
+  │   │   ├── left mouse button (LMB) to drag the scene
+  │   │   ├── Ctrl + LMB to roll the scene
+  │   │   ├── Shift + LMB to pan the scene
+  │   │   ├── mouse reel to zoom the scene
+  │   │   ├── r to return scene to a home position
+  │   │   ├── 3 toggle on/off stereoscopic anaglyph representation
+  │   │   └── q to quit and close the current widget
+  │   │
+  │   ├── any number or sequence of symmetry operations
+  │   │   ├── 1 for an inversoin at the origin
+  │   │   ├── 2 for a reflection on the xy plane
+  │   │   ├── 3 for a reflection on the xz plane
+  │   │   ├── 4 for a reflection on the yz plane
+  │   │   ├── 5 for a rotation around the x axis
+  │   │   ├── 6 for a rotation around the y axis
+  │   │   ├── 7 for a rotation around the z axis
+  │   │   └── 8 do not edit the relative orientation, show the molecules again
+  │   │
+  │   └── decide on the current alignment
+  │       └── 10 to save the current alignment for the next step
+  │
+  │
+  ├──  decide over the program'ś matching algorithm used
+  │    ├── -1 continue with the current choice, or
+  │    ├── -2 change ge matching algorithm or solver
+  │    │   ├── -10 to leave the for the next upper level of hierarchy
+  │    │   ├── -1 to show detail;s of the currently used algorithm
+  │    │   ├── 1 use absolute distance between the atoms
+  │    │   ├── 2 use a combination of absolute and relative distances
+  │    │   ├── 3 use random permutations / brute force
+  │    │   ├── 4 use 'Hungarian' solver for the permutation matrix
+  │    │   └── 5 use 'aRMSD' solver for the permutation matrix (standard)
+  │    │
+  │    └── decide on the current atom match
+  │        ├── visual inspection (see above)
+  │        └── decide on the current state
+  │            ├── 0 to continue, because it is reasonably well aligned, or
+  │            └── return to manual adjustment of the initial alignment
+  │
+  │
+  └── Kabsch Algorithm, Statistics & Visualization
+      ├── -1 Perform the Kabsch alignment (default), or
+      ├── -2 Change the weighting function with either
+      │   ├── 0 for geometric / unweighted (default)
+      │   ├── 1 for x-ray scattering factors (Mo K\alpha)
+      │   ├── 2 atomic masses
+      │   ├── 3 total number of electrons
+      │   ├── 4 number of core electrons
+      │   ├── 5 spherical electron densities
+      │   ├── 6 LDA electron densities
+      │   └  -10 to return to the upper menu (then needs new a -1 for the test)
+      │
+      └── collect the results
+          ├── 0 to visualize the results in a aRMSD representation
+          ├── 1 visualize structural superposition
+          ├── 2 perform statistics investigation of bond lengths and angles (plots)
+          ├── 3 show RMSD results
+          ├── 4 intrerpolate between the structures (cart., 10 steps)
+          ├── 5 generate the permanent aRMSD_out.log file
+          └── 20 export structure data, in either number or sequence of
+              ├── 0 export superposition in two '.xyz' files
+              ├── 1 export superposition in one '.xyzs' file
+              ├── 2 export aRMSD representation in one '.xyzs' file
+              └── -10 to return to the upper menu
+#+end_src
+
+* reference outputs
+
+** optional permanent record =aRMSD_logfile.out=
+
+=aRMSD= allows to recapitulate the analysis in a permanent record,
+file =aRMSD_logfile.out=.  In the flow chart, this is option =5= of
+section "collect the results".  Below is the summary of the successful
+Kabsch test with example data =M1.xyz= and =M2.xyz=:
+
+#+INCLUDE: "./docSources/2026-07-13-aRMSD_logfile.out" src text
+
+** CLI log of a successful comparison
+
+Except =vtk= widgets to visualize the structures, and diagrams by
+=matplotlib=, the program lives in the CLI.  Depending on your setup
+used, it is possible that lines with program options are visually
+truncated and in consequence, accidentally missed.  It is for this
+reason why the complete dialog on the CLI for a Kabsch test of
+structures files =M1.xyz= and =M2.xyz= is provided below.
+
+The two test data are provided by the GitHub repository (folder
+=examples=), the Kabsch test was run in an instance of Linux
+Debian 13/trixie with Python 3.13.5.
+
+#+INCLUDE: "./docSources/2026-07-13-cli_log.log" src text
 
 * COMMENT setup of =aRMSD=
 
@@ -40,65 +149,7 @@ installation of the program.  Here and there, the primer merely will
   compiler script (different name), or use a setup in Linux Debian
   (testing) as outlined below.
 
-  /This/ forked branch is based on the original version 0.9.6 by Arne
-  Wagner.  It was developed further in Debian 10 (Sid/buster) because
-  =aRMSD= was used side-by-side with other programs already deployed
-  successfully in Linux.  The installation process differs from the
-  one in Windows, as =pip= and =PyInstaller= are omitted, and the
-  installation of dependencies is automated by a script.
-
-** setup in Windows, outlined by Arne Wagner
-
-   =aRMSD= can be in two ways, either via =pip= (in this case it will
-   be used as a Python module or Python application) or you can
-   download the source code and compile it into a single standalone
-   executable. In any case some packages are required which are listed
-   below:
-   + =Python= (version 2.7 or 3.6)
-   + =numpy= (version 1.11.1 / 1.12)
-   + =vtk= (version 6.2.0 / 7.0)
-   + =matplotlib= (version 1.5.2 / 2.0)
-   + =PyQt4=
-   + =uncertainties= (version 3.0.1)
-   optional:
-   + =Cython= [performance improvements] (version 0.25.2)
-   + =openbabel= / =pybel= [additional file formats] (version 2.4.1)
-
-   Due to changes from =vtk 5= to =6=, =aRMSD= does not support an
-   older =vtk= version than =6.2= and a backwards compatibility to the
-   older =vtk 5= engine is not planned.
-
-   In order to adjust the source code by yourself, always make sure to
-   have the required Python packages installed and download the latest
-   version of the master branch. Whenever possible it is recommended
-   to add and update packages using pre-compiled Python =wheels=
-   (http://www.lfd.uci.edu/~gohlke/pythonlibs/) suited for your
-   operating system which can be installed via =pip=.
-
-
-*** Compilation arguments
-
-    The following arguments can be passed to the installation script
-    and specify the usage of =Cython= and =openbabel= in the
-    compilation. All arguments are optional and if none are given
-    neither =Cython= nor =openbabel= will be used. The specification
-    of the =C compiler= may not be needed if your defaults are
-    properly set, however setting it explicitly should ensure a
-    successful installation.
-
-         - =--use_cython= (=True / False=)
-         - =--cython_compiler= (any valid =C compiler= used by =Cython=,
-             e.g. =msvc=)
-         - =--use_openbabel= (=True / False=)
-         - =--overwrite= (=True / False=)
-
-    During the installation, the existence of an =openbabel= hook file
-    in the =PyInstaller= hook path is checked. If no hook exists, a
-    respective file will be created. In case of an existing hook, the
-    file can be overwritten if the =--overwrite= variable is set to
-    =True=.
-
-*** Executable compiled with =PyInstaller=
+*** COMMENT Executable compiled with =PyInstaller=
 
     This produces a single file which can be copied alongside the
     =settings.cfg= and the =xsf folder= to different machines with the
@@ -130,8 +181,10 @@ installation of the program.  Here and there, the primer merely will
     (http://openbabel.org/wiki/Main_Page). Note that the =Cython C
     compiler= should be specified if several options are available:
 
-    #+BEGIN_SRC shell
-      python compile_aRMSD.py --use_cython=True --cython_compiler=msvc --use_openbabel=True --overwrite=True
+    #+BEGIN_SRC shell :results nil
+      python compile_aRMSD.py --use_cython=True \
+             --cython_compiler=msvc \
+             --use_openbabel=True --overwrite=True
     #+END_SRC
 
     If you are using Python 3.6, there is a bug in the =PyInstaller=
@@ -140,9 +193,6 @@ installation of the program.  Here and there, the primer merely will
     and edit the =pyinstaller-script.py= file: add quotes around the
     path in the first program line (e.g. ="c:\program
     files\python36\python.exe"=).
-
-
-
 
 *** comment on Arne Wagner's setup in Windows
 
@@ -155,50 +205,6 @@ installation of the program.  Here and there, the primer merely will
     [[https://github.com/nbehrnd/aRMSD-minimalWindowsSupport]].
 
 * COMMENT Setup of aRMSD in Linux Debian / Ubuntu
-
-  In addition to the =*.zip= archive available on GitHub, =aRMSD=
-  depends on libraries most likely not installed on your computer.
-  Anticipate about 0.2 to 0.3 GB of disk space needed for them.
-
-  For a facile, semi-automatic set-up, the top directory of the
-  extracted archive contains script =debcollector_aRMSD.py= which you
-  shall run once from the CLI prior to any use of =aRMSD=:
-
-  #+BEGIN_SRC shell
-    python debcollector.py
-  #+END_SRC
-
-  This script is dedicated to the deployment under Linux Debian (e.g.,
-  Debian 9 (Sid/buster), or Xubuntu (Xubuntu 18.04 LTS).  It will
-  request the administrator password, and triggers the system to fetch
-  and install the dependencies of =aRMSD= in one run.  Possibly, user
-  interaction is needed since this process may recursively install
-  modules /in addition/ to the ones explicitly listed in the script.
-
-  If you use a different operating system, or prefer a manual package
-  installation, here are the relevant modules I use on a reference
-  system (Debian 9, Sid/buster) to work with =aRMSD=:
-
-  + =python= (version 2.7.15+) and =python3= (version 3.6.6)
-
-  + =cython= (version 0.28.4-1)
-
-  + =openbabel=, =libopenbabel5=, =python-openbabel= (all in version
-    2.4.1+dfsg-2)
-
-  + =python-matplotlib=, =python-matplotlib-data=, =python3-matplotlib= (all
-    in version 2.2.2-4+b1)
-
-  + =python-uncertainties=, =python3-uncertainties= (all in version
-    2.4.4-1)
-
-  + =libvtk6.3=, =libvtk6.3-qt=, =python-vtk6=, =vtk6= (all in version
-    6.3.0+dfsg2-2+b3); =libvtk7.1=, =libvtk7.1-qt=, =python3-vtk7=,
-    =vtk7= (all in version 7.1.1+dfsg1-5)
-
-  Again, note that according to Arne Wagner's description about
-  =aRMSD= running in Windows, you may skip =cython= which will provide
-  an /optional/ gain in performance.
 
   After completed installation of these dependencies, enter the top
   directory of the decompressed archive with your shell, and start
@@ -231,33 +237,6 @@ installation of the program.  Here and there, the primer merely will
   #+NAME:    fig-large-welcome
   #+CAPTION: Initial screen display of =aRMSD= in a 80 \times 43 character terminal.
   [[./docSources/aRMSD-largeWelcome.png]]
-
-  Like other python scripts run in the CLI, at any stage of working
-  with =aRMSD= the program may be closed safely from the terminal with
-  the command  =Ctrl + C=.
-
-  The =vtk= related modules are /essential/ to work with =aRMSD=.
-  Still, it is possible to access a subset of functions provided by
-  =aRMSD= with a few of the other modules modules missing.  In
-  particular, this is if
-
-  + your system does not spot =libopenbabel=.  Then, file format
-    conversions provided by =babel= will be unavailable to =aRMSD=.
-    In this situation, the only model file type accessible to the
-    program is =*.xyz=.
-
-  + your system lacks =matplotlib=.  Then, there will be no provision
-    of the 2D statistics plots.  Since the corresponding sub-routine
-    in =aRMSD= equally contributes some numerical results, the
-    eventual log generated by =aRMSD= will miss portions of the
-    diagnostic data.
-
-  In both cases the welcome screen will tell you about the modules
-  missing / not recognized by the installation.  Yet even in this
-  situation =aRMSD= still will be capable to align the structure
-  models, refine their alignment and provide you with some of the
-  results of the similarity analysis.  You are set to work with
-  =aRMSD=.
 
 
 * COMMENT Example comparing two models successfully
@@ -679,119 +658,6 @@ installation of the program.  Here and there, the primer merely will
   #+INCLUDE: "./docSources/aRMSD-M1M2-failLog.out" :lines "92-103" src shell
 
 
-* setup of aRMSD
-
-The project was reorganized around a =pyproject.toml= file, after
-creation and activation of a virtual environment for Python 3.10 (or
-higher), the command
-
-#+begin_src bash :results nil
-  pip install .
-#+end_src
-
-on a copy of the GitHub project resolves the requirements from
-pypi.org.  Reserve about 0.8GB of permanent memory for this support.
-When successful, the installation provides =armsd= as a new command to
-the CLI.
-
-** workflow
-
-Except for widgets to provide an interactive structure display or user
-adjustable diagrams about the test's statistics provided by
-matplotlib, aRMSD lives in the command line.  The following tree
-diagram recapituates key points of the workflow on .xyz data.
-
-#+begin_src markdown :results nil
-  ├── reading input structures, for instance M1.xyz and M2.xyz
-  │
-  │
-  ├── Consistency Checks and Structural Modification
-  │   ├── 0 to remove and exclude all hydrogens from the analysis
-  │   ├── 1 to remove all hydrogens bound to carbon
-  │   └── 3 to include all hydrogens in the analysis
-  │
-  │
-  ├── Symmetry Adjustment & Sequency Matching
-  │   ├── visual inspection, any number or sequence of
-  │   │   ├── s to ave a .png (optional)
-  │   │   ├── left mouse button (LMB) to drag the scene
-  │   │   ├── Ctrl + LMB to roll the scene
-  │   │   ├── Shift + LMB to pan the scene
-  │   │   ├── mouse reel to zoom the scene
-  │   │   ├── r to return scene to a home position
-  │   │   ├── 3 toggle on/off stereoscopic anaglyph representation
-  │   │   └── q to quit and close the current widget
-  │   │
-  │   ├── any number or sequence of symmetry operations
-  │   │   ├── 1 for an inversoin at the origin
-  │   │   ├── 2 for a reflection on the xy plane
-  │   │   ├── 3 for a reflection on the xz plane
-  │   │   ├── 4 for a reflection on the yz plane
-  │   │   ├── 5 for a rotation around the x axis
-  │   │   ├── 6 for a rotation around the y axis
-  │   │   ├── 7 for a rotation around the z axis
-  │   │   └── 8 do not edit the relative orientation, show the molecules again
-  │   │
-  │   └── decide on the current alignment
-  │       └── 10 to save the current alignment for the next step
-  │
-  │
-  ├──  decide over the program'ś matching algorithm used
-  │    ├── -1 continue with the current choice, or
-  │    ├── -2 change ge matching algorithm or solver
-  │    │   ├── -10 to leave the for the next upper level of hierarchy
-  │    │   ├── -1 to show detail;s of the currently used algorithm
-  │    │   ├── 1 use absolute distance between the atoms
-  │    │   ├── 2 use a combination of absolute and relative distances
-  │    │   ├── 3 use random permutations / brute force
-  │    │   ├── 4 use 'Hungarian' solver for the permutation matrix
-  │    │   └── 5 use 'aRMSD' solver for the permutation matrix (standard)
-  │    │
-  │    └── decide on the current atom match
-  │        ├── visual inspection (see above)
-  │        └── decide on the current state
-  │            ├── 0 to continue, because it is reasonably well aligned, or
-  │            └── return to manual adjustment of the initial alignment
-  │
-  │
-  └── Kabsch Algorithm, Statistics & Visualization
-      ├── -1 Perform the Kabsch alignment (default), or
-      ├── -2 Change the weighting function with either
-      │   ├── 0 for geometric / unweighted (default)
-      │   ├── 1 for x-ray scattering factors (Mo K\alpha)
-      │   ├── 2 atomic masses
-      │   ├── 3 total number of electrons
-      │   ├── 4 number of core electrons
-      │   ├── 5 spherical electron densities
-      │   ├── 6 LDA electron densities
-      │   └  -10 to return to the upper menu (then needs new a -1 for the test)
-      │
-      └── collect the results
-          ├── 0 to visualize the results in a aRMSD representation
-          ├── 1 visualize structural superposition
-          ├── 2 perform statistics investigation of bond lengths and angles (plots)
-          ├── 3 show RMSD results
-          ├── 4 intrerpolate between the structures (cart., 10 steps)
-          ├── 5 generate the permanent aRMSD_out.log file
-          └── 20 export structure data, in either number or sequence of
-              ├── 0 export superposition in two '.xyz' files
-              ├── 1 export superposition in one '.xyzs' file
-              ├── 2 export aRMSD representation in one '.xyzs' file
-              └── -10 to return to the upper menu
-#+end_src
-
-  For the analysis of =M1.xyz= and =M2.xyz= provided as test data in
-  folder =examples=, the optional log file written by =aRSMD= is
-  provided below:
-
-  #+INCLUDE: "./docSources/2026-07-13-aRMSD_logfile.out" src shell
-
-  The complete log of a test run with =M1.xyz= and =M2.xyz= as test
-  data, the report back to the BASH shell is provided below.  Host
-  system was an instance of Linux Debian 13/trixie, supported by
-  Python 3.13.5
-
-  #+INCLUDE: "./docSources/2026-07-13-cli_log.log" src shell
 * COMMENT Supplementary data
 
 ** log-file by aRMSD about the successful comparison, xyz-data

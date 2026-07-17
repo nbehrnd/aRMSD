@@ -1,29 +1,30 @@
-The goal of the primer is to enable you to perform a basic comparison of
-two molecular structures with `aRMSD`, including proper installation of
-the program. Here and there, the primer merely will *hint* you to
-additional features implemented in `aRMSD`.
+# aRMSD
+
+After the installation of `aRMSD`, this primer outlines the comparison
+of two conformers of a small molecule. Briefly, functionality beyond
+basic use is indicated, too.
 
 # setup of aRMSD
 
-The project was reorganized around a `pyproject.toml` file, after
-creation and activation of a virtual environment for Python 3.10 (or
-higher), the command
+It is recommended to install and use `aRMSD` within a virtual
+environment of Python 3.11 (or above). Either download the .zip archive,
+or clone the [GitHub repository](https://github.com/nbehrnd/aRMSD). By
+the command of
 
 ``` bash
 pip install .
 ```
 
-on a copy of the GitHub project resolves the requirements from pypi.org.
-Reserve about 0.8GB of permanent memory for this support. When
-successful, the installation provides `armsd` as a new command to the
-CLI.
+within this folder, `pyproject.toml` resolves the program's dependencies
+on [pypi.org](https://pypi.org/). Be aware this support requires up to
+about 0.8GB of permanent memory. When successful, the installation
+provides the CLI `armsd` (all lowercase) as a new command.
 
-## workflow
+# workflow overview
 
-Except for widgets to provide an interactive structure display or user
-adjustable diagrams about the test's statistics provided by matplotlib,
-aRMSD lives in the command line. The following tree diagram recapituates
-key points of the workflow on .xyz data.
+The following tree diagram recapitulates key points of the workflow on
+.xyz data. Files `M1.xyz` and `M2.xyz` can be found in folder
+`examples`.
 
 ``` markdown
 ├── reading input structures, for instance M1.xyz and M2.xyz
@@ -104,11 +105,16 @@ key points of the workflow on .xyz data.
             └── -10 to return to the upper menu
 ```
 
-For the analysis of `M1.xyz` and `M2.xyz` provided as test data in
-folder `examples`, the optional log file written by `aRSMD` is provided
-below:
+# reference outputs
 
-``` shell
+## optional permanent record `aRMSD_logfile.out`
+
+`aRMSD` allows to recapitulate the analysis in a permanent record, file
+`aRMSD_logfile.out`. In the flow chart, this is option `5` of section
+"collect the results". Below is the summary of the successful Kabsch
+test with example data `M1.xyz` and `M2.xyz`:
+
+``` text
 +------------------------------------------------------------------------------+
 |              aRMSD - automatic RMSD Calculator (version 1.0.0)               |
 |                      Arne Wagner, Norwid Behrnd (2026)                       |
@@ -255,11 +261,20 @@ below:
 *** End of log file ***
 ```
 
-The complete log of a test run with `M1.xyz` and `M2.xyz` as test data,
-the report back to the BASH shell is provided below. Host system was an
-instance of Linux Debian 13/trixie, supported by Python 3.13.5
+## CLI log of a successful comparison
 
-``` shell
+Except `vtk` widgets to visualize the structures, and diagrams by
+`matplotlib`, the program lives in the CLI. Depending on your setup
+used, it is possible that lines with program options are visually
+truncated and in consequence, accidentally missed. It is for this reason
+why the complete dialog on the CLI for a Kabsch test of structures files
+`M1.xyz` and `M2.xyz` is provided below.
+
+The two test data are provided by the GitHub repository (folder
+`examples`), the Kabsch test was run in an instance of Linux
+Debian 13/trixie with Python 3.13.5.
+
+``` text
 
 ================================================================================
                           aRMSD (version 1.0.0, 2026)
@@ -853,7 +868,4 @@ Entries are: Atoms, values in the Model and Reference, difference
 --------------------------------------------------------------------------------
 ========================== Normal program termination ==========================
 --------------------------------------------------------------------------------
-
-
-
 ```
