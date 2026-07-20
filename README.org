@@ -1,6 +1,6 @@
 # file name: README.org
-# last edit: [2026-07-17 Fri]
-#+AUTHOR:  Norwid Behrnd
+# last edit: [2026-07-20 Mon]
+#+AUTHOR:
 #+TITLE:
 #+DATE:
 
@@ -101,7 +101,7 @@
 
 * Proposed installation and use
 
-  =aRMSD= preferably is used in a virtual environment of Python 3.11
+  =aRMSD= preferably is used in a virtual environment of Python 3.10
   (or above) to resolve its dependencies by [[https://pypi.org/][pypi.org]] and file
   =pyproject.toml=.  Depending on Python version and operating system,
   this support can add up to about 1GB permanent memory.  With the

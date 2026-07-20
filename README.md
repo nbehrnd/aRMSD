@@ -1,5 +1,4 @@
 ---
-author: Norwid Behrnd
 ---
 
 ![](./aRMSD_logo.png)
@@ -88,7 +87,7 @@ Temeslo.[^9]
 
 # Proposed installation and use
 
-`aRMSD` preferably is used in a virtual environment of Python 3.11 (or
+`aRMSD` preferably is used in a virtual environment of Python 3.10 (or
 above) to resolve its dependencies by [pypi.org](https://pypi.org/) and
 file `pyproject.toml`. Depending on Python version and operating system,
 this support can add up to about 1GB permanent memory. With the `.whl`
