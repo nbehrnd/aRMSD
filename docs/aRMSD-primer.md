@@ -869,3 +869,299 @@ Entries are: Atoms, values in the Model and Reference, difference
 ========================== Normal program termination ==========================
 --------------------------------------------------------------------------------
 ```
+
+# Example geometric Kabsch test
+
+This chapter describes a simple *geometric* Kabsch test of two
+conformers of a small molecule. Here, the test is *geometric* because
+the contribution of each atom to the final RMSD only depends on its
+atomic position, and the incertitude of this atomic position. It is the
+basic approach in `aRMSD` and suitable to get familiar with the program,
+especially in conjunction with the *workflow overview* this primer
+includes.
+
+The test data used are files `M1.xyz` and `M2.xyz` (folder `examples`)
+about the aspirinate anion. They are derived from corresponding `*.cif`
+found in the CSD data base[^1] with Olex2.[^2] Copy these into a
+location easily accessible for you.
+
+Side note: Depending on the use case, it might be useful, or necessary
+to equally account for atomic properties such as atomic masses, total or
+core electron count, atomic X-ray scattering factors, etc. These options
+contribute to a *weighted* Kabsch test and represent an advanced used of
+`aRMSD` described in a different chapter.
+
+## Reading the structures
+
+From your shell, launch the program by command `aRMSD`.
+
+After the simulated prompt (the `>` sign), enter the complete file name
+(including the file extension) of the first model to load and confirm
+with with `ENTER`. Note, there is no tab-assisted auto-completion of the
+file name. If you err with the file name, and the model does not exist,
+you are offered a new prompt. If you err with the file name pointing to
+an existing model, but are not interested to compare with an other
+model, the simplest rectification is to close `aRMSD` with `Ctrl + C`
+and to start the program freshly again.
+
+![](./docSources/aRMSD-loadingModels.png)
+
+The program's note
+
+``` bash
+No standard deviations were found!
+```
+
+reminds the program's background in crystallography, where atomic
+coordinates may be described with their esd. Present `aRMSD` (version
+1.0.0) however is not yet (again) capable to reliably process `.cif`
+files. With `.xyz` files – as in this example– you don't need to worry
+about this note.
+
+Side note: Indeed, it is possible to load different models of different
+file type with different file extensions, such as `M1.xyz` for the
+first, and `M2.pdb` for the second model to compare with each other.
+While preparing the Kabsch test, as long as *consistency checks* on the
+two model's total atom count are passed, this is not problematic to
+`aRMSD`.
+
+### Consideration of hydrogen atoms
+
+For the Kabsch test ahead, `aRMSD` allows you to include all, or to
+exclude a selection of hydrogens (bond to carbons, or bond to group-14
+elements). You equally may neglect all hydrogen atoms altogether, too.
+This can be useful e.g., for comparing two structure models where one
+has an incomplete set of hydrogen atoms as obtained e.g., by X-ray
+diffraction experiments.
+
+Your choice here only affects the internal representation of model and
+reference. Your choice will not edit your input files.
+
+For the purpose of this primer, all atoms were included in the scrutiny,
+selected by key stroke `3`:
+
+![](./docSources/aRMSD-hydrogens.png)
+
+`aRMSD` then provides a first *guess* of an *initial alignment* the two
+models.
+
+## User-assisted re-orientation of the models
+
+`aRMSD` now launches a `vtk`-based widget separate from the terminal.
+With your mouse, you can tilt, roll, pan, and zoom the scene to your
+preference to learn about this *initial* alignment were the *model* (red
+motif) and *reference* (green motif) already share a Cartesian
+coordinate system in common. Depending on your computer and operating
+system, it is possible to toggle on/off an anaglyph representation, too.
+
+![](./docSources/aRMSD-structureVisualizerDefault-scaled.png)
+
+| command                                 | function                  |
+|-----------------------------------------|---------------------------|
+| dragging with left mouse button (`LMB`) | tilt the scene            |
+| `CTRL + LMB`                            | roll the scene            |
+| `Shift + LMB`                           | pane the scene            |
+| middle mouse reel                       | zoom the scene            |
+| `r`                                     | return to a home position |
+| `3`                                     | toggle anaglyph display   |
+| `q`, `e`, or `0`                        | close the visualizer      |
+| `s`                                     | save the scene (`*.png`)  |
+
+Note that the more your mouse is out of the center of the visualizer's
+canvas, the more the mouse-assisted actions accelerate. You may document
+the match as bitmap with key-stroke `s`; the visualizer, unaltered in
+its default dimension will write a `*.png` (2048 ×2048 px) deposit in
+your current working directory.
+
+If you are familiar about the alignment shown to you, close the
+visualizer (`q`). If – as in the current example – the two model data do
+not align nicely, the terminal offers you multiple symmetry operations
+to try a better alignment. Each time you select one of the options,
+`aRMSD` displays a new *initial match* of the two in a newly opened
+instance of the visualizer.
+
+![](./docSources/aRMSD-realignmentInterface.png)
+
+In the case of this primer, the relative arrangement has to undergo an
+inversion (key-stroke `1`), and an reflection in respect to the
+*xz*-plane (key-stroke `3`). The approach is iterative, and the sequence
+these operations does not matter. The progress is shown in the figure
+below. Intentionally both alignments shown share the same perspective.
+
+![](./docSources/aRMSD-M1M2-initialMatching.png)
+
+At this stage, you aim for a fit of the two model structures that is
+*good enough*. (In the ongoing of this section, as well in comparison
+with the next chapter, you will learn what this refers to.) Once two
+structure data do overlap – again, it is *an initial* superposition only
+– close the visualizer (keystroke `q`) and save this change alignment
+obtained (with keystroke `10`).
+
+## Re-ordering of the atoms
+
+To proceed in the refinement of the superposition successfully, the
+atoms recognized of both models have to be labeled consistently. *One*
+approach available in `aRMSD` is the Hungarian algorithm, implemented as
+default strategy. At the current stage of the analysis, this is
+triggered by hitting `-1` (minus one).
+
+`aRMSD` will again open a `vtk`-visualizer of the two prealigned models.
+In contrast to the former situation, however, the labeling of the atoms
+of one molecule should match the one of the same atoms in the second
+molecule. In addition, yellow streaks indicate which atoms in *model*
+and *reference* `aRMSD` considers as equivalent.
+
+![](./docSources/aRMSD-M1M2-Hungarian.png)
+
+Since the obtained pre-alignment and match of atom sequences is
+reasonable, close the visualizer (key-stroke `q`), and save the
+intermediate result (key-stroke `10`).
+
+## refinement of the superposition (Kabsch test)
+
+To enter the menu about the Kabsch test, hit now once `0` (zero). The
+interface displayed by `aRMSD` in the terminal changes, and you are able
+to trigger the refinement of the superposition with `-1` (minus one).
+The now following sequence of calling subroutines is *recommended* to
+harvest the maximum of relevant data `aRMSD` provides.
+
+![](./docSources/aRMSD-KabschInterface.png)
+
+- Key-stroke `0` (zero) again opens the interactive Vtk-based visualizer
+  (subfigure a). This adapted ball-stick representation displays *atom
+  radii* of the atoms proportional to the *relative contribution* of
+  said atoms to the global RMSD. The *atom colors* of the spheres scales
+  to the absolute remaining difference of the two fit structures about
+  said atom in Angstroms. The lateral scale offers an estimate of the
+  latter.
+
+![](./docSources/aRMSD-diffA-diffB.png)
+
+Some of the bonds depicted *might* bear a red band in the center. This
+is to indicate that the same bond in the reference model is
+significantly shorter, than in the tested model. Conversely, a green
+band indicates a bond that is longer. By default, the critical *length
+difference* to set these bands equals to 0.2 Angstrom. Bby keystroke `1`
+(subfigure b), a wireframe model of the finalized superposition.
+
+Clicking *on* a representation of one, two, three, or four atoms selects
+them to read out to the final RMSD data about the corresponding
+position; or corresponding difference in distance, angle; or dihedral
+angle between model and reference. These readouts are non-permanent and
+provided *only* on the terminal.
+
+![](./docSources/aRMSD-diffTest.png)
+
+The underlying routine providing the readouts is agnostic about the atom
+type, allowing both the selection of hydrogen atoms, as well as non-H
+atoms. The atoms of interest need not be adjacent, either, which may be
+of interest comparing distances and angles. Again, you close the
+visualizer with keystroke `q`.
+
+- With key-stroke `2`, an additional determination of statistics, and
+  generation of synoptic diagrams is provided by the `matplotlb`
+  library. At your discretion, you can pan and zoom to the region of
+  interest within the diagrams. Depending on your setup, the diagrams
+  can then be exported for instance as `.png`, `.pdf`, or `.tikz`.
+
+![](./docSources/aRMSD-M1M2-statistics.png)
+
+The window about the statistics plots may be closed either by mouse, or
+again key-stroke `q`.
+
+- With keystroke `3`, the program offers you a first decomposition about
+  RMSD's contributions onto the terminal. Though your shell might
+  visually truncate some of the results, it is useful to invoke this
+  subroutine once – even blindly – because *this step's results* will
+  enter the permanent record log written of the next.
+
+![](./docSources/aRMSD-M1M2SuperposQuality.png)
+
+- Key-stroke `5` initiates `aRMSD` to write a permanent record
+  `aRMSD_log-file.out` as plain text. This recapitulates setup and
+  results of the similarity measurement, such as the rotation matrix
+  applied to match the two structure models, or further figures of merit
+  (e.g., cosine similarity, GARD similarity).
+
+  In section `reference outputs`, the primer includes an example of
+  `aRMSD_logfile.out`.
+
+## general hints
+
+Last, but not least, a few words of caution:
+
+- It is normal that performing the same computation a twice, with the
+  same files, in a different operating system yields results *slightly
+  different* from each other.
+
+- There are multiple "dialects" about the `.pdb` format, which may
+  require the model data you have to be converted into `.xyz`, for
+  example with `babel`[^3] using a pattern of
+
+  ``` shell
+  babel input.pdb -O converted.xyz
+  ```
+
+  The conversion into `.xyz` may strip symmetry of the structure model,
+  and thus affect file size.
+
+# Example of a failed Kabsch test
+
+This section compiles hints of various degrees to recognize the Kabsch
+test *might be*, or actually *is* on the wrong track.
+
+Let's presume the program's guess of a prealignment wasn't yet optimal,
+and the manual adjustment by symmetry operations incomplete. Then,
+running the Hungarian algorithm to synchronize the atom sequence in
+*model* and *reference* may fail. Or, though successful in this task,
+the subsequent representation highlights the corresponding atoms by
+yellow struts running largely across the coordinate system in common.
+The figure below displays such at level where atoms are labeled (a), and
+corresponding atom is assigned (b).
+
+![](./docSources/aRMSD-badAlignmentOnlyInversion-stepA.png)
+
+While mathematically still possible to perform a Kabsch test, another
+warning indicator are atoms depicted with unusual large absolute
+contribution to the overall final RMSD (subfigure a). Depending on the
+structure model and its molecular symmetry in question, some atoms might
+be more affected by a misalignment, than others. Trying to connect the
+atoms of either *model*, or *reference*, `aRMSD` might depict unusually
+distorted structures (subfigure b), too
+
+![](./docSources/aRMSD-badAlignmentOnlyInversion-stepB.png)
+
+Eventually, the visual inspection (and comparison with other attempts)
+of the statistic diagrams should complement the reading of the
+corresponding optional `aRMSD_logfile.out`.
+
+![](./docSources/aRMSD-badAlignmentOnlyInversion-stepC.png)
+
+[^1]: Model `M1.xyz` and `M1.pdb` are derivated from entry `FEHGAB` of
+    CCDC's CSD file; primary reference: Santana, M. D.; Lozano, A. A.;
+    García, G.; López, G.; Pérez, J. Five-Coordinate Nickel(ii)
+    Complexes with Carboxylate Anions and Derivatives of
+    1,5,9-Triazacyclododec-1-Ene: Structural and1 H NMR Spectroscopic
+    Studies. *Dalton Trans.* **2005**, No. 1, 104–109.
+    <https://doi.org/10.1039/B413547D>. `M2.xyz` and `M2.pdb` are
+    derivated from entry `IVUYEE` of CCDC's CSD file; primary reference:
+    Poyraz, M.; Banti, C. N.; Kourkoumelis, N.; Dokorou, V.; Manos, M.
+    J.; Simčič, M.; Golič-Grdadolnik, S.; Mavromoustakos, T.;
+    Giannoulis, A. D.; Verginadis, I. I.; Charalabopoulos, K.;
+    Hadjikakou, S. K. Synthesis, Structural Characterization and
+    Biological Studies of Novel Mixed Ligand Ag(I) Complexes with
+    Triphenylphosphine and Aspirin or Salicylic Acid. *Inorg. Chim.
+    Acta* **2011**, *375* (1), 114–121.
+    <https://doi.org/10.1016/j.ica.2011.04.032>.
+
+[^2]: Dolomanov, O. V.; Bourhis, L. J.; Gildea, R. J.; Howard, J. A. K.;
+    Puschmann, H. OLEX2 : A Complete Structure Solution, Refinement and
+    Analysis Program. *J. Appl. Crystallogr.* **2009**, *42* (2),
+    339–341. <https://doi.org/10.1107/S0021889808042726>. Olex2,
+    version 1.2.10.
+
+[^3]: Open Babel, <http://openbabel.org/>. For further details, see
+    O’Boyle, N. M.; Banck, M.; James, C. A.; Morley, C.; Vandermeersch,
+    T.; Hutchison, G. R. Open Babel: An Open Chemical Toolbox. *J
+    Cheminform* **2011**, *3* (1), 33.
+    <https://doi.org/10.1186/1758-2946-3-33>.
