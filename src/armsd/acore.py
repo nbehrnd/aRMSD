@@ -2719,8 +2719,8 @@ class Kabsch(object):
                 content = np.loadtxt(filepath, dtype=float, skiprows=1, usecols=(0, 1, 2))
 
                 # Find nearest scattering factors by interpolation
-                xsf1 = interp(logger.xfs_energy, np.transpose(content)[0], np.transpose(content)[1])
-                xsf2 = interp(logger.xfs_energy, np.transpose(content)[0], np.transpose(content)[2])
+                xsf1 = np.interp(logger.xfs_energy, np.transpose(content)[0], np.transpose(content)[1])
+                xsf2 = np.interp(logger.xfs_energy, np.transpose(content)[0], np.transpose(content)[2])
                 success = 1.0
 
             except (IOError, NameError, SyntaxError, ValueError):
