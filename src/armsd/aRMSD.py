@@ -76,8 +76,8 @@ lic = 'MIT'
 __aRMSD_version__ = '1.0.1'
 __aRMSD_release__ = 2026
 
-__log_version__ = '2026-07-14'
-__core_version__ = '2026-07-22'
+__log_version__ = '2026-07-25'
+__core_version__ = '2026-07-25'
 __plot_version__ = '2026-07-03'
 
 __author__ = author+' <'+author_email+'>'

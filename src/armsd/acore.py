@@ -2879,7 +2879,33 @@ class Kabsch(object):
 
                     if wf_type == 1:
                         logger.xfs_energy = eval(
-                            input("\nEnter energy of X-ray radiation in eV (e.g. 17479.34 for MoK(alpha)): "))
+                            input("""
+Enter the energy of X-ray radiation in eV.
+
+For a selection of more commonly used target materials, the
+table below provides approximate values of K alpha-1 lines.
+
+It is based on NIST Standard Reference Database 128
+"X-Ray Transition Energies Database" (update September 2005)
+by R. D. Deslattes et al., https://dx.doi.org/10.18434/T4859Z,
+https://www.nist.gov/pml/x-ray-transition-energies-database
+
+| target | wavelength / A | energy / eV |
+|--------+----------------+-------------|
+| Mo Ka  |    0.709       |   17479     |
+| Cu Ka  |    1.541       |    8048     |
+|--------+----------------+-------------|
+| Cr Ka  |    2.290       |    5413     |
+| Fe Ka  |    1.936       |    6403     |
+| Co Ka  |    1.789       |    6930     |
+| Ag Ka  |    0.559       |   22163     |
+
+A sensible input is in the range of 300 eV up to and including 30000 eV.
+Python's grouping with underscores (e.g., 20_000 for 20 keV) is supported.
+
+Your energy input: """))
+
+                        print(f"Your input was: {logger.xfs_energy} eV")
 
                     self.calc_mcc = logger.get_menu_choice([True, False],
                                                            question="\n>>  Calculate mcc contributions (True / False): ",
