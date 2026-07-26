@@ -105,6 +105,405 @@ The following tree diagram recapitulates key points of the workflow on
             └── -10 to return to the upper menu
 ```
 
+# Example geometric Kabsch test
+
+This chapter describes a simple *geometric* Kabsch test of two
+conformers of a small molecule. Here, the test is *geometric* because
+the contribution of each atom to the final RMSD only depends on its
+atomic position, and the incertitude of this atomic position. It is the
+basic approach in `aRMSD` and suitable to get familiar with the program,
+especially in conjunction with the *workflow overview* this primer
+includes.
+
+The test data used are files `M1.xyz` and `M2.xyz` (folder `examples`)
+about the aspirinate anion. They are derived from corresponding `*.cif`
+found in the CSD data base[^1] with Olex2.[^2] Copy these into a
+location easily accessible for you.
+
+Side note: Depending on the use case, it might be useful, or necessary
+to equally account for atomic properties such as atomic masses, total or
+core electron count, atomic X-ray scattering factors, etc. These options
+contribute to a *weighted* Kabsch test and represent an advanced used of
+`aRMSD` described in a different chapter.
+
+## Reading the structures
+
+From your shell, launch the program by command `armsd`.
+
+After the simulated prompt (the `>` sign), enter the complete file name
+(including the file extension) of the first model to load and confirm
+with with `ENTER`. Note, there is no tab-assisted auto-completion of the
+file name. If you err with the file name, and the model does not exist,
+you are offered a new prompt. If you err with the file name pointing to
+an existing model, but are not interested to compare with an other
+model, the simplest rectification is to close `aRMSD` with `Ctrl + C`
+and to start the program freshly again.
+
+![](./docSources/aRMSD-loadingModels.png)
+
+The program's note
+
+``` bash
+No standard deviations were found!
+```
+
+reminds the program's background in crystallography, where atomic
+coordinates may be described with their esd. Present `aRMSD` (version
+1.0.0) however is not yet (again) capable to reliably process `.cif`
+files. With `.xyz` files – as in this example– you don't need to worry
+about this note.
+
+Side note: Indeed, it is possible to load different models of different
+file type with different file extensions, such as `M1.xyz` for the
+first, and `M2.pdb` for the second model to compare with each other.
+While preparing the Kabsch test, as long as *consistency checks* on the
+two model's total atom count are passed, this is not problematic to
+`aRMSD`.
+
+### Consideration of hydrogen atoms
+
+For the Kabsch test ahead, `aRMSD` allows you to include all, or to
+exclude a selection of hydrogens (bond to carbons, or bond to group-14
+elements). You equally may neglect all hydrogen atoms altogether, too.
+This can be useful e.g., for comparing two structure models where one
+has an incomplete set of hydrogen atoms as obtained e.g., by X-ray
+diffraction experiments.
+
+Your choice here only affects the internal representation of model and
+reference. Your choice will not edit your input files.
+
+For the purpose of this primer, all atoms were included in the scrutiny,
+selected by key stroke `3`:
+
+![](./docSources/aRMSD-hydrogens.png)
+
+`aRMSD` then provides a first *guess* of an *initial alignment* the two
+models.
+
+## User-assisted re-orientation of the models
+
+`aRMSD` now launches a `vtk`-based widget separate from the terminal.
+With your mouse, you can tilt, roll, pan, and zoom the scene to your
+preference to learn about this *initial* alignment were the *model* (red
+motif) and *reference* (green motif) already share a Cartesian
+coordinate system in common. Depending on your computer and operating
+system, it is possible to toggle on/off an anaglyph representation, too.
+
+![](./docSources/aRMSD-structureVisualizerDefault-scaled.png)
+
+| command                                 | function                  |
+|-----------------------------------------|---------------------------|
+| dragging with left mouse button (`LMB`) | tilt the scene            |
+| `CTRL + LMB`                            | roll the scene            |
+| `Shift + LMB`                           | pane the scene            |
+| middle mouse reel                       | zoom the scene            |
+| `r`                                     | return to a home position |
+| `3`                                     | toggle anaglyph display   |
+| `q`, `e`, or `0`                        | close the visualizer      |
+| `s`                                     | save the scene (`*.png`)  |
+
+Note that the more your mouse is out of the center of the visualizer's
+canvas, the more the mouse-assisted actions accelerate. You may document
+the match as bitmap with key-stroke `s`; the visualizer, unaltered in
+its default dimension will write a `*.png` (2048 ×2048 px) deposit in
+your current working directory.
+
+If you are familiar about the alignment shown to you, close the
+visualizer (`q`). If – as in the current example – the two model data do
+not align nicely, the terminal offers you multiple symmetry operations
+to try a better alignment. Each time you select one of the options,
+`aRMSD` displays a new *initial match* of the two in a newly opened
+instance of the visualizer.
+
+![](./docSources/aRMSD-realignmentInterface.png)
+
+In the case of this primer, the relative arrangement has to undergo an
+inversion (key-stroke `1`), and an reflection in respect to the
+*xz*-plane (key-stroke `3`). The approach is iterative, and the sequence
+these operations does not matter. The progress is shown in the figure
+below. Intentionally both alignments shown share the same perspective.
+
+![](./docSources/aRMSD-M1M2-initialMatching.png)
+
+At this stage, you aim for a fit of the two model structures that is
+*good enough*. (In the ongoing of this section, as well in comparison
+with the next chapter, you will learn what this refers to.) Once two
+structure data do overlap – again, it is *an initial* superposition only
+– close the visualizer (keystroke `q`) and save this change alignment
+obtained (with keystroke `10`).
+
+## Re-ordering of the atoms
+
+To proceed in the refinement of the superposition successfully, the
+atoms recognized of both models have to be labeled consistently. *One*
+approach available in `aRMSD` is the Hungarian algorithm, implemented as
+default strategy. At the current stage of the analysis, this is
+triggered by hitting `-1` (minus one).
+
+`aRMSD` will again open a `vtk`-visualizer of the two prealigned models.
+In contrast to the former situation, however, the labeling of the atoms
+of one molecule should match the one of the same atoms in the second
+molecule. In addition, yellow streaks indicate which atoms in *model*
+and *reference* `aRMSD` considers as equivalent.
+
+![](./docSources/aRMSD-M1M2-Hungarian.png)
+
+Since the obtained pre-alignment and match of atom sequences is
+reasonable, close the visualizer (key-stroke `q`), and save the
+intermediate result (key-stroke `10`).
+
+## refinement of the superposition (Kabsch test)
+
+To enter the menu about the Kabsch test, hit now once `0` (zero). The
+interface displayed by `aRMSD` in the terminal changes, and you are able
+to trigger the refinement of the superposition with `-1` (minus one).
+The now following sequence of calling subroutines is *recommended* to
+harvest the maximum of relevant data `aRMSD` provides.
+
+![](./docSources/aRMSD-KabschInterface.png)
+
+- Key-stroke `0` (zero) again opens the interactive Vtk-based visualizer
+  (subfigure a). This adapted ball-stick representation displays *atom
+  radii* of the atoms proportional to the *relative contribution* of
+  said atoms to the global RMSD. The *atom colors* of the spheres scales
+  to the absolute remaining difference of the two fit structures about
+  said atom in Angstroms. The lateral scale offers an estimate of the
+  latter.
+
+![](./docSources/aRMSD-diffA-diffB.png)
+
+Some of the bonds depicted *might* bear a red band in the center. This
+is to indicate that the same bond in the reference model is
+significantly shorter, than in the tested model. Conversely, a green
+band indicates a bond that is longer. By default, the critical *length
+difference* to set these bands equals to 0.2 Angstrom. Bby keystroke `1`
+(subfigure b), a wireframe model of the finalized superposition.
+
+Clicking *on* a representation of one, two, three, or four atoms selects
+them to read out to the final RMSD data about the corresponding
+position; or corresponding difference in distance, angle; or dihedral
+angle between model and reference. These readouts are non-permanent and
+provided *only* on the terminal.
+
+![](./docSources/aRMSD-diffTest.png)
+
+The underlying routine providing the readouts is agnostic about the atom
+type, allowing both the selection of hydrogen atoms, as well as non-H
+atoms. The atoms of interest need not be adjacent, either, which may be
+of interest comparing distances and angles. Again, you close the
+visualizer with keystroke `q`.
+
+- With key-stroke `2`, an additional determination of statistics, and
+  generation of synoptic diagrams is provided by the `matplotlb`
+  library. At your discretion, you can pan and zoom to the region of
+  interest within the diagrams. Depending on your setup, the diagrams
+  can then be exported for instance as `.png`, `.pdf`, or `.tikz`.
+
+![](./docSources/aRMSD-M1M2-statistics.png)
+
+The window about the statistics plots may be closed either by mouse, or
+again key-stroke `q`.
+
+- With keystroke `3`, the program offers you a first decomposition about
+  RMSD's contributions onto the terminal. Though your shell might
+  visually truncate some of the results, it is useful to invoke this
+  subroutine once – even blindly – because *this step's results* will
+  enter the permanent record log written of the next.
+
+![](./docSources/aRMSD-M1M2SuperposQuality.png)
+
+- Key-stroke `5` initiates `aRMSD` to write a permanent record
+  `aRMSD_log-file.out` as plain text. This recapitulates setup and
+  results of the similarity measurement, such as the rotation matrix
+  applied to match the two structure models, or further figures of merit
+  (e.g., cosine similarity, GARD similarity).
+
+  In section `reference outputs`, the primer includes an example of
+  `aRMSD_logfile.out`.
+
+## general hints
+
+Last, but not least, a few words of caution:
+
+- It is normal that performing the same computation a twice, with the
+  same files, in a different operating system yields results *slightly
+  different* from each other.
+
+- There are multiple "dialects" about the `.pdb` format, which may
+  require the model data you have to be converted into `.xyz`, for
+  example with `babel`[^3] using a pattern of
+
+  ``` shell
+  babel input.pdb -O converted.xyz
+  ```
+
+  The conversion into `.xyz` may strip symmetry of the structure model,
+  and thus affect file size.
+
+# Example of a failed Kabsch test
+
+This section compiles hints of various degrees to recognize the Kabsch
+test *might be*, or actually *is* on the wrong track.
+
+Let's presume the program's guess of a prealignment wasn't yet optimal,
+and the manual adjustment by symmetry operations incomplete. Then,
+running the Hungarian algorithm to synchronize the atom sequence in
+*model* and *reference* may fail. Or, though successful in this task,
+the subsequent representation highlights the corresponding atoms by
+yellow struts running largely across the coordinate system in common.
+The figure below displays such at level where atoms are labeled (a), and
+corresponding atom is assigned (b).
+
+![](./docSources/aRMSD-badAlignmentOnlyInversion-stepA.png)
+
+While mathematically still possible to perform a Kabsch test, another
+warning indicator are atoms depicted with unusual large absolute
+contribution to the overall final RMSD (subfigure a). Depending on the
+structure model and its molecular symmetry in question, some atoms might
+be more affected by a misalignment, than others. Trying to connect the
+atoms of either *model*, or *reference*, `aRMSD` might depict unusually
+distorted structures (subfigure b), too
+
+![](./docSources/aRMSD-badAlignmentOnlyInversion-stepB.png)
+
+Eventually, the visual inspection (and comparison with other attempts)
+of the statistic diagrams should complement the reading of the
+corresponding optional `aRMSD_logfile.out`.
+
+![](./docSources/aRMSD-badAlignmentOnlyInversion-stepC.png)
+
+# Advanced use aRMSD
+
+## Examples of weighted Kabsch tests
+
+In addition to a purely *geometric* Kabsch test (basic use level),
+`aRMSD` allows to opt-in for a *weighted* Kabsch test. Then, atomic
+coordinates are no longer the only criteria criteria accounted for to
+align the two conformers, and to characterize the optimized
+superposition. Mutually exclusive options provided by `aRMSD` are
+
+- X-ray scattering factors (\*)
+- atomic masses
+- total electron count per atom
+- number of core electrons per atom
+- spherical electron densities (\*)
+- LDA electron densities (\*)
+
+where for options marked by an asterisk an optional
+*multi-center-correction* (`mcc`) for contributions by other atoms can
+be included. The program is set to support this for all elements in the
+range of H up to and including Rn.
+
+As X-ray scattering factors depend on the electron cloud of the atom
+(chiefly: increase by atomic number *Z*), here, a discern of two
+structures becomes more sensitive if the two structures to compare with
+each other inlcude "heavy atoms" (or *good scatterers*). In similar
+line, the potential discern by the other optional weights increases with
+heavy atoms in the conformers, too. In the case of X-ray scattering
+values, `aRMSD` allows the user to tune the "the incident radiation" by
+energy in a range of 30 eV (about 413 A, or 41.3 nm) up to and including
+30000 eV (about 0.41 A, or 0.04 nm).[^4]
+
+Instead of the lightweight conformers of aspirinate (model data `M1.xyz`
+and `M2.xyz`), the following comparison runs between the computationally
+predicted conformer of a Mo complex, and its crystallographic
+determination (converted to .xyz) In folder `examples`, this refers to
+files `Mo_SVP.xyz`, and `Mo-complex-exp.xyz`.[^5]
+
+Throughout the tests, `aRMSD` assigned each GARD the d values of 0.3 and
+1.2. Abbreviations used to describe the Kabsch tests are: `geometric`
+(the default geometric Kabsch test); and the optional mutually exclusive
+weights `xsf_sq` X-ray scattering values, `mass` atomic mass,
+`n_electrons` total electron count per atom, `n_core_electrons` count of
+core electrons per atom, `rho_sph` sperical electron densities, and
+`rho_lda` LDA electron densities. The multi-center-correction (`mcc`,
+default level: False) is not available for every weight. These
+abbreviations equally are used in the optional summary written, file
+`aRMSD_log.out`.
+
+| method           | target | E (eV) | refined RMSD | superpos. R^2 | cosine similarity | GARD score |
+|:-----------------|-------:|-------:|-------------:|--------------:|------------------:|-----------:|
+| geometric        |        |        |      0.16376 |       0.99831 |           0.99925 |    1.00000 |
+| xsf_sq           |     Mo |  17479 |      0.08368 |       0.99827 |           0.99938 |    0.99871 |
+| xsf_sq, mcc      |     Mo |  17479 |      0.11429 |       0.99823 |           0.99928 |    0.98203 |
+| xsf_sq           |     Cu |   8048 |      0.08036 |       0.99827 |           0.99939 |    0.99824 |
+| xsf_sq, mcc      |     Cu |   8048 |      0.11282 |       0.99823 |           0.99928 |    0.98288 |
+| xsf_sq           |     Cr |   5413 |      0.07807 |       0.99827 |           0.99940 |    0.99838 |
+| xsf_sq, mcc      |     Cr |   5413 |      0.11173 |       0.99822 |           0.99929 |    0.98350 |
+| xsf_sq           |     Fe |   6403 |      0.07909 |       0.99827 |           0.99939 |    0.99831 |
+| xsf_sq, mcc      |     Fe |   6403 |      0.11223 |       0.99823 |           0.99929 |    0.98322 |
+| xsf_sq           |     Co |   6930 |      0.07956 |       0.99827 |           0.99939 |    0.99829 |
+| xsf_sq, mcc      |     Co |   6930 |      0.11245 |       0.99823 |           0.99928 |    0.98310 |
+| xsf_sq           |     Ag |  22163 |      0.08089 |       0.99827 |           0.99939 |    0.99819 |
+| xsf_sq, mcc      |     Ag |  22163 |      0.11310 |       0.99823 |           0.99928 |    0.98270 |
+| mass             |        |        |      0.10986 |       0.99829 |           0.99929 |    0.99614 |
+| n_electrons      |        |        |      0.11870 |       0.99830 |           0.99928 |    0.99249 |
+| n_core_electrons |        |        |      0.12231 |       0.99829 |           0.99928 |    0.98937 |
+| rho_sph          |        |        |      0.16441 |       0.99831 |           0.99926 |    1.00000 |
+| rho_sph, mcc     |        |        |      0.15702 |       0.99831 |           0.99925 |    1.00000 |
+| rho_lda          |        |        |      0.09334 |       0.99830 |           0.99927 |    1.00000 |
+| rho_lda, mcc     |        |        |      0.13908 |       0.99829 |           0.99925 |    0.98055 |
+
+For a selection of methods, running the purely geometric Kabsch test vs
+one weighted by the atomic masses, or one weighted agains X-ray
+scattering factors (against presumed Cu or Mo radiation, without or with
+multi-center-contribution correction), the results of the scrutiny are
+illustrated below.[^6]
+
+![](./docSources/Kabsch_geometric_vs_weight_mass.png)
+
+![](./docSources/Kabsch_xsf_sq.png)
+
+## visual adjustments
+
+Visual adjustments the program provides, e.g. in preparation of a
+presentation, are
+
+- the presence / absence of the color bar (if available)
+- exchange of the RGY color scheme used by the color bar by a more CPK
+  like color scheme
+- atom labels by the element symbol, element symbol and atom index
+  (default), or no label at all
+
+To provide a general idea how to use the program at all, the general
+workflow diagram omits them; they however are accessible from section
+*Kabsch Algorithm, Statistics & Visualization*. As illustrated below,
+they can be applied while retaining the current orientation of the
+superposition.
+
+![](./docSources/labels.png)
+
+### lateral color bar
+
+After running the Kabsch test *at all*, keystroke `-4` opens submenu
+*Change plot settings*. You can toggle-on and off the color bar by
+keystroke `8`. Return to the upper level of hierarchy (`-10`) to
+visualize the superposition again (for instance by `0`).
+
+As a reminder, every interactive structure visualization allows you to
+roll, zoom, and translate the scene with dragged left mouse button and
+either `Ctrl`, or `Shift`. A change of the external dimensions of the
+structure window equally can further separate the structure display from
+the lateral color bar, too.
+
+### atom labeling
+
+After a Kabsch test, enter submenu *Change plot settings* by keystroke
+`-4` to then change the *label type* by keystroke `1` and subsequent
+`ENTER`. Your options are the levels `symbol_only` (element symbol), or
+`full` (complemented by the atom index). In the same menu, keystroke `0`
+and subsequent `ENTER` allows to alter `draw labels` to either `True`,
+or `False`. Return to the higher level of hierarchy by `-10`, and create
+a new visualization.
+
+### color scheme, ball-and-stick model
+
+The program considers this as a bigger change. After completion of a
+Kabsch test, by keystroke `-7` you enter the submenu *Change RMSD
+Settings*. Among the options there, `-5` allows to change the default
+RYG color scheme from level `True` to `False` (then more like CPK). If
+set to `False`, there is no lateral color bar, too.
+
 # reference outputs
 
 ## optional permanent record `aRMSD_logfile.out`
@@ -870,279 +1269,12 @@ Entries are: Atoms, values in the Model and Reference, difference
 --------------------------------------------------------------------------------
 ```
 
-# Example geometric Kabsch test
-
-This chapter describes a simple *geometric* Kabsch test of two
-conformers of a small molecule. Here, the test is *geometric* because
-the contribution of each atom to the final RMSD only depends on its
-atomic position, and the incertitude of this atomic position. It is the
-basic approach in `aRMSD` and suitable to get familiar with the program,
-especially in conjunction with the *workflow overview* this primer
-includes.
-
-The test data used are files `M1.xyz` and `M2.xyz` (folder `examples`)
-about the aspirinate anion. They are derived from corresponding `*.cif`
-found in the CSD data base[^1] with Olex2.[^2] Copy these into a
-location easily accessible for you.
-
-Side note: Depending on the use case, it might be useful, or necessary
-to equally account for atomic properties such as atomic masses, total or
-core electron count, atomic X-ray scattering factors, etc. These options
-contribute to a *weighted* Kabsch test and represent an advanced used of
-`aRMSD` described in a different chapter.
-
-## Reading the structures
-
-From your shell, launch the program by command `aRMSD`.
-
-After the simulated prompt (the `>` sign), enter the complete file name
-(including the file extension) of the first model to load and confirm
-with with `ENTER`. Note, there is no tab-assisted auto-completion of the
-file name. If you err with the file name, and the model does not exist,
-you are offered a new prompt. If you err with the file name pointing to
-an existing model, but are not interested to compare with an other
-model, the simplest rectification is to close `aRMSD` with `Ctrl + C`
-and to start the program freshly again.
-
-![](./docSources/aRMSD-loadingModels.png)
-
-The program's note
-
-``` bash
-No standard deviations were found!
-```
-
-reminds the program's background in crystallography, where atomic
-coordinates may be described with their esd. Present `aRMSD` (version
-1.0.0) however is not yet (again) capable to reliably process `.cif`
-files. With `.xyz` files – as in this example– you don't need to worry
-about this note.
-
-Side note: Indeed, it is possible to load different models of different
-file type with different file extensions, such as `M1.xyz` for the
-first, and `M2.pdb` for the second model to compare with each other.
-While preparing the Kabsch test, as long as *consistency checks* on the
-two model's total atom count are passed, this is not problematic to
-`aRMSD`.
-
-### Consideration of hydrogen atoms
-
-For the Kabsch test ahead, `aRMSD` allows you to include all, or to
-exclude a selection of hydrogens (bond to carbons, or bond to group-14
-elements). You equally may neglect all hydrogen atoms altogether, too.
-This can be useful e.g., for comparing two structure models where one
-has an incomplete set of hydrogen atoms as obtained e.g., by X-ray
-diffraction experiments.
-
-Your choice here only affects the internal representation of model and
-reference. Your choice will not edit your input files.
-
-For the purpose of this primer, all atoms were included in the scrutiny,
-selected by key stroke `3`:
-
-![](./docSources/aRMSD-hydrogens.png)
-
-`aRMSD` then provides a first *guess* of an *initial alignment* the two
-models.
-
-## User-assisted re-orientation of the models
-
-`aRMSD` now launches a `vtk`-based widget separate from the terminal.
-With your mouse, you can tilt, roll, pan, and zoom the scene to your
-preference to learn about this *initial* alignment were the *model* (red
-motif) and *reference* (green motif) already share a Cartesian
-coordinate system in common. Depending on your computer and operating
-system, it is possible to toggle on/off an anaglyph representation, too.
-
-![](./docSources/aRMSD-structureVisualizerDefault-scaled.png)
-
-| command                                 | function                  |
-|-----------------------------------------|---------------------------|
-| dragging with left mouse button (`LMB`) | tilt the scene            |
-| `CTRL + LMB`                            | roll the scene            |
-| `Shift + LMB`                           | pane the scene            |
-| middle mouse reel                       | zoom the scene            |
-| `r`                                     | return to a home position |
-| `3`                                     | toggle anaglyph display   |
-| `q`, `e`, or `0`                        | close the visualizer      |
-| `s`                                     | save the scene (`*.png`)  |
-
-Note that the more your mouse is out of the center of the visualizer's
-canvas, the more the mouse-assisted actions accelerate. You may document
-the match as bitmap with key-stroke `s`; the visualizer, unaltered in
-its default dimension will write a `*.png` (2048 ×2048 px) deposit in
-your current working directory.
-
-If you are familiar about the alignment shown to you, close the
-visualizer (`q`). If – as in the current example – the two model data do
-not align nicely, the terminal offers you multiple symmetry operations
-to try a better alignment. Each time you select one of the options,
-`aRMSD` displays a new *initial match* of the two in a newly opened
-instance of the visualizer.
-
-![](./docSources/aRMSD-realignmentInterface.png)
-
-In the case of this primer, the relative arrangement has to undergo an
-inversion (key-stroke `1`), and an reflection in respect to the
-*xz*-plane (key-stroke `3`). The approach is iterative, and the sequence
-these operations does not matter. The progress is shown in the figure
-below. Intentionally both alignments shown share the same perspective.
-
-![](./docSources/aRMSD-M1M2-initialMatching.png)
-
-At this stage, you aim for a fit of the two model structures that is
-*good enough*. (In the ongoing of this section, as well in comparison
-with the next chapter, you will learn what this refers to.) Once two
-structure data do overlap – again, it is *an initial* superposition only
-– close the visualizer (keystroke `q`) and save this change alignment
-obtained (with keystroke `10`).
-
-## Re-ordering of the atoms
-
-To proceed in the refinement of the superposition successfully, the
-atoms recognized of both models have to be labeled consistently. *One*
-approach available in `aRMSD` is the Hungarian algorithm, implemented as
-default strategy. At the current stage of the analysis, this is
-triggered by hitting `-1` (minus one).
-
-`aRMSD` will again open a `vtk`-visualizer of the two prealigned models.
-In contrast to the former situation, however, the labeling of the atoms
-of one molecule should match the one of the same atoms in the second
-molecule. In addition, yellow streaks indicate which atoms in *model*
-and *reference* `aRMSD` considers as equivalent.
-
-![](./docSources/aRMSD-M1M2-Hungarian.png)
-
-Since the obtained pre-alignment and match of atom sequences is
-reasonable, close the visualizer (key-stroke `q`), and save the
-intermediate result (key-stroke `10`).
-
-## refinement of the superposition (Kabsch test)
-
-To enter the menu about the Kabsch test, hit now once `0` (zero). The
-interface displayed by `aRMSD` in the terminal changes, and you are able
-to trigger the refinement of the superposition with `-1` (minus one).
-The now following sequence of calling subroutines is *recommended* to
-harvest the maximum of relevant data `aRMSD` provides.
-
-![](./docSources/aRMSD-KabschInterface.png)
-
-- Key-stroke `0` (zero) again opens the interactive Vtk-based visualizer
-  (subfigure a). This adapted ball-stick representation displays *atom
-  radii* of the atoms proportional to the *relative contribution* of
-  said atoms to the global RMSD. The *atom colors* of the spheres scales
-  to the absolute remaining difference of the two fit structures about
-  said atom in Angstroms. The lateral scale offers an estimate of the
-  latter.
-
-![](./docSources/aRMSD-diffA-diffB.png)
-
-Some of the bonds depicted *might* bear a red band in the center. This
-is to indicate that the same bond in the reference model is
-significantly shorter, than in the tested model. Conversely, a green
-band indicates a bond that is longer. By default, the critical *length
-difference* to set these bands equals to 0.2 Angstrom. Bby keystroke `1`
-(subfigure b), a wireframe model of the finalized superposition.
-
-Clicking *on* a representation of one, two, three, or four atoms selects
-them to read out to the final RMSD data about the corresponding
-position; or corresponding difference in distance, angle; or dihedral
-angle between model and reference. These readouts are non-permanent and
-provided *only* on the terminal.
-
-![](./docSources/aRMSD-diffTest.png)
-
-The underlying routine providing the readouts is agnostic about the atom
-type, allowing both the selection of hydrogen atoms, as well as non-H
-atoms. The atoms of interest need not be adjacent, either, which may be
-of interest comparing distances and angles. Again, you close the
-visualizer with keystroke `q`.
-
-- With key-stroke `2`, an additional determination of statistics, and
-  generation of synoptic diagrams is provided by the `matplotlb`
-  library. At your discretion, you can pan and zoom to the region of
-  interest within the diagrams. Depending on your setup, the diagrams
-  can then be exported for instance as `.png`, `.pdf`, or `.tikz`.
-
-![](./docSources/aRMSD-M1M2-statistics.png)
-
-The window about the statistics plots may be closed either by mouse, or
-again key-stroke `q`.
-
-- With keystroke `3`, the program offers you a first decomposition about
-  RMSD's contributions onto the terminal. Though your shell might
-  visually truncate some of the results, it is useful to invoke this
-  subroutine once – even blindly – because *this step's results* will
-  enter the permanent record log written of the next.
-
-![](./docSources/aRMSD-M1M2SuperposQuality.png)
-
-- Key-stroke `5` initiates `aRMSD` to write a permanent record
-  `aRMSD_log-file.out` as plain text. This recapitulates setup and
-  results of the similarity measurement, such as the rotation matrix
-  applied to match the two structure models, or further figures of merit
-  (e.g., cosine similarity, GARD similarity).
-
-  In section `reference outputs`, the primer includes an example of
-  `aRMSD_logfile.out`.
-
-## general hints
-
-Last, but not least, a few words of caution:
-
-- It is normal that performing the same computation a twice, with the
-  same files, in a different operating system yields results *slightly
-  different* from each other.
-
-- There are multiple "dialects" about the `.pdb` format, which may
-  require the model data you have to be converted into `.xyz`, for
-  example with `babel`[^3] using a pattern of
-
-  ``` shell
-  babel input.pdb -O converted.xyz
-  ```
-
-  The conversion into `.xyz` may strip symmetry of the structure model,
-  and thus affect file size.
-
-# Example of a failed Kabsch test
-
-This section compiles hints of various degrees to recognize the Kabsch
-test *might be*, or actually *is* on the wrong track.
-
-Let's presume the program's guess of a prealignment wasn't yet optimal,
-and the manual adjustment by symmetry operations incomplete. Then,
-running the Hungarian algorithm to synchronize the atom sequence in
-*model* and *reference* may fail. Or, though successful in this task,
-the subsequent representation highlights the corresponding atoms by
-yellow struts running largely across the coordinate system in common.
-The figure below displays such at level where atoms are labeled (a), and
-corresponding atom is assigned (b).
-
-![](./docSources/aRMSD-badAlignmentOnlyInversion-stepA.png)
-
-While mathematically still possible to perform a Kabsch test, another
-warning indicator are atoms depicted with unusual large absolute
-contribution to the overall final RMSD (subfigure a). Depending on the
-structure model and its molecular symmetry in question, some atoms might
-be more affected by a misalignment, than others. Trying to connect the
-atoms of either *model*, or *reference*, `aRMSD` might depict unusually
-distorted structures (subfigure b), too
-
-![](./docSources/aRMSD-badAlignmentOnlyInversion-stepB.png)
-
-Eventually, the visual inspection (and comparison with other attempts)
-of the statistic diagrams should complement the reading of the
-corresponding optional `aRMSD_logfile.out`.
-
-![](./docSources/aRMSD-badAlignmentOnlyInversion-stepC.png)
-
 [^1]: Model `M1.xyz` and `M1.pdb` are derivated from entry `FEHGAB` of
     CCDC's CSD file; primary reference: Santana, M. D.; Lozano, A. A.;
     García, G.; López, G.; Pérez, J. Five-Coordinate Nickel(ii)
     Complexes with Carboxylate Anions and Derivatives of
     1,5,9-Triazacyclododec-1-Ene: Structural and1 H NMR Spectroscopic
-    Studies. *Dalton Trans.* **2005**, No. 1, 104–109.
+    Studies. *Dalton Trans.* **2005**, No. 1, 104-109.
     <https://doi.org/10.1039/B413547D>. `M2.xyz` and `M2.pdb` are
     derivated from entry `IVUYEE` of CCDC's CSD file; primary reference:
     Poyraz, M.; Banti, C. N.; Kourkoumelis, N.; Dokorou, V.; Manos, M.
@@ -1165,3 +1297,21 @@ corresponding optional `aRMSD_logfile.out`.
     T.; Hutchison, G. R. Open Babel: An Open Chemical Toolbox. *J
     Cheminform* **2011**, *3* (1), 33.
     <https://doi.org/10.1186/1758-2946-3-33>.
+
+[^4]: The approximate wavelength of K alpha-1 lines of typical targets
+    are 0.709 A (Mo, 17479 eV), 1.541 A (Cu, 8049 eV); 2.290 A (Cr,
+    5415 eV), 1.1936 A (Fe, 6404 eV), 1.789 A (Co, 6930 eV), or 0.559 A
+    (Ag, 17479 eV).
+
+[^5]: File `Mo-complex-exp.xyz` is a rewrite of CCDC's record `SAZJIO`
+    (accession number 865133 by 31/05/2012, CCDC assigned identifier
+    <https://doi.org/10.5517/ccy17jq>) by Jmol as accessed on
+    2026-07-23, file `Mo-complex-exp.cif`. The primary literature
+    reference: Wagner, A.; Kaifer, E.; Himmel, H.-J. Diborane(4)–Metal
+    Bonding: Between Hydrogen Bridges and Frustrated Oxidative Addition.
+    *Chem. Commun.* **2012**, *48* (43), 5277.
+    <https://doi.org/10.1039/c2cc31671d>.
+
+[^6]: Directory `docs/docSources` of the GitHub repository includes
+    these and additional visualizations for additional weights about the
+    same Mo complex in the same orientation.

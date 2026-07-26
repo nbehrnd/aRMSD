@@ -426,6 +426,17 @@ class Logger(object):
             output.write(adj_str('Weighting function for Kabsch algorithm...',
                                  suffix='\t') +
                          str(align.wts_type))
+                         
+            if str(align.wts_type) == "xsf_sq":
+                wavelength_angstrom = 12398/self.xfs_energy
+                wavelength_nm = wavelength_angstrom / 10
+
+                output.write(f"""
+        Energy of the X-ray radiation selected (in eV): {self.xfs_energy}
+
+            While the input energy was used in the computation, this
+            corresponds to a wavenlenth of about {round(wavelength_angstrom, 5)} A
+            or {round(wavelength_nm, 5)} nm.\n""")
 
             output.write(adj_str('Consideration of multi-center-contributions...',
                                  suffix='\t') +
@@ -1816,6 +1827,8 @@ class Logger(object):
         print(80 * "-")
 
         print("    Current weighting function  : '" + str(align.wts_type) + "'")
+        if (align.wts_type) == "xsf_sq":
+            print(f"    selected X-ray energy in eV :  {self.xfs_energy}")
         print("    Calculate mcc contribution  : '" + str(align.calc_mcc) + "'")
         print(80 * "-")
 
@@ -1857,6 +1870,9 @@ class Logger(object):
 
         print("    Current weighting function  : '" +
               str(align.wts_type) + "'")
+
+        if (align.wts_type) == "xsf_sq":
+            print(f"    selected X-ray energy in eV :  {self.xfs_energy}")
 
         print("    Calculate mcc contribution  : '" +
               str(align.calc_mcc) + "'")
