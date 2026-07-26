@@ -112,32 +112,6 @@ The following tree diagram recapitulates key points of the workflow on
               └── -10 to return to the upper menu
 #+end_src
 
-* reference outputs
-
-** optional permanent record =aRMSD_logfile.out=
-
-=aRMSD= allows to recapitulate the analysis in a permanent record,
-file =aRMSD_logfile.out=.  In the flow chart, this is option =5= of
-section "collect the results".  Below is the summary of the successful
-Kabsch test with example data =M1.xyz= and =M2.xyz=:
-
-#+INCLUDE: "./docSources/2026-07-13-aRMSD_logfile.out" src text
-
-** CLI log of a successful comparison
-
-Except =vtk= widgets to visualize the structures, and diagrams by
-=matplotlib=, the program lives in the CLI.  Depending on your setup
-used, it is possible that lines with program options are visually
-truncated and in consequence, accidentally missed.  It is for this
-reason why the complete dialog on the CLI for a Kabsch test of
-structures files =M1.xyz= and =M2.xyz= is provided below.
-
-The two test data are provided by the GitHub repository (folder
-=examples=), the Kabsch test was run in an instance of Linux
-Debian 13/trixie with Python 3.13.5.
-
-#+INCLUDE: "./docSources/2026-07-13-cli_log.log" src text
-
 * COMMENT setup of =aRMSD=
 
   Initially, Arne Wagner developed =aRMSD= under Windows.  Hence, the
@@ -266,7 +240,7 @@ Debian 13/trixie with Python 3.13.5.
 
 ** Reading the structures
 
-   From your shell, launch the program by command =aRMSD=.
+   From your shell, launch the program by command =armsd=.
 
    After the simulated prompt (the =>= sign), enter the complete file
    name (including the file extension) of the first model to load and
@@ -673,6 +647,58 @@ scrutiny are illustrated below.[fn:additional]
 
   [[./docSources/Kabsch_xsf_sq.png]]
 
+  
+** visual adjustments
+
+Visual adjustments the program provides, e.g. in preparation of a
+presentation, are
+
+- the presence / absence of the color bar (if available)
+- exchange of the RGY color scheme used by the color bar by a more CPK
+  like color scheme
+- atom labels by the element symbol, element symbol and atom index
+  (default), or no label at all
+
+To provide a general idea how to use the program at all, the general
+workflow diagram omits them; they however are accessible from section
+/Kabsch Algorithm, Statistics & Visualization/.  As illustrated below,
+they can be applied while retaining the current orientation of the
+superposition.
+
+  [[./docSources/labels.png]]
+
+*** lateral color bar
+
+After running the Kabsch test /at all/, keystroke =-4= opens submenu
+/Change plot settings/.  You can toggle-on and off the color bar by
+keystroke =8=.  Return to the upper level of hierarchy (=-10=) to
+visualize the superposition again (for instance by =0=).
+
+As a reminder, every interactive structure visualization allows you to
+roll, zoom, and translate the scene with dragged left mouse button and
+either =Ctrl=, or =Shift=.  A change of the external dimensions of the
+structure window equally can further separate the structure display
+from the lateral color bar, too.
+
+*** atom labeling
+
+After a Kabsch test, enter submenu /Change plot settings/ by keystroke
+=-4= to then change the /label type/ by keystroke =1= and subsequent
+=ENTER=.  Your options are the levels =symbol_only= (element symbol),
+or =full= (complemented by the atom index).  In the same menu,
+keystroke =0= and subsequent =ENTER= allows to alter =draw labels= to
+either =True=, or =False=.  Return to the higher level of hierarchy by
+=-10=, and create a new visualization.
+
+*** color scheme, ball-and-stick model
+
+The program considers this as a bigger change.  After completion of a
+Kabsch test, by keystroke =-7= you enter the submenu /Change RMSD
+Settings/.  Among the options there, =-5= allows to change the default
+RYG color scheme from level =True= to =False= (then more like CPK).
+If set to =False=, there is no lateral color bar, too.
+
+  
 [fn:CSD]  Model =M1.xyz= and =M1.pdb= are derivated from entry
 =FEHGAB= of CCDC's CSD file; primary reference: Santana, M. D.;
 Lozano, A. A.; García, G.; López, G.; Pérez, J. Five-Coordinate
@@ -718,3 +744,29 @@ Addition. /Chem. Commun./ *2012*, /48/
 [fn:additional] Directory =docs/docSources= of the GitHub repository
 includes these and additional visualizations for additional weights
 about the same Mo complex in the same orientation.
+* reference outputs
+
+** optional permanent record =aRMSD_logfile.out=
+
+=aRMSD= allows to recapitulate the analysis in a permanent record,
+file =aRMSD_logfile.out=.  In the flow chart, this is option =5= of
+section "collect the results".  Below is the summary of the successful
+Kabsch test with example data =M1.xyz= and =M2.xyz=:
+
+#+INCLUDE: "./docSources/2026-07-13-aRMSD_logfile.out" src text
+
+** CLI log of a successful comparison
+
+Except =vtk= widgets to visualize the structures, and diagrams by
+=matplotlib=, the program lives in the CLI.  Depending on your setup
+used, it is possible that lines with program options are visually
+truncated and in consequence, accidentally missed.  It is for this
+reason why the complete dialog on the CLI for a Kabsch test of
+structures files =M1.xyz= and =M2.xyz= is provided below.
+
+The two test data are provided by the GitHub repository (folder
+=examples=), the Kabsch test was run in an instance of Linux
+Debian 13/trixie with Python 3.13.5.
+
+#+INCLUDE: "./docSources/2026-07-13-cli_log.log" src text
+
