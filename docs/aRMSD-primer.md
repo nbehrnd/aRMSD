@@ -1137,12 +1137,94 @@ corresponding optional `aRMSD_logfile.out`.
 
 ![](./docSources/aRMSD-badAlignmentOnlyInversion-stepC.png)
 
+# Advanced use aRMSD
+
+## Examples of weighted Kabsch tests
+
+In addition to a purely *geometric* Kabsch test (basic use level),
+`aRMSD` allows to opt-in for a *weighted* Kabsch test. Then, atomic
+coordinates are no longer the only criteria criteria accounted for to
+align the two conformers, and to characterize the optimized
+superposition. Mutually exclusive options provided by `aRMSD` are
+
+- X-ray scattering factors (\*)
+- atomic masses
+- total electron count per atom
+- number of core electrons per atom
+- spherical electron densities (\*)
+- LDA electron densities (\*)
+
+where for options marked by an asterisk an optional
+*multi-center-correction* (`mcc`) for contributions by other atoms can
+be included. The program is set to support this for all elements in the
+range of H up to and including Rn.
+
+As X-ray scattering factors depend on the electron cloud of the atom
+(chiefly: increase by atomic number *Z*), here, a discern of two
+structures becomes more sensitive if the two structures to compare with
+each other inlcude "heavy atoms" (or *good scatterers*). In similar
+line, the potential discern by the other optional weights increases with
+heavy atoms in the conformers, too. In the case of X-ray scattering
+values, `aRMSD` allows the user to tune the "the incident radiation" by
+energy in a range of 30 eV (about 413 A, or 41.3 nm) up to and including
+30000 eV (about 0.41 A, or 0.04 nm).[^4]
+
+Instead of the lightweight conformers of aspirinate (model data `M1.xyz`
+and `M2.xyz`), the following comparison runs between the computationally
+predicted conformer of a Mo complex, and its crystallographic
+determination (converted to .xyz) In folder `examples`, this refers to
+files `Mo_SVP.xyz`, and `Mo-complex-exp.xyz`.[^5]
+
+Throughout the tests, `aRMSD` assigned each GARD the d values of 0.3 and
+1.2. Abbreviations used to describe the Kabsch tests are: `geometric`
+(the default geometric Kabsch test); and the optional mutually exclusive
+weights `xsf_sq` X-ray scattering values, `mass` atomic mass,
+`n_electrons` total electron count per atom, `n_core_electrons` count of
+core electrons per atom, `rho_sph` sperical electron densities, and
+`rho_lda` LDA electron densities. The multi-center-correction (`mcc`,
+default level: False) is not available for every weight. These
+abbreviations equally are used in the optional summary written, file
+`aRMSD_log.out`.
+
+| method           | target | E (eV) | refined RMSD | superpos. R^2 | cosine similarity | GARD score |
+|:-----------------|-------:|-------:|-------------:|--------------:|------------------:|-----------:|
+| geometric        |        |        |      0.16376 |       0.99831 |           0.99925 |    1.00000 |
+| xsf_sq           |     Mo |  17479 |      0.08368 |       0.99827 |           0.99938 |    0.99871 |
+| xsf_sq, mcc      |     Mo |  17479 |      0.11429 |       0.99823 |           0.99928 |    0.98203 |
+| xsf_sq           |     Cu |   8048 |      0.08036 |       0.99827 |           0.99939 |    0.99824 |
+| xsf_sq, mcc      |     Cu |   8048 |      0.11282 |       0.99823 |           0.99928 |    0.98288 |
+| xsf_sq           |     Cr |   5413 |      0.07807 |       0.99827 |           0.99940 |    0.99838 |
+| xsf_sq, mcc      |     Cr |   5413 |      0.11173 |       0.99822 |           0.99929 |    0.98350 |
+| xsf_sq           |     Fe |   6403 |      0.07909 |       0.99827 |           0.99939 |    0.99831 |
+| xsf_sq, mcc      |     Fe |   6403 |      0.11223 |       0.99823 |           0.99929 |    0.98322 |
+| xsf_sq           |     Co |   6930 |      0.07956 |       0.99827 |           0.99939 |    0.99829 |
+| xsf_sq, mcc      |     Co |   6930 |      0.11245 |       0.99823 |           0.99928 |    0.98310 |
+| xsf_sq           |     Ag |  22163 |      0.08089 |       0.99827 |           0.99939 |    0.99819 |
+| xsf_sq, mcc      |     Ag |  22163 |      0.11310 |       0.99823 |           0.99928 |    0.98270 |
+| mass             |        |        |      0.10986 |       0.99829 |           0.99929 |    0.99614 |
+| n_electrons      |        |        |      0.11870 |       0.99830 |           0.99928 |    0.99249 |
+| n_core_electrons |        |        |      0.12231 |       0.99829 |           0.99928 |    0.98937 |
+| rho_sph          |        |        |      0.16441 |       0.99831 |           0.99926 |    1.00000 |
+| rho_sph, mcc     |        |        |      0.15702 |       0.99831 |           0.99925 |    1.00000 |
+| rho_lda          |        |        |      0.09334 |       0.99830 |           0.99927 |    1.00000 |
+| rho_lda, mcc     |        |        |      0.13908 |       0.99829 |           0.99925 |    0.98055 |
+
+For a selection of methods, running the purely geometric Kabsch test vs
+one weighted by the atomic masses, or one weighted agains X-ray
+scattering factors (against presumed Cu or Mo radiation, without or with
+multi-center-contribution correction), the results of the scrutiny are
+illustrated below.[^6]
+
+![](./docSources/Kabsch_geometric_vs_weight_mass.png)
+
+![](./docSources/Kabsch_xsf_sq.png)
+
 [^1]: Model `M1.xyz` and `M1.pdb` are derivated from entry `FEHGAB` of
     CCDC's CSD file; primary reference: Santana, M. D.; Lozano, A. A.;
     García, G.; López, G.; Pérez, J. Five-Coordinate Nickel(ii)
     Complexes with Carboxylate Anions and Derivatives of
     1,5,9-Triazacyclododec-1-Ene: Structural and1 H NMR Spectroscopic
-    Studies. *Dalton Trans.* **2005**, No. 1, 104–109.
+    Studies. *Dalton Trans.* **2005**, No. 1, 104-109.
     <https://doi.org/10.1039/B413547D>. `M2.xyz` and `M2.pdb` are
     derivated from entry `IVUYEE` of CCDC's CSD file; primary reference:
     Poyraz, M.; Banti, C. N.; Kourkoumelis, N.; Dokorou, V.; Manos, M.
@@ -1165,3 +1247,21 @@ corresponding optional `aRMSD_logfile.out`.
     T.; Hutchison, G. R. Open Babel: An Open Chemical Toolbox. *J
     Cheminform* **2011**, *3* (1), 33.
     <https://doi.org/10.1186/1758-2946-3-33>.
+
+[^4]: The approximate wavelength of K alpha-1 lines of typical targets
+    are 0.709 A (Mo, 17479 eV), 1.541 A (Cu, 8049 eV); 2.290 A (Cr,
+    5415 eV), 1.1936 A (Fe, 6404 eV), 1.789 A (Co, 6930 eV), or 0.559 A
+    (Ag, 17479 eV).
+
+[^5]: File `Mo-complex-exp.xyz` is a rewrite of CCDC's record `SAZJIO`
+    (accession number 865133 by 31/05/2012, CCDC assigned identifier
+    <https://doi.org/10.5517/ccy17jq>) by Jmol as accessed on
+    2026-07-23, file `Mo-complex-exp.cif`. The primary literature
+    reference: Wagner, A.; Kaifer, E.; Himmel, H.-J. Diborane(4)–Metal
+    Bonding: Between Hydrogen Bridges and Frustrated Oxidative Addition.
+    *Chem. Commun.* **2012**, *48* (43), 5277.
+    <https://doi.org/10.1039/c2cc31671d>.
+
+[^6]: Directory `docs/docSources` of the GitHub repository includes
+    these and additional visualizations for additional weights about the
+    same Mo complex in the same orientation.

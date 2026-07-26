@@ -1,0 +1,39 @@
+Inspection of  Mo-complex-exp.xyz (derived from X-ray diffraction,,,,,,,
+analysis) and Mo_SVP.xyz (result of a quantum chemical computation,,,,,,,
+without prior knowledge of the crystallographic analysis) with aRMSD,,,,,,,
+"(version 1.0.1, i.e. varying input of X-ray energy affects again the",,,,,,,
+weighted Kabsch test).,,,,,,,
+,,,,,,,
+This .csv is a safety backup because not all data provided by the,,,,,,,
+optional summary file aRMSD_log.out are equally used in the primer.,,,,,,,
+,,,,,,,
+If read in a spreadsheet (for instance LibreOffice Calc):,,,,,,,
+"- columns A, B and G are “text-only”",,,,,,,
+"- column C holds integers, though aRMSD could process floats, too",,,,,,,
+"- columns D, E, F, and H are floats of five decimals",,,,,,,
+,,,,,,,
+Codes about the methods are abbreviated as in ,,,,,,,
+,,,,,,,
+date: [2026-07-26 Sun],,,,,,,
+,,,,,,,
+method,target,energy / eV,refined RMSD,superpostion R^2,cosine similarity,"d values, GARD",GARD score
+geometric ,,,0.16376,0.99831,0.99925,"0.3, 1.2",1.00000
+xsf_sq,Mo,17479,0.08368,0.99827,0.99938,"0.3, 1.2",0.99871
+"xsf_sq, mcc",Mo,17479,0.11429,0.99823,0.99928,"0.3, 1.2",0.98203
+xsf_sq,Cu,8048,0.08036,0.99827,0.99939,"0.3, 1.2",0.99824
+"xsf_sq, mcc",Cu,8048,0.11282,0.99823,0.99928,"0.3, 1.2",0.98288
+xsf_sq,Cr,5413,0.07807,0.99827,0.99940,"0.3, 1.2",0.99838
+"xsf_sq, mcc",Cr,5413,0.11173,0.99822,0.99929,"0.3, 1.2",0.98350
+xsf_sq,Fe,6403,0.07909,0.99827,0.99939,"0.3, 1.2",0.99831
+"xsf_sq, mcc",Fe,6403,0.11223,0.99823,0.99929,"0.3, 1.2",0.98322
+xsf_sq,Co,6930,0.07956,0.99827,0.99939,"0.3, 1.2",0.99829
+"xsf_sq, mcc",Co,6930,0.11245,0.99823,0.99928,"0.3, 1.2",0.98310
+xsf_sq,Ag,22163,0.08089,0.99827,0.99939,"0.3, 1.2",0.99819
+"xsf_sq, mcc",Ag,22163,0.11310,0.99823,0.99928,"0.3, 1.2",0.98270
+mass,,,0.10986,0.99829,0.99929,"0.3, 1.2",0.99614
+n_electrons,,,0.11870,0.99830,0.99928,"0.3, 1.2",0.99249
+n_core_electrons,,,0.12231,0.99829,0.99928,"0.3, 1.2",0.98937
+rho_sph,,,0.16441,0.99831,0.99926,"0.3, 1.2",1.00000
+"rho_sph, mcc",,,0.15702,0.99831,0.99925,"0.3, 1.2",1.00000
+rho_lda,,,0.09334,0.99830,0.99927,"0.3, 1.2",1.00000
+"rho_lda, mcc",,,0.13908,0.99829,0.99925,"0.3, 1.2",0.98055
